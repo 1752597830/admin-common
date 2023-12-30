@@ -3,3 +3,9 @@
 登录
 动态路由
 左侧动态菜单
+pinia存储
+头像
+引入图标的方式
+<el-icon :size="20">
+    <i-ep-house />
+</el-icon>

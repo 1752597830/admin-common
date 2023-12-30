@@ -39,6 +39,8 @@ declare module 'vue' {
     IEpCaretBottom: typeof import('~icons/ep/caret-bottom')['default']
     IEpClose: typeof import('~icons/ep/close')['default']
     IEpEdit: typeof import('~icons/ep/edit')['default']
+    IEpHomeFilled: typeof import('~icons/ep/home-filled')['default']
+    IEpHouse: typeof import('~icons/ep/house')['default']
     IEpPicture: typeof import('~icons/ep/picture')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

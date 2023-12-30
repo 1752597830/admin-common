@@ -98,6 +98,7 @@ function expond() {
     }
 }
 .el-header {
+    padding: 0;
     height: auto;
     background-color: white;
 }
