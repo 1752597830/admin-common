@@ -4,7 +4,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 // 创建axios实例
 const service = axios.create({
     // axios中请求配置有baseURL选项，表示请求URL公共部分
-    baseURL: '/api',
+    baseURL: '/api/v1',
     // 超时
     timeout: 50000,
     headers: { "Content-Type": "application/json;charset=utf-8" },
@@ -13,7 +13,7 @@ const service = axios.create({
 service.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
         const userStore = useUserStoreHook();
-        console.log("userStore: ", userStore)
+        console.log("userStore: ", config)
         if (userStore.token) {
             config.headers.Authorization = userStore.token;
         }
@@ -26,7 +26,6 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
     (response: AxiosResponse) => {
-        console.log("获取到的数据是", response.data)
         const { code, msg } = response.data;
         if (code === "00000") {
             return response.data;

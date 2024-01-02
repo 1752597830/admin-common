@@ -15,7 +15,7 @@ export default defineConfig({
         port: 5555,
         proxy: {
             '/api': {
-                target: 'http://127.0.0.1:8082',   //代理接口
+                target: 'http://127.0.0.1:8082/api',   //代理接口
                 changeOrigin: true,
                 ws: false,
                 rewrite: (path) => path.replace(/^\/api/, '')

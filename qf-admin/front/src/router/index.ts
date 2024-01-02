@@ -44,6 +44,10 @@ export const constantRoutes: RouteRecordRaw[] = [
                 path: "/userCenter",
                 name: "个人中心", 
                 component: () => import("@/views/user/index.vue"),
+                meta: {
+                    title: "个人中心",
+                    icon: "homepage"
+                }
             },
             {
                 path: "401",

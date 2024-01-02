@@ -7,7 +7,7 @@ import { UserForm, UserInfo, UserPageVO, UserQuery } from "./types";
  */
 export function getUserInfoApi(): AxiosPromise<UserInfo> {
     return request({
-        url: "/api/v1/users/me",
+        url: "/users/me",
         method: "get",
     });
 }
@@ -21,7 +21,7 @@ export function getUserPage(
     queryParams: UserQuery
 ): AxiosPromise<PageResult<UserPageVO[]>> {
     return request({
-        url: "/api/v1/users/page",
+        url: "/users/page",
         method: "get",
         params: queryParams,
     });
@@ -34,7 +34,7 @@ export function getUserPage(
  */
 export function getUserForm(userId: number): AxiosPromise<UserForm> {
     return request({
-        url: "/api/v1/users/" + userId + "/form",
+        url: "/users/" + userId + "/form",
         method: "get",
     });
 }
@@ -46,7 +46,7 @@ export function getUserForm(userId: number): AxiosPromise<UserForm> {
  */
 export function addUser(data: any) {
     return request({
-        url: "/api/v1/users",
+        url: "/users",
         method: "post",
         data: data,
     });
@@ -60,7 +60,7 @@ export function addUser(data: any) {
  */
 export function updateUser(id: number, data: UserForm) {
     return request({
-        url: "/api/v1/users/" + id,
+        url: "/users/" + id,
         method: "put",
         data: data,
     });
@@ -74,7 +74,7 @@ export function updateUser(id: number, data: UserForm) {
  */
 export function updateUserPassword(id: number, password: string) {
     return request({
-        url: "/api/v1/users/" + id + "/password",
+        url: "/users/" + id + "/password",
         method: "patch",
         params: { password: password },
     });
@@ -87,7 +87,7 @@ export function updateUserPassword(id: number, password: string) {
  */
 export function deleteUsers(ids: string) {
     return request({
-        url: "/api/v1/users/" + ids,
+        url: "/users/" + ids,
         method: "delete",
     });
 }
@@ -99,7 +99,7 @@ export function deleteUsers(ids: string) {
  */
 export function downloadTemplateApi() {
     return request({
-        url: "/api/v1/users/template",
+        url: "/users/template",
         method: "get",
         responseType: "arraybuffer",
     });
@@ -113,7 +113,7 @@ export function downloadTemplateApi() {
  */
 export function exportUser(queryParams: UserQuery) {
     return request({
-        url: "/api/v1/users/_export",
+        url: "/users/_export",
         method: "get",
         params: queryParams,
         responseType: "arraybuffer",
@@ -129,7 +129,7 @@ export function importUser(file: File) {
     const formData = new FormData();
     formData.append("file", file);
     return request({
-        url: "/api/v1/users/_import",
+        url: "/users/_import",
         method: "post",
         data: formData,
         headers: {

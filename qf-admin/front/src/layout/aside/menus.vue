@@ -24,7 +24,10 @@
         </el-menu-item>
 
         <!-- 多级-->
-        <el-sub-menu v-else :index="data.redirect != null ? data.path : data.redirect">
+        <el-sub-menu
+            v-else
+            :index="data.redirect != null ? data.path : data.redirect"
+        >
             <template #title>
                 <el-icon>
                     <i-ep-edit />

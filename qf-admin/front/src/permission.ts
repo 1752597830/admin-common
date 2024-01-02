@@ -26,7 +26,6 @@ router.beforeEach(async (to, from, next) => {
             if (hasRoles) {
                 // 未匹配到任何路由，跳转404
                 if (to.matched.length === 0) {
-                    console.log('from',from)
                     from.name ? next({ name: from.name }) : next("/404");
                 } else {
                     next();
