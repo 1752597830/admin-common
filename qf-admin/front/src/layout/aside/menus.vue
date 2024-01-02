@@ -57,7 +57,7 @@ let data = dataList.data;
 /*
 设置item高度
 */
-.el-item-item {
+.el-menu-item {
     height: 40px !important;
     line-height: 40px !important;
 }

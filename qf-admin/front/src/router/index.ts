@@ -37,9 +37,8 @@ export const constantRoutes: RouteRecordRaw[] = [
                 meta: {
                     title: "首页",
                     icon: "homepage",
-                    affix: true,
-                    keepAlive: true,
-                    alwaysShow: false,
+                    affix: true,   // 是否显示关闭
+                    keepAlive: true
                 },
             }, {
                 path: "/userCenter",

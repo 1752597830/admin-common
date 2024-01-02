@@ -10,6 +10,9 @@
                 <router-link to="/">
                     <el-dropdown-item>首页</el-dropdown-item>
                 </router-link>
+                <router-link to="/userCenter">
+                    <el-dropdown-item>个人中心</el-dropdown-item>
+                </router-link>
                 <a target="_blank" href="https://github.com/1752597830">
                     <el-dropdown-item>Github</el-dropdown-item>
                 </a>
