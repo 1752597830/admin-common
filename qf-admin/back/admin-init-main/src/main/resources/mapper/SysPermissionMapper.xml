@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.web.mapper.SysPermissionMapper">
+
+    <resultMap id="BaseResultMap" type="com.qf.web.domain.entity.SysPermission">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="menuId" column="menu_id" jdbcType="INTEGER"/>
+            <result property="urlPerm" column="url_perm" jdbcType="VARCHAR"/>
+            <result property="btnPerm" column="btn_perm" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,menu_id,
+        url_perm,btn_perm,create_time,
+        update_time,create_by,update_by
+    </sql>
+    <select id="selectPermsByUserId" resultType="java.lang.String">
+        select p.btn_perm
+        from sys_permission p
+                 left join sys_role_permission rp on p.id = rp.permission_id
+                 left join sys_role r on rp.role_id = r.id
+                 left join sys_user_role ur on r.id = ur.role_id
+                 left join sys_user u on ur.user_id = u.id
+        where u.id = #{uid}
+
+    </select>
+    <select id="getBtnOptions" resultType="com.qf.web.domain.vo.MenuOptions">
+        select id, name, menu_id
+        from sys_permission
+    </select>
+    <select id="selectBtnIdsByRoleId" resultType="java.lang.Long">
+        select p.id
+        from sys_permission p
+                 left join sys_role_permission rp on p.id = rp.permission_id
+                 left join sys_role r on rp.role_id = r.id
+        where r.id = #{roleId}
+    </select>
+</mapper>

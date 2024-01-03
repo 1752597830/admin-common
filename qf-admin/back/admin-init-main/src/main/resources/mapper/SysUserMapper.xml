@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.web.mapper.SysUserMapper">
+
+    <resultMap id="BaseResultMap" type="com.qf.web.domain.entity.SysUser">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="gender" column="gender" jdbcType="TINYINT"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+            <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="deleted" column="deleted" jdbcType="TINYINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+            <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,username,nickname,
+        gender,password,avatar,
+        mobile,status,email,
+        deleted,create_time,update_time,
+        create_by,update_by
+    </sql>
+    <select id="getPage" resultType="com.qf.web.domain.vo.UserPageVo">
+        select id,username,nickname,mobile,gender,avatar,email,status,create_time
+        from sys_user
+        <where>
+            <if test="keywords!= null and keywords!= ''">
+                and username like concat('%',#{keywords},'%') or nickname like concat('%',#{keywords},'%') or mobile
+                like concat('%',#{keywords},'%')
+            </if>
+            <if test="status!= null and status!= ''">
+                and status = #{status}
+            </if>
+            <if test="startTime!= null and startTime!= '' and endTime!=null and endTime!= ''">
+                and create_time between #{startTime} and #{endTime}
+            </if>
+        </where>
+        group by id
+    </select>
+    <select id="getUserFormByUid" resultType="com.qf.web.domain.vo.UserForm">
+        select id,username,nickname,mobile,gender,avatar,email,status
+        from sys_user
+        where id = #{uid}
+    </select>
+</mapper>
