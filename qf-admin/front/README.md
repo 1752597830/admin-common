@@ -7,8 +7,5 @@ pinia存储
 头像
 引入图标的方式
 <el-icon :size="20">
-    <i-ep-house />
+    <i-ep-setting />
 </el-icon>
-
-
-<el-icon><Refresh /></el-icon>

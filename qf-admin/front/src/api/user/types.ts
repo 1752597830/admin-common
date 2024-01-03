@@ -24,6 +24,14 @@ export interface UserInfoForm {
     email?: string;
 }
 /**
+ * 用户修改密码表单
+ */
+export interface UserPwdForm {
+    oldpwd?: string;
+    newpwd?: string;
+    confirmpwd?: string;
+}
+/**
  * 用户查询对象类型
  */
 export interface UserQuery extends PageQuery {

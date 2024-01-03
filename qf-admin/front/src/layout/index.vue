@@ -9,7 +9,7 @@
                 />
                 <span v-show="!isCollapse">&nbsp;&nbsp;清风漫笔</span>
             </div>
-            <el-scrollbar :style="isCollapse ? 'padding: 10px 0 10px 0' : 'padding: 10px;'" >
+            <el-scrollbar :style="isCollapse ? 'padding: 10px 10px 10px 0' : 'padding: 10px;'" >
                 <el-menu
                     :unique-opened="true"
                     background-color="#001529"
@@ -52,7 +52,7 @@
                 <Header />
             </el-header>
             <el-scrollbar  class="container-scrollbar">
-                <el-main style="background-color: white">
+                <el-main style="background-color: white;font-family: FangYuan;">
                     <RouterView />
                 </el-main>
             </el-scrollbar>
@@ -137,9 +137,6 @@ function expond() {
         height: 26px;
     }
 }
-/* .el-container is-vertical {
-    padding-bottom: 0 !important;
-} */
 /*
 设置item高度
 */

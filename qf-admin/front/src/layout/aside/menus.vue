@@ -7,8 +7,9 @@
             :index="data.path"
         >
             <el-icon>
-                <i-ep-edit />
+                <component :is="getString(data.meta.icon)"></component>
             </el-icon>
+
             <!-- 文字过长，显示省略号，鼠标悬停显示全文 -->
             <span
                 style="
@@ -30,7 +31,7 @@
         >
             <template #title>
                 <el-icon>
-                    <i-ep-edit />
+                    <component :is="getString(data.meta.icon)"></component>
                 </el-icon>
                 <span
                     style="
@@ -55,6 +56,18 @@
 <script setup lang="ts">
 const dataList = defineProps(["data"]);
 let data = dataList.data;
+
+// 使用动态导入生成组件
+// 定义一个枚举
+enum MenuIcon {
+    setting = IconEpSetting,
+    menu = IconEpMenu,
+    user = IconEpUser,
+}
+function getString(icon: string): MenuIcon {
+    console.log("icon是:", icon);
+    return MenuIcon[icon];
+}
 </script>
 <style scoped lang="scss">
 /*

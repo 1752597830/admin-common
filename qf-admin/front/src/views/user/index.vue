@@ -53,7 +53,7 @@
                     <div class="card-context">
                         个人简介:&nbsp;&nbsp;
                         <span class="card-text"
-                            >请问十大十大权威阿三大苏打撒旦请问大师</span
+                            >一个全栈开发攻城狮!</span
                         >
                     </div>
                 </div>
@@ -69,6 +69,7 @@
                 <el-tabs>
                     <el-tab-pane label="基本资料">
                         <el-form
+                            ref="updateInfo"
                             label-width="100px"
                             :model="formUserInfo"
                             style="max-width: 460px"
@@ -90,23 +91,73 @@
                             <el-form-item label="邮箱:" prop="email">
                                 <el-input v-model="formUserInfo.email" />
                             </el-form-item>
+                            <el-form-item label="性别:" prop="gender">
+                                <el-radio-group v-model="formUserInfo.gender">
+                                    <el-radio :label="1">男</el-radio>
+                                    <el-radio :label="2">女</el-radio>
+                                </el-radio-group>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button
+                                    type="primary"
+                                    @click="onSubmit"
+                                    :loading="loading"
+                                    >保存</el-button
+                                >
+                            </el-form-item>
                         </el-form>
                     </el-tab-pane>
-                    <el-tab-pane label="修改密码"> 密码修改 </el-tab-pane>
+                    <el-tab-pane label="修改密码">
+                        <el-form
+                            ref="pwdFormRef"
+                            label-width="100px"
+                            :model="pwdForm"
+                            style="max-width: 460px"
+                            :rules="pwdRules"
+                        >
+                            <el-form-item label="旧密码:" prop="password">
+                                <el-input v-model="pwdForm.oldpwd" />
+                            </el-form-item>
+                            <el-form-item label="新密码:" prop="password">
+                                <el-input v-model="pwdForm.newpwd" />
+                            </el-form-item>
+                            <el-form-item label="确认密码:" prop="password">
+                                <el-input v-model="pwdForm.confirmpwd" />
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button
+                                    type="primary"
+                                    @click="onSubmitpwd"
+                                    :loading="loadingpwd"
+                                    >保存</el-button
+                                >
+                            </el-form-item>
+                        </el-form>
+                    </el-tab-pane>
                 </el-tabs>
             </el-card>
         </el-col>
     </el-row>
 </template>
 <script setup lang="ts">
-import { UserInfoForm } from "@/api/user/types";
+import { UserInfoForm, UserPwdForm } from "@/api/user/types";
 import { useUserStore } from "@/store/modules/user";
 const userStore = useUserStore();
-console.log("userStore.userStore: ", userStore.user);
+const loading = ref(false); // 按钮loading
+const loadingpwd = ref(false); // 密码按钮
+const updateInfo = ref(ElForm); // 修改表单ref
+const pwdFormRef = ref(ElForm); // 密码表单ref
 const formUserInfo = ref<UserInfoForm>({
+    userId: userStore.user.userId,
     nickname: userStore.user.nickname,
     mobile: userStore.user.mobile,
     email: userStore.user.email,
+    gender: userStore.user.gender,
+});
+const pwdForm = ref<UserPwdForm>({
+    oldpwd: "",
+    newpwd: "",
+    confirmpwd: "",
 });
 const validate_email = (rule, value, callback) => {
     var emailRegExp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
@@ -121,8 +172,8 @@ const validate_email = (rule, value, callback) => {
         callback();
     }
 };
+const prefix = "请输入";
 const InfoRules = computed(() => {
-    const prefix = "请输入";
     return {
         nickname: [
             {
@@ -151,6 +202,33 @@ const InfoRules = computed(() => {
         ],
     };
 });
+const pwdRules = computed(() => {
+    return {
+        password: [
+            {
+                required: true,
+                trigger: "blur",
+                validator: (rule: any, value: any, callback: any) => {
+                    if (value.length < 6) {
+                        callback(new Error("密码长度不少于6位"));
+                    } else {
+                        callback();
+                    }
+                },
+                message: `${prefix}密码`,
+            },
+        ],
+    };
+});
+function onSubmit() {
+    updateInfo.value.validate((valid: boolean) => {
+        if (valid) {
+            loadingpwd.value = true;
+            console.log("修改成功", formUserInfo.value);
+        }
+    });
+}
+function onSubmitpwd() {}
 </script>
 <style lang="scss" scoped>
 .card-header {
