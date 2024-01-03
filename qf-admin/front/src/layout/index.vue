@@ -9,7 +9,7 @@
                 />
                 <span v-show="!isCollapse">&nbsp;&nbsp;清风漫笔</span>
             </div>
-            <el-scrollbar>
+            <el-scrollbar :style="isCollapse ? 'padding: 10px 0 10px 0' : 'padding: 10px;'" >
                 <el-menu
                     :unique-opened="true"
                     background-color="#001529"
@@ -93,7 +93,6 @@ function expond() {
 .el-scrollbar {
     height: calc(100vh - 131px);
     box-shadow: 0 0 6px -2px var(--el-color-primary);
-    padding: 10px;
 }
 .container-scrollbar {
     height: calc(100vh - 112px);

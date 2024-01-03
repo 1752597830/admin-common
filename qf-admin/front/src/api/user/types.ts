@@ -6,10 +6,23 @@ export interface UserInfo {
     username?: string;
     nickname?: string;
     avatar?: string;
+    mobile?: string;
+    gender?: number;
+    email?: string;
+    createTime?: Date;
     roles: string[];
     perms: string[];
 }
-
+/**
+ * 用户修改信息表单
+ */
+export interface UserInfoForm {
+    userId?: number;
+    nickname?: string;
+    mobile?: string;
+    gender?: number;
+    email?: string;
+}
 /**
  * 用户查询对象类型
  */
