@@ -10,6 +10,7 @@ declare global {
   const IconEpComment: typeof import('~icons/ep/comment')['default']
   const IconEpDelete: typeof import('~icons/ep/delete')['default']
   const IconEpEditPen: typeof import('~icons/ep/edit-pen')['default']
+  const IconEpLock: typeof import('~icons/ep/lock')['default']
   const IconEpMenu: typeof import('~icons/ep/menu')['default']
   const IconEpPlus: typeof import('~icons/ep/plus')['default']
   const IconEpQuestionFilled: typeof import('~icons/ep/question-filled')['default']

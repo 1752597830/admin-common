@@ -7,7 +7,7 @@ export enum MenuTypeEnum {
      * 菜单
      */
     MENU = "MENU",
-  
+
     /**
      * 按钮
      */
@@ -16,5 +16,11 @@ export enum MenuTypeEnum {
      * 外链
      */
     EXTLINK = "EXTLINK",
-  }
-  
+}
+export enum MenuIcon {
+    setting = IconEpSetting,
+    menu = IconEpMenu,
+    user = IconEpUser,
+    lock = IconEpLock,
+    
+}

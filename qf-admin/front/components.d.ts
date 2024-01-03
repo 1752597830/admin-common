@@ -56,7 +56,9 @@ declare module 'vue' {
     IEpRight: typeof import('~icons/ep/right')['default']
     IEpSemiSelect: typeof import('~icons/ep/semi-select')['default']
     IEpSetting: typeof import('~icons/ep/setting')['default']
+    IEpUser: typeof import('~icons/ep/user')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
   }
 }

@@ -4,8 +4,11 @@ import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import vue from "@vitejs/plugin-vue";
 import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
+import IconsResolver from 'unplugin-icons/resolver';
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import path from 'path'
+import { resolve } from "path";
+const pathSrc = resolve(__dirname, "src");
 // https://vitejs.dev/config/
 export default defineConfig({
     server: {
@@ -24,13 +27,9 @@ export default defineConfig({
     },
     resolve: {
         // 配置路径别名
-        alias: [
-            // @代替src
-            {
-                find: '@',
-                replacement: path.resolve('./src'),
-            },
-        ],
+        alias: {
+            "@": pathSrc,
+        }
     },
     plugins: [
         vue(),
@@ -51,6 +50,12 @@ export default defineConfig({
         }),
         Icons({
             autoInstall: true,
+        }),
+        createSvgIconsPlugin({
+            // 指定需要缓存的图标文件夹
+            iconDirs: [resolve(pathSrc, "assets/icons")],
+            // 指定symbolId格式
+            symbolId: "icon-[dir]-[name]",
         }),
     ],
 })

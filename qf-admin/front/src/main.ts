@@ -5,6 +5,8 @@ import './style.css';
 import App from './App.vue'
 import router from './router';
 import "@/permission";
+// 本地SVG图标
+import "virtual:svg-icons-register";
 // 解决样式丢失问题
 import 'element-plus/theme-chalk/src/message-box.scss';
 import 'element-plus/theme-chalk/src/message.scss';
