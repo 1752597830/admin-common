@@ -47,13 +47,15 @@
                 </div>
             </div>
         </el-aside>
-        <el-container style="background-color: #f2f3f5">
+        <el-container style="background-color: #f2f3f5;">
             <el-header>
                 <Header />
             </el-header>
-            <el-main style="margin: 10px; background-color: white">
-                <RouterView />
-            </el-main>
+            <el-scrollbar  class="container-scrollbar">
+                <el-main style="background-color: white">
+                    <RouterView />
+                </el-main>
+            </el-scrollbar>
         </el-container>
     </el-container>
 </template>
@@ -79,6 +81,7 @@ function expond() {
     align-items: center;
     justify-content: center;
     display: flex;
+    margin-bottom: 3px;
 }
 .header {
     flex-direction: row;
@@ -86,9 +89,16 @@ function expond() {
     margin-top: 10px;
 }
 /* 固定logo,只滑动menu */
+
 .el-scrollbar {
-    height: calc(100vh - 108px);
+    height: calc(100vh - 131px);
     box-shadow: 0 0 6px -2px var(--el-color-primary);
+    padding: 10px;
+}
+.container-scrollbar {
+    height: calc(100vh - 112px);
+    box-shadow: 0 0 0 0 var(--el-color-primary);
+    padding: 10px 10px 0 10px;
 }
 .el-aside {
     background-color: #001529;
@@ -123,21 +133,20 @@ function expond() {
     height: 40px;
     line-height: 40px;
     position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     .image {
         width: 26px;
         height: 26px;
     }
 }
+/* .el-container is-vertical {
+    padding-bottom: 0 !important;
+} */
 /*
 设置item高度
 */
 .el-menu-item {
     height: 40px !important;
     line-height: 40px !important;
-    margin-top: 3px;
 }
 /*
 设置菜单处背景色
