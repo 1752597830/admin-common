@@ -17,7 +17,7 @@
                     @click.prevent.stop="closeSelectedTag(tag)"
                 >
                     <el-icon :size="12">
-                        <svg-icon icon-class="close" />
+                        <i-ep-close />
                     </el-icon>
                 </span>
             </router-link>
