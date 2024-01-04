@@ -11,7 +11,7 @@
  Target Server Version : 80034
  File Encoding         : 65001
 
- Date: 03/01/2024 21:14:52
+ Date: 04/01/2024 13:00:58
 */
 
 SET NAMES utf8mb4;
@@ -89,33 +89,26 @@ CREATE TABLE `sys_menu`  (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (1, 0, '系统管理', '/system', 'Layout', 1, 'setting', 1, '/system/user', 1, '系统管理目录', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (2, 0, '系统监控', '/monitor', 'Layout', 1, 'home', 2, '/monitor/online', 1, '系统监控目录', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (3, 0, '文章管理', '/article', 'Layout', 1, 'house', 3, '/article/list', 1, '文章管理目录', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (4, 0, '日志管理', '/notice', 'Layout', 1, 'notice', 4, '/log/operlog', 1, '日志管理目录', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (5, 0, '测试', '/test', 'Layout', 1, '', 5, NULL, 1, '测试', '2023-12-30 15:37:45', '2023-12-30 15:37:45', 'ADMIN', 'ADMIN');
+INSERT INTO `sys_menu` VALUES (1, 0, '系统管理', '/system', 'Layout', 1, 'system', 1, '/system/user', 1, '系统管理目录', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
+INSERT INTO `sys_menu` VALUES (2, 0, '系统监控', '/monitor', 'Layout', 1, 'monitor', 2, '/monitor/online', 1, '系统监控目录', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
+INSERT INTO `sys_menu` VALUES (3, 0, '文章管理', '/article', 'Layout', 1, 'article', 3, '/article/list', 1, '文章管理目录', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
+INSERT INTO `sys_menu` VALUES (4, 0, '日志管理', '/notice', 'Layout', 1, 'log', 4, '/log/operlog', 1, '日志管理目录', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
 INSERT INTO `sys_menu` VALUES (101, 1, '用户管理', '/system/user', 'system/user/index', 1, 'user', 1, NULL, 2, '用户管理菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
 INSERT INTO `sys_menu` VALUES (102, 1, '角色管理', '/system/role', 'system/role/index', 1, 'role', 1, NULL, 2, '角色管理菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (103, 1, '菜单管理', '/system/menu', 'system/menu/index', 1, 'ep-menu', 1, NULL, 2, '菜单管理菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
+INSERT INTO `sys_menu` VALUES (103, 1, '菜单管理', '/system/menu', 'system/menu/index', 1, 'menu', 1, NULL, 2, '菜单管理菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
 INSERT INTO `sys_menu` VALUES (104, 1, '字典管理', '/system/dict', 'system/dict/index', 1, 'dict', 1, NULL, 2, '字典管理菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (105, 1, '通知公告', '/system/notice', 'system/notice/index', 1, 'dict', 1, NULL, 2, '通知公告菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
+INSERT INTO `sys_menu` VALUES (105, 1, '通知公告', '/system/notice', 'system/notice/index', 1, 'message', 1, NULL, 2, '通知公告菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
 INSERT INTO `sys_menu` VALUES (106, 2, '在线用户', '/monitor/online', 'monitor/online/index', 1, 'online', 1, NULL, 2, '在线用户菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
 INSERT INTO `sys_menu` VALUES (107, 2, '数据监控', '/monitor/druid', 'monitor/druid/index', 1, 'druid', 2, NULL, 2, '数据监控菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
 INSERT INTO `sys_menu` VALUES (108, 2, '服务监控', '/monitor/server', 'monitor/server/index', 1, 'server', 3, NULL, 2, '服务监控菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (109, 2, '缓存监控', '/monitor/cache', 'monitor/cache/server/index', 1, 'server', 4, NULL, 2, '缓存监控菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (110, 2, '缓存列表', '/monitor/cacheList', 'monitor/cache/list/index', 1, 'cacheList', 5, NULL, 2, '缓存列表菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (111, 3, '文章列表', '/article/articleList', 'article/list', 1, 'articleList', 4, NULL, 2, '文章列表菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (112, 3, '发布文章', '/article/addArticle', 'article/index', 1, 'addArticle', 4, NULL, 2, '发布文章菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
+INSERT INTO `sys_menu` VALUES (109, 2, '缓存监控', '/monitor/cache', 'monitor/cache/server/index', 1, 'redis', 4, NULL, 2, '缓存监控菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
+INSERT INTO `sys_menu` VALUES (110, 2, '缓存列表', '/monitor/cacheList', 'monitor/cache/list/index', 1, 'redis-list', 5, NULL, 2, '缓存列表菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
+INSERT INTO `sys_menu` VALUES (111, 3, '文章列表', '/article/articleList', 'article/list', 1, 'article-list', 4, NULL, 2, '文章列表菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
+INSERT INTO `sys_menu` VALUES (112, 3, '发布文章', '/article/addArticle', 'article/index', 1, 'add-article', 4, NULL, 2, '发布文章菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
 INSERT INTO `sys_menu` VALUES (113, 3, '标签管理', '/article/tag', 'article/tag', 1, 'tag', 4, NULL, 2, '标签管理菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
 INSERT INTO `sys_menu` VALUES (114, 3, '分类管理', '/article/category', 'article/category', 1, 'category', 4, NULL, 2, '分类管理菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (115, 4, '操作日志', '/monitor/operlog', 'monitor/log/operlog', 1, 'operlog', 1, NULL, 2, '操作日志菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
+INSERT INTO `sys_menu` VALUES (115, 4, '操作日志', '/monitor/operlog', 'monitor/log/operlog', 1, 'form', 1, NULL, 2, '操作日志菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
 INSERT INTO `sys_menu` VALUES (116, 4, '登录日志', '/monitor/logininfor', 'monitor/log/logininfor', 1, 'logininfor', 2, NULL, 2, '登录日志菜单', '2023-12-12 20:49:43', '2023-12-12 20:49:43', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (100001, 5, '测试1', '/test/1', 'test/1/index', 1, '', 1, NULL, 2, NULL, '2023-12-29 08:42:30', '2023-12-29 08:42:30', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (100002, 5, '测试2', '/test/2', 'test/2/index', 2, '', 2, NULL, 2, NULL, '2023-12-29 08:42:30', '2023-12-29 08:42:30', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (100003, 5, '测试3', '/test/3', 'test/3/index', 3, '', 3, NULL, 2, NULL, '2023-12-29 08:42:30', '2023-12-29 08:42:30', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (1000001, 100001, '测试11测试13测试13测试13测试13测试13测试13', '/test/1/1-1', 'test/1/1-1/index', 11, '', 1, NULL, 2, NULL, '2023-12-29 08:42:30', '2023-12-29 08:42:30', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (1000002, 100001, '测试12测试13测试13测试13测试13测试13测试13', '/test/1/1-2', 'test/1/1-2/index', 12, '', 2, NULL, 2, NULL, '2023-12-29 08:42:30', '2023-12-29 08:42:30', 'ADMIN', 'ADMIN');
-INSERT INTO `sys_menu` VALUES (1000003, 100001, '测试13测试13测试13测试13测试13测试13测试13测试13测试13测试13测试13测试13', '/test/1/1-3', 'test/1/1-3/index', 13, '', 3, NULL, 2, NULL, '2023-12-29 08:42:30', '2023-12-29 08:42:30', 'ADMIN', 'ADMIN');
 
 -- ----------------------------
 -- Table structure for sys_permission
@@ -210,13 +203,6 @@ INSERT INTO `sys_role_menu` VALUES (2, 113);
 INSERT INTO `sys_role_menu` VALUES (2, 114);
 INSERT INTO `sys_role_menu` VALUES (2, 115);
 INSERT INTO `sys_role_menu` VALUES (2, 116);
-INSERT INTO `sys_role_menu` VALUES (2, 100001);
-INSERT INTO `sys_role_menu` VALUES (2, 100002);
-INSERT INTO `sys_role_menu` VALUES (2, 100003);
-INSERT INTO `sys_role_menu` VALUES (2, 1000001);
-INSERT INTO `sys_role_menu` VALUES (2, 1000002);
-INSERT INTO `sys_role_menu` VALUES (2, 1000003);
-INSERT INTO `sys_role_menu` VALUES (2, 5);
 
 -- ----------------------------
 -- Table structure for sys_role_permission
