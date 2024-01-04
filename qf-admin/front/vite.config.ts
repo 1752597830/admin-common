@@ -6,7 +6,6 @@ import vue from "@vitejs/plugin-vue";
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver';
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
-import path from 'path'
 import { resolve } from "path";
 const pathSrc = resolve(__dirname, "src");
 // https://vitejs.dev/config/

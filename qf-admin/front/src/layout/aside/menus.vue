@@ -7,7 +7,8 @@
             :index="data.path"
         >
             <el-icon>
-                <component :is="getString(data.meta.icon)"></component>
+                <!-- <component :is="getString(data.meta.icon)"></component> -->
+                <svg-icon :icon-class="data.meta.icon" />
             </el-icon>
 
             <!-- 文字过长，显示省略号，鼠标悬停显示全文 -->
@@ -31,7 +32,8 @@
         >
             <template #title>
                 <el-icon>
-                    <component :is="getString(data.meta.icon)"></component>
+                    <!-- <component :is="getString(data.meta.icon)"></component> -->
+                    <svg-icon :icon-class="data.meta.icon" />
                 </el-icon>
                 <span
                     style="
@@ -57,17 +59,10 @@
 const dataList = defineProps(["data"]);
 let data = dataList.data;
 
-// 使用动态导入生成组件
-// 定义一个枚举
-enum MenuIcon {
-    setting = IconEpSetting,
-    menu = IconEpMenu,
-    user = IconEpUser,
-}
-function getString(icon: string): MenuIcon {
-    console.log("icon是:", icon);
-    return MenuIcon[icon];
-}
+// function getString(icon: string): MenuIcon {
+//     console.log("icon是:", icon);
+//     return MenuIcon[icon];
+// }
 </script>
 <style scoped lang="scss">
 /*

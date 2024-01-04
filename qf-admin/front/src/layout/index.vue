@@ -21,7 +21,7 @@
                 >
                     <el-menu-item key="/dashboard" index="/dashboard">
                         <el-icon>
-                            <i-ep-house />
+                            <svg-icon icon-class="dashboard" />
                         </el-icon>
                         <!-- 文字过长，显示省略号，鼠标悬停显示全文 -->
                         <span>首页</span>
@@ -34,16 +34,10 @@
             </el-scrollbar>
             <div class="container">
                 <div @click="expond" style="padding-left: 20px">
-                    <img
-                        v-show="isCollapse"
-                        src="../assets/unfold.svg"
-                        class="image"
-                    />
-                    <img
-                        v-show="!isCollapse"
-                        src="../assets/fold.svg"
-                        class="image"
-                    />
+                    <el-icon>
+                        <svg-icon icon-class="fold" size="20" v-show="!isCollapse" />
+                        <svg-icon icon-class="unfold" size="20" v-show="isCollapse" />
+                    </el-icon>
                 </div>
             </div>
         </el-aside>

@@ -13,7 +13,7 @@
                 flex-direction: row;
                 display: flex;
                 border-radius: 60px;
-                width: 76%;
+                width: 70%;
                 height: auto;
             "
         >
@@ -80,14 +80,19 @@
                     >
                         <el-form-item prop="username">
                             <el-input
-                                :prefix-icon="MenuIcon['user']"
                                 ref="username"
                                 v-model="loginData.username"
                                 class="flex-1"
                                 size="large"
                                 placeholder="用户名"
                                 name="username"
-                            />
+                            >
+                                <template #prefix>
+                                    <el-icon>
+                                        <i-ep-user />
+                                    </el-icon>
+                                </template>
+                            </el-input>
                         </el-form-item>
 
                         <el-tooltip
@@ -108,12 +113,22 @@
                                     name="password"
                                     @keyup="checkCapslock"
                                     @keyup.enter="handleLogin"
-                                    :prefix-icon="MenuIcon['lock']"
                                 >
+                                    <template #prefix>
+                                        <el-icon>
+                                            <i-ep-lock />
+                                        </el-icon>
+                                    </template>
                                     <template #suffix>
                                         <div @click="closeaaa">
-                                            <svg-icon v-show="!passwordVisible" icon-class="eye" />
-                                            <svg-icon v-show="passwordVisible" icon-class="eye-open" />
+                                            <svg-icon
+                                                v-show="!passwordVisible"
+                                                icon-class="eye"
+                                            />
+                                            <svg-icon
+                                                v-show="passwordVisible"
+                                                icon-class="eye-open"
+                                            />
                                         </div>
                                     </template>
                                 </el-input>
@@ -126,17 +141,18 @@
                                 v-model="loginData.captchaCode"
                                 auto-complete="off"
                                 placeholder="验证码"
-                                class="w-[60%]"
                                 @keyup.enter="handleLogin"
                             >
                                 <template #prefix>
-                                    <svg-icon icon-class="captcha" />
+                                    <el-icon>
+                                        <svg-icon icon-class="captcha" />
+                                    </el-icon>
                                 </template>
                                 <template #suffix>
                                     <el-image
                                         :src="captchaBase64"
                                         @click="getCaptcha"
-                                        class="w-[100px] h-[40px] cursor-pointer"
+                                        class="w-[100px] h-[40px]"
                                     >
                                         <template #error>
                                             <el-icon size="20">
@@ -163,7 +179,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import router from "@/router";
-import { MenuIcon } from "@/utils/enums/MenuEnum";
 
 // 状态管理依赖
 import { useUserStore } from "@/store/modules/user";

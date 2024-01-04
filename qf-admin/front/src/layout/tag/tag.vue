@@ -17,53 +17,11 @@
                     @click.prevent.stop="closeSelectedTag(tag)"
                 >
                     <el-icon :size="12">
-                        <i-ep-close />
+                        <svg-icon icon-class="close" />
                     </el-icon>
                 </span>
             </router-link>
         </scroll-pane>
-
-        <!-- tag标签操作菜单 -->
-        <ul v-show="tagMenuVisible" class="tag-menu">
-            <li @click="refreshSelectedTag(selectedTag)">
-                <el-icon :size="20">
-                    <i-ep-refresh />
-                </el-icon>
-            </li>
-            <li
-                v-if="!isAffix(selectedTag)"
-                @click="closeSelectedTag(selectedTag)"
-            >
-                <el-icon :size="20">
-                    <i-ep-close />
-                </el-icon>
-                关闭
-            </li>
-            <li @click="closeOtherTags">
-                <el-icon :size="20">
-                    <i-ep-more />
-                </el-icon>
-                关闭其它
-            </li>
-            <li v-if="!isFirstView()" @click="closeLeftTags">
-                <el-icon :size="20">
-                    <i-ep-back />
-                </el-icon>
-                关闭左侧
-            </li>
-            <li v-if="!isLastView()" @click="closeRightTags">
-                <el-icon :size="20">
-                    <i-ep-right />
-                </el-icon>
-                关闭右侧
-            </li>
-            <li @click="closeAllTags(selectedTag)">
-                <el-icon :size="20">
-                    <i-ep-SemiSelect />
-                </el-icon>
-                关闭所有
-            </li>
-        </ul>
     </div>
 </template>
 
@@ -194,38 +152,6 @@ function isAffix(tag: TagView) {
     return tag?.affix;
 }
 
-function isFirstView() {
-    try {
-        return (
-            selectedTag.value.fullPath === "/" ||
-            selectedTag.value.fullPath ===
-                tagsViewStore.visitedViews[1].fullPath
-        );
-    } catch (err) {
-        return false;
-    }
-}
-
-function isLastView() {
-    try {
-        return (
-            selectedTag.value.fullPath ===
-            tagsViewStore.visitedViews[tagsViewStore.visitedViews.length - 1]
-                .fullPath
-        );
-    } catch (err) {
-        return false;
-    }
-}
-
-function refreshSelectedTag(view: TagView) {
-    tagsViewStore.delCachedView(view);
-    const { fullPath } = view;
-    nextTick(() => {
-        router.replace({ path: "/redirect" + fullPath });
-    });
-}
-
 function toLastView(visitedViews: TagView[], view?: TagView) {
     const latestView = visitedViews.slice(-1)[0];
     if (latestView && latestView.fullPath) {
@@ -245,42 +171,6 @@ function closeSelectedTag(view: TagView) {
         if (isActive(view)) {
             toLastView(res.visitedViews, view);
         }
-    });
-}
-
-function closeLeftTags() {
-    tagsViewStore.delLeftViews(selectedTag.value).then((res: any) => {
-        if (
-            !res.visitedViews.find(
-                (item: any) => item.fullPath === route.fullPath
-            )
-        ) {
-            toLastView(res.visitedViews);
-        }
-    });
-}
-function closeRightTags() {
-    tagsViewStore.delRightViews(selectedTag.value).then((res: any) => {
-        if (
-            !res.visitedViews.find(
-                (item: any) => item.fullPath === route.fullPath
-            )
-        ) {
-            toLastView(res.visitedViews);
-        }
-    });
-}
-
-function closeOtherTags() {
-    router.push(selectedTag.value);
-    tagsViewStore.delOtherViews(selectedTag.value).then(() => {
-        moveToCurrentTag();
-    });
-}
-
-function closeAllTags(view: TagView) {
-    tagsViewStore.delAllViews().then((res: any) => {
-        toLastView(res.visitedViews, view);
     });
 }
 

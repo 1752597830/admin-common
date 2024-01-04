@@ -50,6 +50,7 @@ declare module 'vue' {
     IEpEdit: typeof import('~icons/ep/edit')['default']
     IEpHomeFilled: typeof import('~icons/ep/home-filled')['default']
     IEpHouse: typeof import('~icons/ep/house')['default']
+    IEpLock: typeof import('~icons/ep/lock')['default']
     IEpMore: typeof import('~icons/ep/more')['default']
     IEpPicture: typeof import('~icons/ep/picture')['default']
     IEpRefresh: typeof import('~icons/ep/refresh')['default']
