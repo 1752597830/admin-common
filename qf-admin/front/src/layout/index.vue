@@ -46,7 +46,7 @@
                 <Header />
             </el-header>
             <el-scrollbar  class="container-scrollbar">
-                <el-main style="background-color: white;font-family: FangYuan;">
+                <el-main style="font-family: FangYuan;">
                     <RouterView />
                 </el-main>
             </el-scrollbar>
@@ -91,7 +91,6 @@ function expond() {
 .container-scrollbar {
     height: calc(100vh - 112px);
     box-shadow: 0 0 0 0 var(--el-color-primary);
-    padding: 10px 10px 0 10px;
 }
 .el-aside {
     background-color: #001529;
