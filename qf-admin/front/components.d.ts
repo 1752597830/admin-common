@@ -7,6 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    copy: typeof import('./src/components/Dictionary copy/index.vue')['default']
+    Dictionary: typeof import('./src/components/Dictionary/index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
@@ -72,6 +74,7 @@ declare module 'vue' {
     IEpSemiSelect: typeof import('~icons/ep/semi-select')['default']
     IEpSetting: typeof import('~icons/ep/setting')['default']
     IEpTop: typeof import('~icons/ep/top')['default']
+    IEpUpload: typeof import('~icons/ep/upload')['default']
     IEpUploadFilled: typeof import('~icons/ep/upload-filled')['default']
     IEpUser: typeof import('~icons/ep/user')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
