@@ -4,6 +4,7 @@ import './font-style/font.scss';
 import './style.css';
 import App from './App.vue'
 import router from './router';
+import { setupDirective } from '@/directive';
 import "@/permission";
 // 本地SVG图标
 import "virtual:svg-icons-register";
@@ -13,5 +14,6 @@ import 'element-plus/theme-chalk/src/message.scss';
 
 const app = createApp(App);
 setupStore(app);
-
+// 全局注册自定义指令
+setupDirective(app);
 app.use(router).mount('#app')

@@ -52,6 +52,9 @@
             </el-form>
         </div>
         <div style="background-color: white; padding: 20px">
+            <div style="padding-bottom: 20px;">
+                <el-button type="primary" v-hasPerm="['sys:user:add']">新增用户</el-button>
+            </div>
             <div
                 v-if="selectedNum > 0"
                 v-motion-fade
@@ -83,6 +86,7 @@
                             type="danger"
                             text
                             style="position: absolute; right: 40px"
+                            v-hasPerm="['sys:user:add']"
                         >
                             批量删除
                         </el-button>

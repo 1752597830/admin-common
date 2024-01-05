@@ -5,7 +5,7 @@ let locale = zhCn;
 </script>
 <template>
     <ElConfigProvider :locale="locale">
-        <router-view></router-view>
+        <router-view />
     </ElConfigProvider>
 </template>
 <style scoped></style>
