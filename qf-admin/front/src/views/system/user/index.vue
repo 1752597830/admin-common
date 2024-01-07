@@ -262,20 +262,6 @@
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>
-                        <!-- <el-popconfirm
-                            title="是否确认重置?"
-                            @confirm="resetPassword(scope.row)"
-                        >
-                            <template #reference>
-                                <el-button
-                                    v-hasPerm="['sys:user:edit']"
-                                    type="primary"
-                                    size="small"
-                                    link
-                                    ><i-ep-refresh-left />重置密码</el-button
-                                >
-                            </template>
-                        </el-popconfirm> -->
                     </template>
                 </el-table-column>
             </el-table>
@@ -363,6 +349,7 @@
                                 <el-select
                                     v-model="formData.roleIds"
                                     multiple
+                                    multiple-limit="1"
                                     placeholder="请选择"
                                 >
                                     <el-option
