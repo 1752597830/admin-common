@@ -15,6 +15,7 @@ export default defineConfig({
         open: true,
         host: '0.0.0.0',
         port: 5555,
+        hot: true,
         proxy: {
             '/api': {
                 target: 'http://127.0.0.1:8082/api',   //代理接口

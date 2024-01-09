@@ -91,7 +91,6 @@ export const usePermissionStore = defineStore("permission", () => {
             listRoutes()
                 .then(({ data: asyncRoutes }) => {
                     // 根据角色获取有访问权限的路由
-
                     const accessedRoutes = filterAsyncRoutes(asyncRoutes, roles);
                     setRoutes(accessedRoutes);
                     resolve(accessedRoutes);

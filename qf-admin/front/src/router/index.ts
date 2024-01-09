@@ -30,7 +30,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         meta: { hidden: true },
         children: [
             {
-                path: "dashboard",
+                path: "/dashboard",
                 component: () => import("@/views/index.vue"),
                 name: "Dashboard", // 用于 keep-alive, 必须与SFC自动推导或者显示声明的组件name一致
                 // https://cn.vuejs.org/guide/built-ins/keep-alive.html#include-exclude
@@ -42,7 +42,7 @@ export const constantRoutes: RouteRecordRaw[] = [
                 },
             }, {
                 path: "/userCenter",
-                name: "个人中心", 
+                name: "个人中心",
                 component: () => import("@/views/user/index.vue"),
                 meta: {
                     title: "个人中心",
@@ -50,12 +50,18 @@ export const constantRoutes: RouteRecordRaw[] = [
                 }
             },
             {
-                path: "401",
+                path: "/401",
                 component: () => import("@/views/error/401.vue"),
             },
             {
-                path: "404",
+                path: "/404",
                 component: () => import("@/views/error/404.vue"),
+            }, {
+                path: "/:pathMatch(.*)*", // 必备
+                component: () => import("@/views/error/404.vue"),
+                meta: {
+                    hidden: true
+                }
             }
         ],
     }
@@ -76,6 +82,7 @@ const router = createRouter({
  */
 export function resetRouter() {
     router.replace({ path: "/login" });
+    location.reload();
 }
 
 export default router;

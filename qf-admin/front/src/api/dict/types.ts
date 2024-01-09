@@ -11,7 +11,7 @@ export interface DictTypeQuery extends PageQuery {
 /**
  * 字典类型分页对象
  */
-export interface DictTypePageVO {
+export interface DictTypeVo {
   /**
    * 字典类型ID
    */
@@ -24,21 +24,11 @@ export interface DictTypePageVO {
    * 类型名称
    */
   name: string;
-  /**
-   * 状态(1:启用;0:禁用)
-   */
-  status?: number;
-  /**
-   * 备注
-   */
-  remark?: string;
 }
-
 /**
- * 字典分页项类型声明
+ * 字典类型列表
  */
-export type DictTypePageResult = PageResult<DictTypePageVO[]>;
-
+export type DictTypeResult = DictTypeVo[];
 /**
  * 字典表单类型声明
  */
@@ -70,13 +60,9 @@ export interface DictTypeForm {
  */
 export interface DictQuery extends PageQuery {
   /**
-   * 字典项名称
-   */
-  name?: string;
-  /**
    * 字典类型编码
    */
-  typeCode?: string;
+  code?: string;
 }
 
 /**
@@ -92,6 +78,10 @@ export interface DictPageVO {
    */
   name?: string;
   /**
+   * 字典编码
+   */
+  typeCode?: string;
+  /**
    * 状态(1:启用;0:禁用)
    */
   status?: number;
@@ -99,6 +89,10 @@ export interface DictPageVO {
    * 字典值
    */
   value?: string;
+  /**
+   * 创建时间
+   */
+  createTime?: Date;
 }
 
 /**

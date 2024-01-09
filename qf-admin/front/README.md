@@ -21,3 +21,5 @@ pinia存储
     </div>
 </template>
 ```
+div快速靠边布局
+margin:0px 10px 0px auto;
