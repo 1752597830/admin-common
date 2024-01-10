@@ -32,6 +32,13 @@ export interface jvm {
     used?: number;
     free?: number;
     usage?: number;
+    name?: string;
+    version?: string;
+    startTime?: Date;
+    runTime?: string;
+    home?: string;
+    userDir?: string;
+    inputArgs?: string;
 }
 /**
  * 服务器信息
@@ -42,9 +49,22 @@ export interface sys {
     computerIp?: string;
     osArch?: string;
 }
+/**
+ * 磁盘信息
+ */
+export interface sysFiles {
+    dirName?: string;
+    sysTypeName?: string;
+    typeName?: string;
+    total?: string;
+    free?: string;
+    used?: string;
+    usage?: number;
+}
 export interface severData {
     cpu?: cpu;
     mem?: mem;
     jvm?: jvm;
     sys?: sys;
+    sysFiles?: sysFiles;
 }

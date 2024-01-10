@@ -237,7 +237,7 @@
             <template #header>
                 <div class="m-1">
                     <el-icon>
-                        <svg-icon icon-class="sever" />
+                        <svg-icon icon-class="coffee-cup" />
                     </el-icon>
                     <span class="m-2">Java虚拟机信息</span>
                 </div>
@@ -317,7 +317,7 @@
             <template #header>
                 <div class="m-1">
                     <el-icon>
-                        <svg-icon icon-class="sever" />
+                        <svg-icon icon-class="receiving" />
                     </el-icon>
                     <span class="m-2">磁盘状态</span>
                 </div>

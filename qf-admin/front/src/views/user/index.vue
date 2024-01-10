@@ -53,7 +53,7 @@
                     <div class="card-context">
                         个人简介:&nbsp;&nbsp;
                         <span class="card-text"
-                            >一个全栈开发攻城狮!</span
+                            >做梦都想当全栈开发攻城狮的sin!</span
                         >
                     </div>
                 </div>
@@ -232,7 +232,7 @@ function onSubmitpwd() {}
 </script>
 <style lang="scss" scoped>
 .card-header {
-    font-size: 12px;
+    font-size: 17px;
     height: 10px;
     font-weight: bold;
 }
