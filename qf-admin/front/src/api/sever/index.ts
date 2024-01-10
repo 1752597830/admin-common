@@ -1,16 +1,13 @@
 import request from "@/utils/request";
 import { AxiosPromise } from "axios";
+import { severData } from "./types";
 /**
- * 获取角色分页数据
+ * 获取服务监控数据
  *
- * @param queryParams
  */
-// export function getRolePage(
-//     queryParams?: RoleQuery
-// ): AxiosPromise<RolePageResult> {
-//     return request({
-//         url: "/roles/page",
-//         method: "get",
-//         params: queryParams,
-//     });
-// }
+export function getSever(): AxiosPromise<severData> {
+    return request({
+        url: "/sever/a",
+        method: "get"
+    })
+}
