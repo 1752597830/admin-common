@@ -31,7 +31,6 @@ public class VerifyCodeFilter extends GenericFilterBean {
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
-        log.info("路径是： " + request.getServletPath());
         if ("POST".equalsIgnoreCase(request.getMethod()) && URLConstant.LOGIN_URL.equals(request.getServletPath())) {
             String captchaKey = request.getParameter(CaptchaConstant.CAPTCHA_KEY);
             String captchaCode = request.getParameter(CaptchaConstant.CAPTCHA_CODE);

@@ -1,11 +1,13 @@
 package com.qf.web.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qf.common.util.SecurityUtils;
 import com.qf.web.system.domain.entity.SysUser;
+import com.qf.web.system.domain.vo.UserInfoVo;
+import com.qf.web.system.mapper.SysUserMapper;
 import com.qf.web.system.service.SysPermissionService;
 import com.qf.web.system.service.SysRoleService;
 import com.qf.web.system.service.SysUserService;
-import com.qf.web.system.mapper.SysUserMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,26 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             List<String> perms = sysPermissionService.selectPermsByUserId(user.getId());
             user.setRoles(roles);
             user.setPerms(perms);
+        }
+        return user;
+    }
+
+    @Override
+    public UserInfoVo getUserInfo() {
+        SysUser userInfo = SecurityUtils.getUserInfo();
+        UserInfoVo user = new UserInfoVo();
+        if (userInfo != null) {
+            user.setUserId(userInfo.getId());
+            user.setUsername(userInfo.getUsername());
+            user.setNickname(userInfo.getNickname());
+            user.setAvatar(userInfo.getAvatar());
+            user.setEmail(userInfo.getEmail());
+            user.setMobile(userInfo.getMobile());
+            user.setGender(userInfo.getGender());
+            user.setContent(userInfo.getContent());
+            user.setCreateTime(userInfo.getCreateTime());
+            user.setRoles(userInfo.getRoles());
+            user.setPerms(userInfo.getPerms());
         }
         return user;
     }

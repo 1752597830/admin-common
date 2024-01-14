@@ -4,6 +4,9 @@ import com.qf.common.constant.URLConstant;
 import com.qf.common.util.BaseResponse;
 import com.qf.common.util.ServletUtils;
 import com.qf.filter.JwtAuthenticationTokenFilter;
+import com.qf.filter.VerifyCodeFilter;
+import com.qf.security.auth.MyauthorizationManager;
+import com.qf.security.exception.NoAuthenticationEntryPoint;
 import com.qf.security.handler.LoginFailHandler;
 import com.qf.security.handler.LoginSuccessHandler;
 import jakarta.annotation.Resource;
@@ -17,7 +20,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import com.qf.filter.VerifyCodeFilter;
 
 /**
  * @author : sin
@@ -30,6 +32,12 @@ import com.qf.filter.VerifyCodeFilter;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig {
 
+    /**
+     * 自定义权限校验
+     */
+    @Resource
+    private MyauthorizationManager authorizationManager;
+
     @Resource
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
@@ -41,6 +49,12 @@ public class SecurityConfig {
         http.authorizeHttpRequests(e -> e.requestMatchers(URLConstant.URLS).permitAll());
 
         /**
+         * @author: sin
+         * @Description 授权
+         */
+        http.authorizeHttpRequests(e -> e.anyRequest().access(authorizationManager));
+
+        /**
          * 配置自定义登录
          */
         http.formLogin(e -> e.loginPage(URLConstant.LOGIN_URL).successHandler(new LoginSuccessHandler()).failureHandler(new LoginFailHandler()));
@@ -48,10 +62,16 @@ public class SecurityConfig {
                     ServletUtils.renderString(response, BaseResponse.success("退出成功"));
                 })
         );
+
+        // 配置身份验证异常处理
+        http.exceptionHandling(e -> e.authenticationEntryPoint(new NoAuthenticationEntryPoint()));
+
         // 验证码拦截器
         http.addFilterBefore(new VerifyCodeFilter(), UsernamePasswordAuthenticationFilter.class);
+
         // jwt拦截器
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
         // 跨域漏洞防御 关闭
         http.csrf(e -> e.disable());
 

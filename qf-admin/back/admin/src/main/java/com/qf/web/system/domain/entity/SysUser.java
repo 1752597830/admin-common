@@ -1,15 +1,15 @@
 package com.qf.web.system.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import java.util.Collection;
-import java.util.List;
-
 import com.qf.common.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * 用户信息表
@@ -21,7 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @ToString
 public class SysUser extends BaseEntity  implements UserDetails {
     /**
-     *
+     * id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;

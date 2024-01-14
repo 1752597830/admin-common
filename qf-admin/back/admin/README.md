@@ -33,3 +33,16 @@ dto: 从前端获取数据
 + 配置端口等信息
 + 自定义Redis配置类
 + 封装RedisCache
+### 异常处理
++ BaseException 自定义异常类
++ globalException 全局异常处理类
++ NoAuthenticationEntryPoint Security异常处理类
+## 用户接口
+### 获取用户信息
++ 根据之前登录存放在Spring Security中的用户信息来获取
++ 封装SecurityUtils工具类来实现用户信息和权限的获取
++ 封装返回对象Vo
+> 需要授权操作才能访问 自定义处理时需要实现权限校验
+### Spring Security权限
++ 通过拦截器方式动态封装权限校验 MyauthorizationManager
++ 在config配置中添加权限校验
