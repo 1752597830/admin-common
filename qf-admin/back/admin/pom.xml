@@ -22,6 +22,7 @@
         <mysql.version>8.0.33</mysql.version>
         <fastjson.version>1.2.74</fastjson.version>
         <pagehelper.version>2.0.0</pagehelper.version>
+        <jwt.version>4.2.1</jwt.version>
     </properties>
 
     <dependencies>
@@ -77,6 +78,12 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>${pagehelper.version}</version>
+        </dependency>
+        <!--    jwt    -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${jwt.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

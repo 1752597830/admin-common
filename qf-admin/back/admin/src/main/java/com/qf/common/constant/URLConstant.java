@@ -30,7 +30,6 @@ public class URLConstant {
             ".js",
             "**.js",
             "/doc.html",
-            "/test",
             "/swagger-ui",
             "/swagger-ui/**",
             "/v3/api-docs",

@@ -47,3 +47,13 @@ mybatis-plus:
       logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
     ## 不启用mybatis-plus的banner
     banner: false
+# token配置
+token:
+  # 令牌自定义标识
+  header: Authorization
+  # 令牌前缀
+  prefix: Bearer
+  # 令牌密钥
+  secret: qf123
+  # 令牌有效期（默认30分钟）
+  expireTime: 3000000

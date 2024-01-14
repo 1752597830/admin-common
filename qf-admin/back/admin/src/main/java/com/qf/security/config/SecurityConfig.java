@@ -3,8 +3,10 @@ package com.qf.security.config;
 import com.qf.common.constant.URLConstant;
 import com.qf.common.util.BaseResponse;
 import com.qf.common.util.ServletUtils;
+import com.qf.filter.JwtAuthenticationTokenFilter;
 import com.qf.security.handler.LoginFailHandler;
 import com.qf.security.handler.LoginSuccessHandler;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author : sin
@@ -25,6 +28,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig {
+
+    @Resource
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -41,7 +47,7 @@ public class SecurityConfig {
                     ServletUtils.renderString(response, BaseResponse.success("退出成功"));
                 })
         );
-
+        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 跨域漏洞防御 关闭
         http.csrf(e -> e.disable());
 

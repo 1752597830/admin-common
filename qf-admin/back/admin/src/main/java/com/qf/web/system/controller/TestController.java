@@ -20,7 +20,7 @@ public class TestController {
     @GetMapping("/test")
     public String test(){
         SysUser sysUser = sysUserService.selectByUsername("admin");
-        System.out.println(sysUser);
+        //System.out.println(sysUser);
         return "test";
     }
 }
