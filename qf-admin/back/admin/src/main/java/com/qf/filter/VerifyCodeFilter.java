@@ -1,10 +1,9 @@
 package com.qf.filter;
 
 import com.qf.common.constant.CaptchaConstant;
+import com.qf.common.constant.RedisConstant;
 import com.qf.common.constant.URLConstant;
-import com.qf.common.util.BaseResponse;
-import com.qf.common.util.ResponseCode;
-import com.qf.common.util.ServletUtils;
+import com.qf.common.util.*;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -27,7 +26,6 @@ import java.io.IOException;
 @Slf4j
 public class VerifyCodeFilter extends GenericFilterBean {
 
-
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
@@ -38,7 +36,7 @@ public class VerifyCodeFilter extends GenericFilterBean {
             String captchaKey = request.getParameter(CaptchaConstant.CAPTCHA_KEY);
             String captchaCode = request.getParameter(CaptchaConstant.CAPTCHA_CODE);
             // TODO 验证码校验 与redis数据比较
-            if (StringUtils.isEmpty(captchaCode) || StringUtils.isEmpty(captchaKey) || !"10".equals(captchaCode)) {
+            if (StringUtils.isEmpty(captchaCode) || StringUtils.isEmpty(captchaKey) || !captchaCode.equals(BeanUtils.getBean(RedisCache.class).getCacheObject(RedisConstant.REDIS_CAPTCHA_PREFIX + captchaKey))) {
                 ServletUtils.renderString(response, BaseResponse.fail(ResponseCode.VERIFY_CODE_ERROR.getCode(), ResponseCode.VERIFY_CODE_ERROR.getMsg()));
                 return;
             }

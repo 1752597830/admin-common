@@ -28,3 +28,8 @@ dto: 从前端获取数据
 + 封装常量池存放验证码需要的数据(位数、长度、宽度)
 + 封装验证码拦截器 VerifyCodeFilter
 + 添加拦截器到SpringSecurity配置类中，拦截器拦截到请求，判断是否登录，未登录则拦截，登录则放行(放在UsernamePasswordAuthenticationFilter前面)
+### 配置Redis
++ 引入相关依赖
++ 配置端口等信息
++ 自定义Redis配置类
++ 封装RedisCache

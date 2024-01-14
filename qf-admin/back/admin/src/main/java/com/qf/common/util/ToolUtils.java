@@ -1,6 +1,7 @@
 package com.qf.common.util;
 
 import com.qf.common.constant.CaptchaConstant;
+import com.qf.common.constant.RedisConstant;
 import com.wf.captcha.ArithmeticCaptcha;
 
 import java.util.HashMap;
@@ -36,9 +37,10 @@ public class ToolUtils {
         UUID uuid = UUID.randomUUID();
         // 算术类型
         ArithmeticCaptcha captcha = new ArithmeticCaptcha(CaptchaConstant.CAPTCHA_IMAGE_WIDTH, CaptchaConstant.CAPTCHA_IMAGE_HEIGHT);
-        captcha.setLen(CaptchaConstant.CAPTCHA_LENGTH);  // 几位数运算，默认是两位
-        String result = captcha.text();  // 获取运算的结果：5
-        // TODO 运算结果存储到redis
+        captcha.setLen(CaptchaConstant.CAPTCHA_LENGTH);
+        String result = captcha.text();
+        RedisCache redisCache = BeanUtils.getBean(RedisCache.class);
+        redisCache.setCacheObject(RedisConstant.REDIS_CAPTCHA_PREFIX + uuid, result);
 
         String base64 = captcha.toBase64();
         Map<String, String> map = new HashMap<>();

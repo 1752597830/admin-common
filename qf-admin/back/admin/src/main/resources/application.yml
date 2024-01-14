@@ -4,13 +4,25 @@ server:
     context-path: /api/v1
 spring:
   application:
-    name: blog-admin
+    name: admin-init
   mvc:
     throw-exception-if-no-handler-found: true
     resources:
       add-mappings: false
   profiles:
     active: druid
+  data:
+    redis:
+      host: 192.168.1.110
+      port: 6379
+      timeout: 10000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1ms
+          max-idle: 8
+          min-idle: 0
+      password: qingfeng
 # springdoc-openapi项目配置
 springdoc:
   swagger-ui:

@@ -8,6 +8,7 @@
     <packaging>jar</packaging>
 
     <name>admin</name>
+    <description>admin-init</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -98,6 +99,11 @@
             <groupId>org.openjdk.nashorn</groupId>
             <artifactId>nashorn-core</artifactId>
             <version>${nashorn.version}</version>
+        </dependency>
+        <!--   Redis     -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
