@@ -2,6 +2,7 @@ package com.qf.web.system.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.io.Serializable;
  */
 @TableName(value ="sys_user_role")
 @Data
+@AllArgsConstructor
 public class SysUserRole implements Serializable {
     /**
      * 用户ID

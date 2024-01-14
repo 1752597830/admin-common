@@ -1,15 +1,24 @@
 package com.qf.web.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qf.common.constant.CommonConstant;
+import com.qf.common.exception.BaseException;
+import com.qf.common.util.ResponseCode;
 import com.qf.common.util.SecurityUtils;
+import com.qf.web.system.domain.entity.SysRolePermission;
 import com.qf.web.system.domain.entity.SysUser;
+import com.qf.web.system.domain.entity.SysUserRole;
+import com.qf.web.system.domain.form.UserForm;
 import com.qf.web.system.domain.vo.UserInfoVo;
+import com.qf.web.system.mapper.SysRolePermissionMapper;
 import com.qf.web.system.mapper.SysUserMapper;
+import com.qf.web.system.mapper.SysUserRoleMapper;
 import com.qf.web.system.service.SysPermissionService;
 import com.qf.web.system.service.SysRoleService;
 import com.qf.web.system.service.SysUserService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +36,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
     @Resource
     SysRoleService sysRoleService;
+
+    @Resource
+    SysUserRoleMapper userRoleMapper;
+
+    @Resource
+    SysRolePermissionMapper rolePermissionMapper;
 
     @Resource
     SysPermissionService sysPermissionService;
@@ -68,8 +83,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         }
         return user;
     }
+
+    @Override
+    @Transactional
+    public void addUser(UserForm userForm) {
+        try {
+            SysUser user = new SysUser(null, userForm.getUsername(), userForm.getNickname(), userForm.getGender(), CommonConstant.PASSWORD, userForm.getAvatar(), userForm.getMobile(), 1, userForm.getEmail(), 0, "");
+            sysUserMapper.insert(user);
+            userRoleMapper.insert(new SysUserRole(user.getId(), 2L));
+            rolePermissionMapper.insert(new SysRolePermission(2L, user.getId()));
+        } catch (Exception e) {
+            throw new BaseException(ResponseCode.OPT_ERROR.getCode(), CommonConstant.ADD + CommonConstant.USER + CommonConstant.ERROR);
+        }
+    }
 }
-
-
-
-

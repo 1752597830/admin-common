@@ -2,6 +2,7 @@ package com.qf.web.system.service;
 
 import com.qf.web.system.domain.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qf.web.system.domain.form.UserForm;
 import com.qf.web.system.domain.vo.UserInfoVo;
 
 /**
@@ -14,4 +15,6 @@ public interface SysUserService extends IService<SysUser> {
     SysUser selectByUsername(String username);
 
     UserInfoVo getUserInfo();
+
+    void addUser(UserForm userForm);
 }

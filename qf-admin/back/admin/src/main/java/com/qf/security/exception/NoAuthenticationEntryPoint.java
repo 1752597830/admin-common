@@ -22,7 +22,6 @@ public class NoAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) {
         log.info("认证异常");
         int status = response.getStatus();
-        System.out.println(status);
         if (status == HttpServletResponse.SC_NOT_FOUND) {
             // 资源不存在
             ServletUtils.renderString(response, BaseResponse.fail(ResponseCode.NO_EXIST.getCode(), ResponseCode.NO_EXIST.getMsg()));

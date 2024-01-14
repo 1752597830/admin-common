@@ -42,6 +42,7 @@ public class MyauthorizationManager implements AuthorizationManager<RequestAutho
         if (ToolUtils.contains(requestURI, URLConstant.URLS)) {
             return new AuthorizationDecision(true);
         }
+        // TODO 通过动态判断权限访问来实现权限校验 比注解方式更加灵活
         //查询当前请求的接口需要哪些权限能访问
         //List<SysPermission> permissions = BeanUtils.getBean(SysPermissionService.class).selectAll();
         //for (SysPermission permission : permissions) {

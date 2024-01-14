@@ -15,7 +15,10 @@ public enum ResponseCode {
     NO_PERMISSION(403, "权限不足，请联系管理员!"),
     NO_ACCESS(504, "没有访问权限"),
     NO_DATA(505, "没有数据"),
-    NO_EXIST(404, "资源不存在");
+    NO_EXIST(404, "资源不存在"),
+
+    //数据库操作错误码
+    OPT_ERROR(1001, "");
 
     private Integer code;
 
