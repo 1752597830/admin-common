@@ -1,5 +1,5 @@
 import { useUserStoreHook } from '@/store/modules/user';
-import axios, { InternalAxiosRequestConfig,AxiosResponse } from 'axios'
+import axios, { InternalAxiosRequestConfig, AxiosResponse } from 'axios'
 import { ElMessage, ElMessageBox } from 'element-plus'
 // 创建axios实例
 const service = axios.create({
@@ -27,7 +27,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     (response: AxiosResponse) => {
         const { code, msg } = response.data;
-        if (code === "00000") {
+        if (code === 200) {
             return response.data;
         }
         // 响应数据为二进制流处理(Excel导出)
@@ -47,10 +47,10 @@ service.interceptors.response.use(
                     confirmButtonText: "确定",
                     type: "warning",
                 }).then(() => {
-                    // const userStore = useUserStoreHook();
-                    // userStore.resetToken().then(() => {
-                    //     location.reload();
-                    // });
+                    const userStore = useUserStoreHook();
+                    userStore.resetToken().then(() => {
+                        location.reload();
+                    });
                 });
             } else {
                 ElMessage.error(msg || "系统出错");

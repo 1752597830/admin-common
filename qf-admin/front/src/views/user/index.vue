@@ -53,7 +53,7 @@
                     <div class="card-context">
                         个人简介:&nbsp;&nbsp;
                         <span class="card-text"
-                            >做梦都想当全栈开发攻城狮的sin!</span
+                            >做梦都想当架构师的sin</span
                         >
                     </div>
                 </div>
