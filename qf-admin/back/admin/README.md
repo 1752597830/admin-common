@@ -22,3 +22,9 @@ dto: 从前端获取数据
 + 封装JWT工具类 JwtUtil 生成和解析token
 + 自定义JwtAuthentication用于解析token中获取到的用户信息 (Authentication及其实现类的大部分属性没有提供setter方法)
 + 添加拦截器到SpringSecurity配置类中，拦截器拦截到请求，判断是否登录，未登录则拦截，登录则放行(放在UsernamePasswordAuthenticationFilter前面)
+### 验证码拦截器
++ 引入相关依赖
++ 封装验证码生成工具(放在通用工具类中)
++ 封装常量池存放验证码需要的数据(位数、长度、宽度)
++ 封装验证码拦截器 VerifyCodeFilter
++ 添加拦截器到SpringSecurity配置类中，拦截器拦截到请求，判断是否登录，未登录则拦截，登录则放行(放在UsernamePasswordAuthenticationFilter前面)

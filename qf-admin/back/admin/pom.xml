@@ -23,6 +23,8 @@
         <fastjson.version>1.2.74</fastjson.version>
         <pagehelper.version>2.0.0</pagehelper.version>
         <jwt.version>4.2.1</jwt.version>
+        <captcha.version>1.6.2</captcha.version>
+        <nashorn.version>15.4</nashorn.version>
     </properties>
 
     <dependencies>
@@ -84,6 +86,18 @@
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
             <version>${jwt.version}</version>
+        </dependency>
+        <!-- 验证码 -->
+        <dependency>
+            <groupId>com.github.whvcse</groupId>
+            <artifactId>easy-captcha</artifactId>
+            <version>${captcha.version}</version>
+        </dependency>
+        <!--不加验证码会报 Cannot invoke "javax.script.ScriptEngine.eval(String)" because "engine" is null-->
+        <dependency>
+            <groupId>org.openjdk.nashorn</groupId>
+            <artifactId>nashorn-core</artifactId>
+            <version>${nashorn.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

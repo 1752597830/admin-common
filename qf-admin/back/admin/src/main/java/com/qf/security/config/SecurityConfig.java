@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import com.qf.filter.VerifyCodeFilter;
 
 /**
  * @author : sin
@@ -47,6 +48,9 @@ public class SecurityConfig {
                     ServletUtils.renderString(response, BaseResponse.success("退出成功"));
                 })
         );
+        // 验证码拦截器
+        http.addFilterBefore(new VerifyCodeFilter(), UsernamePasswordAuthenticationFilter.class);
+        // jwt拦截器
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 跨域漏洞防御 关闭
         http.csrf(e -> e.disable());
