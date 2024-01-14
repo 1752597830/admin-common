@@ -1,5 +1,10 @@
 package com.qf.security.config;
 
+import com.qf.common.constant.URLConstant;
+import com.qf.common.util.BaseResponse;
+import com.qf.common.util.ServletUtils;
+import com.qf.security.handler.LoginFailHandler;
+import com.qf.security.handler.LoginSuccessHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +28,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        /**
+         * 配置放行的访问接口
+         */
+        http.authorizeHttpRequests(e -> e.requestMatchers(URLConstant.URLS).permitAll());
 
-        http.formLogin(e -> e.loginPage("/login"));
+        /**
+         * 配置自定义登录
+         */
+        http.formLogin(e -> e.loginPage(URLConstant.LOGIN_URL).successHandler(new LoginSuccessHandler()).failureHandler(new LoginFailHandler()));
+        http.logout(e -> e.logoutUrl(URLConstant.LOGOUT_URL).logoutSuccessHandler((request, response, authentication) -> {
+                    ServletUtils.renderString(response, BaseResponse.success("退出成功"));
+                })
+        );
 
         // 跨域漏洞防御 关闭
         http.csrf(e -> e.disable());

@@ -69,8 +69,20 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="SysUser" />
-                  <option name="tableName" value="sys_user" />
+                  <option name="className" value="SysRole" />
+                  <option name="tableName" value="sys_role" />
+                </TableUIInfo>
+                <TableUIInfo>
+                  <option name="className" value="SysPermission" />
+                  <option name="tableName" value="sys_permission" />
+                </TableUIInfo>
+                <TableUIInfo>
+                  <option name="className" value="SysUserRole" />
+                  <option name="tableName" value="sys_user_role" />
+                </TableUIInfo>
+                <TableUIInfo>
+                  <option name="className" value="SysRolePermission" />
+                  <option name="tableName" value="sys_role_permission" />
                 </TableUIInfo>
               </list>
             </option>

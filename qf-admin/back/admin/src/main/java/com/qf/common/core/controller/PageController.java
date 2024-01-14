@@ -7,6 +7,7 @@ import com.qf.common.core.page.PageResult;
 import com.qf.common.util.BaseResponse;
 import com.qf.common.util.ResponseCode;
 import com.qf.common.util.ServletUtils;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @date : 2024/1/14 12:27
  * @Description : 分页处理控制层
  */
+@RestController
 public class PageController {
     /* 当前记录起始索引 */
     public static final String PAGE_NUM = "pageNum";
