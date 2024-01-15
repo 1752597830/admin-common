@@ -471,8 +471,7 @@ const roleList = ref<OptionType[]>(); // 角色下拉数据源
 
 watch(dateTimeRange, (newVal) => {
     if (newVal) {
-        queryParams.startTime = newVal[0];
-        queryParams.endTime = newVal[1];
+        
     }
 });
 const loading = ref(false);
@@ -498,8 +497,6 @@ function resetQuery() {
     queryFormRef.value.resetFields();
     dateTimeRange.value = "";
     queryParams.pageNum = 1;
-    queryParams.startTime = undefined;
-    queryParams.endTime = undefined;
     handleQuery();
 }
 /** 取消选择 */
