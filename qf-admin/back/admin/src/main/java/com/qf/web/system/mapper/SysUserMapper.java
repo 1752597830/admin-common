@@ -16,6 +16,8 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     @Select("select id,username,nickname,gender,password,avatar,mobile,status,email,is_deleted,content from sys_user where username = #{username}")
     SysUser selectByUsername(String username);
+
+    int updateUserById(Long userId, String nickname, Integer gender, String avatar, String mobile, String email,Integer status);
 }
 
 

@@ -1,5 +1,6 @@
 package com.qf.web.system.controller;
 
+import com.qf.common.core.controller.BaseController;
 import com.qf.common.util.BaseResponse;
 import com.qf.web.system.domain.form.UserForm;
 import com.qf.web.system.domain.vo.UserInfoVo;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/users")
 @Slf4j
-public class UserController {
+public class UserController extends BaseController {
     @Resource
     private SysUserService userService;
 
@@ -34,7 +35,16 @@ public class UserController {
     @PostMapping("")
     public BaseResponse addUser(@RequestBody UserForm userForm) {
         log.info(userForm.toString());
-        userService.addUser(userForm);
-        return BaseResponse.success();
+        int row = userService.addUser(userForm);
+        return isOk(row);
+    }
+
+    @Schema(title = "修改用户")
+    @PutMapping("/{userId}")
+    public BaseResponse update(@PathVariable Long userId, @RequestBody UserForm userForm) {
+        log.info("修改用户,{userForm}" + userForm);
+        log.info("修改用户,{userId}" + userId);
+        int row = userService.updateByUserId(userId, userForm);
+        return isOk(row);
     }
 }

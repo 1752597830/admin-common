@@ -41,11 +41,17 @@ public class ToolUtils {
         String result = captcha.text();
         RedisCache redisCache = BeanUtils.getBean(RedisCache.class);
         redisCache.setCacheObject(RedisConstant.REDIS_CAPTCHA_PREFIX + uuid, result);
-
         String base64 = captcha.toBase64();
         Map<String, String> map = new HashMap<>();
         map.put(CaptchaConstant.CAPTCHA_KEY, String.valueOf(uuid));
         map.put(CaptchaConstant.CAPTCHA_CODE, base64);
         return map;
+    }
+    /**
+     * @author: sin
+     * @Description 增删改 判断 是否成功
+     */
+    public static boolean isOk(int rows) {
+        return rows > 0;
     }
 }

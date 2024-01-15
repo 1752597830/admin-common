@@ -9,5 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2024-01-14 15:48:48
 */
 public interface SysUserRoleService extends IService<SysUserRole> {
+    int insert(Long userId, Long roleId);
 
+    int updateRoleByUserId(Long userId, Long roleId);
 }

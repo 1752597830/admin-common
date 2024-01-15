@@ -1,5 +1,8 @@
 vo: 返回数据给前端
 dto: 从前端获取数据
+# Spring Security + vue3 前后端分离项目
+后端：
+> 采用技术栈: Spring Security + SpringBoot + JWT + MybatisPlus + MybatisX + Redis 
 ## Spring Security前后端分离自定义登录
 ### 初始化项目
 + 创建项目
@@ -46,3 +49,7 @@ dto: 从前端获取数据
 ### Spring Security权限
 + 通过拦截器方式动态封装权限校验 MyauthorizationManager
 + 在config配置中添加权限校验
+### 新增用户
++ UserForm表单获取数据
++ 插入时使用事务进行处理(@Transactional)，防止数据插入失败
++ 用自定义异常进行处理插入失败的状态

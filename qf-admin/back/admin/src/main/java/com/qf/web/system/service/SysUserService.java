@@ -16,5 +16,7 @@ public interface SysUserService extends IService<SysUser> {
 
     UserInfoVo getUserInfo();
 
-    void addUser(UserForm userForm);
+    int addUser(UserForm userForm);
+
+    int updateByUserId(Long userId,UserForm userForm);
 }

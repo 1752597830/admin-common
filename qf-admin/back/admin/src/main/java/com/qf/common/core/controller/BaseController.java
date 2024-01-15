@@ -17,7 +17,7 @@ import java.util.List;
  * @Description : 分页处理控制层
  */
 @RestController
-public class PageController {
+public class BaseController {
     /* 当前记录起始索引 */
     public static final String PAGE_NUM = "pageNum";
 
@@ -61,7 +61,7 @@ public class PageController {
      * 响应返回结果
      * 针对增删改操作  判断rows
      */
-    protected BaseResponse toAjax(int rows){
+    protected BaseResponse isOk(int rows){
         return rows > 0 ? BaseResponse.success(rows) : BaseResponse.fail("操作失败");
     }
 }
