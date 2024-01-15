@@ -12,6 +12,11 @@ public class CaptchaConstant {
     public static final String CAPTCHA_CODE = "captchaCode";
 
     /**
+     * 验证码Base64
+     */
+    public static final String CAPTCHA_BASE64 = "captchaBase64";
+
+    /**
      * 验证码key
      */
     public static final String CAPTCHA_KEY = "captchaKey";

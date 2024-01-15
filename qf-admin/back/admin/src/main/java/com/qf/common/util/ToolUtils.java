@@ -44,7 +44,7 @@ public class ToolUtils {
         String base64 = captcha.toBase64();
         Map<String, String> map = new HashMap<>();
         map.put(CaptchaConstant.CAPTCHA_KEY, String.valueOf(uuid));
-        map.put(CaptchaConstant.CAPTCHA_CODE, base64);
+        map.put(CaptchaConstant.CAPTCHA_BASE64, base64);
         return map;
     }
     /**

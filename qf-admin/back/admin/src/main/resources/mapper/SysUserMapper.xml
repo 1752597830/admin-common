@@ -53,4 +53,34 @@
         </set>
         where id = #{userId}
     </update>
+    <update id="deleteByUserId" parameterType="java.util.List">
+        update sys_user set is_deleted = 1 WHERE id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    <update id="resetPassword">
+        update sys_user set password = #{password} where id = #{userId}
+    </update>
+    <select id="queryUser" resultType="com.qf.web.system.domain.vo.UserPageVo">
+        select id,username,nickname,mobile,gender,avatar,email,status,create_time
+        from sys_user
+        <where>
+            <if test="username!= null and username!= ''">
+                and username = #{username}
+            </if>
+            <if test="phone!= null and phone!= ''">
+                or phone = #{phone}
+            </if>
+            <if test="status!= null and status!= ''">
+                and status = #{status}
+            </if>
+        </where>
+        group by id
+    </select>
+    <select id="getUserFormByUid" resultType="com.qf.web.system.domain.form.UserForm">
+        select id,username,nickname,mobile,gender,avatar,email,status
+        from sys_user
+        where id = #{uid}
+    </select>
 </mapper>

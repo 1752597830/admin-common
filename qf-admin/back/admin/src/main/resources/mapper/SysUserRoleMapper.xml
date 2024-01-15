@@ -23,4 +23,10 @@
         set role_id = #{roleId}
         where user_id = #{userId}
     </update>
+    <select id="selectRoleIdByUserId" resultType="java.lang.Long">
+        select r.id
+        from sys_role r
+        where r.deleted = 0
+          and r.id in (select ur.role_id from sys_user_role ur where ur.user_id = #{userId})
+    </select>
 </mapper>

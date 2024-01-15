@@ -6,16 +6,23 @@ import com.qf.common.exception.BaseException;
 import com.qf.common.util.ResponseCode;
 import com.qf.common.util.SecurityUtils;
 import com.qf.common.util.ToolUtils;
+import com.qf.web.system.domain.dto.UserSearchDto;
 import com.qf.web.system.domain.entity.SysUser;
 import com.qf.web.system.domain.form.UserForm;
 import com.qf.web.system.domain.vo.UserInfoVo;
+import com.qf.web.system.domain.vo.UserPageVo;
 import com.qf.web.system.mapper.SysUserMapper;
-import com.qf.web.system.service.*;
+import com.qf.web.system.service.SysPermissionService;
+import com.qf.web.system.service.SysRoleService;
+import com.qf.web.system.service.SysUserRoleService;
+import com.qf.web.system.service.SysUserService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 清风
@@ -37,6 +44,23 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
     @Resource
     SysPermissionService sysPermissionService;
+
+    /**
+     * @param userId 用户id
+     * @return UserForm
+     * @description 根据用户id查询用户信息
+     */
+    @Override
+    public UserForm getUserFormByUid(Long userId) {
+        UserForm userForm = sysUserMapper.getUserFormByUid(userId);
+        if (userForm!= null) {
+            List<Long> rolesId = userRoleService.selectRoleIdByUserId(userId);
+            userForm.setRoleIds(rolesId);
+        } else {
+            throw new BaseException(ResponseCode.OPT_ERROR.getCode(), CommonConstant.SELECT + CommonConstant.USER + CommonConstant.ERROR);
+        }
+        return userForm;
+    }
 
     /**
      * @param username 用户名
@@ -134,6 +158,71 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             userRoleService.updateRoleByUserId(userId, userForm.getRoleIds().get(0));
         } catch (Exception e) {
             throw new BaseException(ResponseCode.OPT_ERROR.getCode(), CommonConstant.EDIT + CommonConstant.USER + CommonConstant.ERROR);
+        }
+        return 1;
+    }
+    /**
+     * @author: sin
+     * @Description 逻辑删除用户 修改is_deleted字段值为1
+     */
+    @Override
+    @Transactional
+    public int deleteByUserId(String ids) {
+        try {
+            List<Long> userIds = Arrays.stream(ids.split(",")).map(Long::valueOf).collect(Collectors.toList());
+            deleteByUserId(userIds);
+        } catch (Exception e) {
+            throw new BaseException(ResponseCode.OPT_ERROR.getCode(), CommonConstant.DELETE + CommonConstant.USER + CommonConstant.ERROR);
+        }
+        return 1;
+    }
+
+    /**
+     * @author: sin
+     * @Description 重置用户密码
+     */
+    @Override
+    public int resetPasswordByUserId(Long userId) {
+        try {
+            resetPassword(userId);
+        } catch (Exception e) {
+            throw new BaseException(ResponseCode.OPT_ERROR.getCode(), CommonConstant.RESET_PASSWORD + CommonConstant.USER + CommonConstant.ERROR);
+        }
+        return 1;
+    }
+
+    /**
+     * @param userSearch 用户搜索条件
+     * @return java.util.List<com.qf.web.system.domain.vo.UserPageVo>
+     * @description 获取分页用户
+     */
+    @Override
+    public List<UserPageVo> getUserPage(UserSearchDto userSearch) {
+        try {
+            return sysUserMapper.queryUser(userSearch.getUsername(),userSearch.getPhone(),userSearch.getStatus());
+        } catch (Exception e) {
+            throw new BaseException(ResponseCode.OPT_ERROR.getCode(), CommonConstant.SELECT + CommonConstant.USER + CommonConstant.ERROR);
+        }
+    }
+
+    /**
+     * @param userIds 用户id集合
+     * @description 根据用户id集合删除用户
+     */
+    private int deleteByUserId(List<Long> userIds) {
+        if (!ToolUtils.isOk(sysUserMapper.deleteByUserId(userIds))) {
+            throw new BaseException(ResponseCode.OPT_ERROR.getCode(), CommonConstant.DELETE + CommonConstant.USER + CommonConstant.ERROR);
+        }
+        return 1;
+    }
+
+    /**
+     * @author: sin
+     * @Description 根据id重置密码
+     */
+    private int resetPassword(Long userId) {
+        if (!ToolUtils.isOk(sysUserMapper.resetPassword(userId, CommonConstant.PASSWORD))) {
+            throw new BaseException(ResponseCode.OPT_ERROR.getCode(), CommonConstant.RESET_PASSWORD + CommonConstant.USER + CommonConstant.ERROR);
         }
         return 1;
     }

@@ -11,6 +11,8 @@ import com.qf.web.system.service.SysUserRoleService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
 * @author 清风
 * @description 针对表【sys_user_role(用户和角色关联表)】的数据库操作Service实现
@@ -50,6 +52,15 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
             throw new BaseException(ResponseCode.OPT_ERROR.getCode(), CommonConstant.EDIT + CommonConstant.USER + CommonConstant.ERROR);
         }
         return 1;
+    }
+
+    /**
+     * @author: sin
+     * @Description 根据用户ID获取角色ID列表
+     */
+    @Override
+    public List<Long> selectRoleIdByUserId(Long userId) {
+        return userRoleMapper.selectRoleIdByUserId(userId);
     }
 }
 

@@ -38,10 +38,7 @@ export interface UserQuery extends PageQuery {
     username?: string;
     phone?: string;
     status?: number;
-    startTime?: string;
-    endTime?: string;
 }
-
 /**
  * 用户分页对象
  */
@@ -61,7 +58,7 @@ export interface UserPageVO {
     /**
      * 性别
      */
-    genderLabel?: string;
+    gender?: string;
     /**
      * 用户ID
      */
@@ -74,10 +71,6 @@ export interface UserPageVO {
      * 用户昵称
      */
     nickname?: string;
-    /**
-     * 角色名称，多个使用英文逗号(,)分割
-     */
-    roleNames?: string;
     /**
      * 用户状态(1:启用;0:禁用)
      */

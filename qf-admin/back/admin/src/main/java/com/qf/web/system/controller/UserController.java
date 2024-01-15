@@ -2,14 +2,19 @@ package com.qf.web.system.controller;
 
 import com.qf.common.core.controller.BaseController;
 import com.qf.common.util.BaseResponse;
+import com.qf.web.system.domain.dto.UserSearchDto;
 import com.qf.web.system.domain.form.UserForm;
 import com.qf.web.system.domain.vo.UserInfoVo;
+import com.qf.web.system.domain.vo.UserPageVo;
 import com.qf.web.system.service.SysUserService;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author : sin
@@ -40,11 +45,42 @@ public class UserController extends BaseController {
     }
 
     @Schema(title = "修改用户")
-    @PutMapping("/{userId}")
-    public BaseResponse update(@PathVariable Long userId, @RequestBody UserForm userForm) {
+    @PutMapping("/{id}")
+    public BaseResponse update(@PathVariable Long id, @RequestBody UserForm userForm) {
         log.info("修改用户,{userForm}" + userForm);
-        log.info("修改用户,{userId}" + userId);
-        int row = userService.updateByUserId(userId, userForm);
+        log.info("修改用户,{userId}" + id);
+        int row = userService.updateByUserId(id, userForm);
         return isOk(row);
+    }
+
+    @Schema(title = "删除用户")
+    @DeleteMapping("/{ids}")
+    public BaseResponse delete(@PathVariable String ids) {
+        log.info("删除用户,{ids}" + ids);
+        int row = userService.deleteByUserId(ids);
+        return isOk(row);
+    }
+
+    @Schema(title = "重置密码")
+    @PatchMapping("/{id}/password")
+    public BaseResponse resetPassword(@PathVariable Long id) {
+        log.info("重置密码,{userId}" + id);
+        int row = userService.resetPasswordByUserId(id);
+        return isOk(row);
+    }
+
+    @Schema(title = "获取分页用户")
+    @GetMapping("/page")
+    public BaseResponse getUserPage(@RequestBody UserSearchDto userSearch) {
+        startPage();
+        List<UserPageVo> userPageVoList = userService.getUserPage(userSearch);
+        return BaseResponse.success(getData(userPageVoList));
+    }
+
+    @Schema(title = "根据uid获取用户信息")
+    @GetMapping("/{userId}/form")
+    public BaseResponse getUserByUid(@Parameter(description = "用户ID") @PathVariable Long userId) {
+        UserForm form = userService.getUserFormByUid(userId);
+        return BaseResponse.success(form);
     }
 }

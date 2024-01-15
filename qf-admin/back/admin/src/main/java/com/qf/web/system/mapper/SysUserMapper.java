@@ -1,9 +1,13 @@
 package com.qf.web.system.mapper;
 
-import com.qf.web.system.domain.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.qf.web.system.domain.entity.SysUser;
+import com.qf.web.system.domain.form.UserForm;
+import com.qf.web.system.domain.vo.UserPageVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
 * @author 清风
@@ -18,6 +22,14 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     SysUser selectByUsername(String username);
 
     int updateUserById(Long userId, String nickname, Integer gender, String avatar, String mobile, String email,Integer status);
+
+    int deleteByUserId(List<Long> userIds);
+
+    int resetPassword(Long userId, String password);
+
+    List<UserPageVo> queryUser(String username, String phone, Integer status);
+
+    UserForm getUserFormByUid(Long uid);
 }
 
 

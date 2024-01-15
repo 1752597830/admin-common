@@ -2,9 +2,8 @@ package com.qf.web.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qf.web.system.domain.entity.SysRole;
-import com.qf.web.system.service.SysPermissionService;
-import com.qf.web.system.service.SysRoleService;
 import com.qf.web.system.mapper.SysRoleMapper;
+import com.qf.web.system.service.SysRoleService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +20,13 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole>
 
     @Resource
     SysRoleMapper sysRoleMapper;
-    @Resource
-    SysPermissionService sysPermissionService;
+
+    /**
+     * @author: sin
+     * @Description 根据用户id获取角色
+     * @param uid 用户id
+     * @return
+     */
     @Override
     public List<String> selectRoleByUserId(Long uid) {
         return sysRoleMapper.selectRoleByUserId(uid);

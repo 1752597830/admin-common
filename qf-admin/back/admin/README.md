@@ -56,3 +56,22 @@ dto: 从前端获取数据
 > 封装增删改异常或失败处理
 + ToolUtils中自定义处理方法isOk
 + 判断结构抛出异常，全局捕获处理
+### 获取当前用户信息
++ 封装UserInfoVo(获取用户信息响应对象)
++ 解析Security中存储的数据 封装SecurityUtils获取登录时存储的用户信息
+### 修改用户
++ UserForm表单获取数据
++ 修改时使用事务进行处理(@Transactional)，防止数据修改失败
++ 判断结构抛出异常，全局捕获处理
+### 删除用户
++ 根据uid删除用户
++ 进行逻辑删除 修改字段is_deleted为1
+### 分页用户
++ 封装分页对象 UserPageVo
++ BaseController中获取分页的pageSize和pageNum,封装PageHelp的startPage方法
++ 分页查询用户信息
+### 重置用户密码
++ 根据用户id重置用户密码
++ 修改时使用事务进行处理(@Transactional)，防止数据修改失败
+### 根据uid获取用户信息
++ UserForm(获取用户信息响应对象)
