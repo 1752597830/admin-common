@@ -108,6 +108,7 @@ export interface UserForm {
      * 用户ID
      */
     id?: number;
+    
     mobile?: string;
     /**
      * 昵称
