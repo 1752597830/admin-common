@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,9 +43,6 @@ public class UserInfoVo {
 
     @Schema(description = "用户个人简介")
     private String content;
-
-    @Schema(description = "创建时间")
-    private Date createTime;
 
     /**
      * 用户角色列表

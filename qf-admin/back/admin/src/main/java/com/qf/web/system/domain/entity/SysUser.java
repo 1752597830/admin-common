@@ -165,5 +165,4 @@ public class SysUser extends BaseEntity  implements UserDetails {
         this.isDeleted = isDeleted;
         this.content = content;
     }
-
 }

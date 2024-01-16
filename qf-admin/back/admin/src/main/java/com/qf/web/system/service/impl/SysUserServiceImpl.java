@@ -101,7 +101,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
                     userInfo.getEmail(),
                     userInfo.getMobile(),
                     userInfo.getContent(),
-                    userInfo.getCreateTime(),
                     userInfo.getRoles(),
                     userInfo.getPerms());
             return user;
