@@ -13,20 +13,11 @@ import lombok.Data;
 @Data
 public class RoleForm {
 
-    @Schema(description="角色ID")
-    private Long id;
-
     @Schema(description="角色名称")
     private String name;
 
     @Schema(description="角色编码")
     private String code;
-
-    @Schema(description="排序")
-    private Integer sort;
-
-    @Schema(description="角色状态(1-正常；0-停用)")
-    private Integer status;
 
     @Schema(description = "备注信息")
     private String remark;

@@ -2,9 +2,9 @@ package com.qf.web.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.qf.web.system.domain.entity.SysRole;
-import com.qf.web.system.domain.form.RoleForm;
 import com.qf.web.system.domain.vo.OptionsVo;
 import com.qf.web.system.domain.vo.RolePageVo;
+import com.qf.web.system.domain.vo.RoleVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -24,9 +24,11 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
 
     List<OptionsVo> getRoleOptions();
 
-    RoleForm getRoleById(Long roleId);
+    RoleVo getRoleById(Long roleId);
 
     List<Long> selectPermByRoleId(Long roleId);
+
+    int saveRole(String name,String code, String remark);
 }
 
 

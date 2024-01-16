@@ -6,6 +6,7 @@ import com.qf.web.system.domain.entity.SysRole;
 import com.qf.web.system.domain.form.RoleForm;
 import com.qf.web.system.domain.vo.OptionsVo;
 import com.qf.web.system.domain.vo.RolePageVo;
+import com.qf.web.system.domain.vo.RoleVo;
 import com.qf.web.system.mapper.SysRoleMapper;
 import com.qf.web.system.service.SysPermissionService;
 import com.qf.web.system.service.SysRoleService;
@@ -65,7 +66,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole>
      * @return
      */
     @Override
-    public RoleForm getRoleById(Long roleId) {
+    public RoleVo getRoleById(Long roleId) {
         return sysRoleMapper.getRoleById(roleId);
     }
 
@@ -82,6 +83,11 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole>
         return menuIds;
     }
 
+    @Override
+    public int saveRole(RoleForm roleForm) {
+        int row = sysRoleMapper.saveRole(roleForm.getName(), roleForm.getCode(), roleForm.getRemark());
+        return row;
+    }
 }
 
 

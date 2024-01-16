@@ -23,6 +23,12 @@
         create_time,update_time,create_by,
         update_by
     </sql>
+    <insert id="saveRole">
+        insert into sys_role
+        (name,code,remark)
+        values
+        (#{name},#{code},#{remark})
+    </insert>
     <select id="selectRoleByUserId" resultType="java.lang.String">
         select r.code
         from sys_role r
@@ -51,7 +57,7 @@
         from sys_role r
         where r.deleted = 0
     </select>
-    <select id="getRoleById" resultType="com.qf.web.system.domain.form.RoleForm">
+    <select id="getRoleById" resultType="com.qf.web.system.domain.vo.RoleVo">
         select
             id,name,code,sort,status,deleted,remark
         from sys_role

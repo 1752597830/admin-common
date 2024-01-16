@@ -45,15 +45,9 @@
                         </span>
                     </div>
                     <div class="card-context">
-                        创建日期:&nbsp;&nbsp;
-                        <span class="card-text">{{
-                            userStore.user.createTime
-                        }}</span>
-                    </div>
-                    <div class="card-context">
                         个人简介:&nbsp;&nbsp;
                         <span class="card-text"
-                            >做梦都想当架构师的sin</span
+                            >{{ userStore.user.content }}</span
                         >
                     </div>
                 </div>

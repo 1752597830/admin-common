@@ -219,4 +219,14 @@ public class RedisCache {
     public Collection<String> keys(final String pattern) {
         return redisTemplate.keys(pattern);
     }
+
+    /**
+     * 获得指定name下的所有key
+     *
+     * @param pattern 字符串前缀
+     * @return 对象列表
+     */
+    public Set<String> getKeysByName(final String pattern) {
+           return redisTemplate.keys(pattern);
+    }
 }

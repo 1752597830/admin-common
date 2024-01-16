@@ -7,6 +7,7 @@ import com.qf.web.system.domain.dto.RolePageDto;
 import com.qf.web.system.domain.form.RoleForm;
 import com.qf.web.system.domain.vo.OptionsVo;
 import com.qf.web.system.domain.vo.RolePageVo;
+import com.qf.web.system.domain.vo.RoleVo;
 import com.qf.web.system.service.SysRoleService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,7 +23,7 @@ import java.util.List;
  * @date : 2024/1/16 16:42
  * @Description : 角色管理
  */
-@Tag(name = "03.角色接口")
+@Tag(name = "04.角色接口")
 @RestController
 @RequestMapping("/roles")
 @Slf4j
@@ -30,6 +31,14 @@ public class RoleController extends BaseController {
 
     @Resource
     private SysRoleService roleService;
+
+
+    @Schema(title = "新增角色")
+    @PostMapping("/save")
+    public BaseResponse saveRole(@RequestBody RoleForm roleForm){
+        int row = roleService.saveRole(roleForm);
+        return isOk(row);
+    }
 
     @Schema(title = "获取角色分页数据")
     @GetMapping("/page")
@@ -50,7 +59,7 @@ public class RoleController extends BaseController {
     @Schema(title = "根据roleId获取角色信息")
     @GetMapping("/{roleId}/form")
     public BaseResponse getRoleByRoleId(@Parameter(description = "角色ID") @PathVariable Long roleId) {
-        RoleForm role = roleService.getRoleById(roleId);
+        RoleVo role = roleService.getRoleById(roleId);
         return BaseResponse.success(role);
     }
 

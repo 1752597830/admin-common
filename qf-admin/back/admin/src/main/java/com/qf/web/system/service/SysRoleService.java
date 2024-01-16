@@ -6,6 +6,7 @@ import com.qf.web.system.domain.dto.RolePageDto;
 import com.qf.web.system.domain.form.RoleForm;
 import com.qf.web.system.domain.vo.OptionsVo;
 import com.qf.web.system.domain.vo.RolePageVo;
+import com.qf.web.system.domain.vo.RoleVo;
 
 import java.util.List;
 
@@ -22,7 +23,9 @@ public interface SysRoleService extends IService<SysRole> {
 
     List<OptionsVo> getRoleOptions();
 
-    RoleForm getRoleById(Long roleId);
+    RoleVo getRoleById(Long roleId);
 
     List<Long> selectPermByRoleId(Long roleId);
+
+    int saveRole(RoleForm roleForm);
 }

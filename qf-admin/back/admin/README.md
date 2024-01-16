@@ -4,7 +4,7 @@ dto: 从前端获取数据
 + api接口: https://apifox.com/apidoc/shared-2963bc24-5f7a-47e4-a099-97f93c632282
 后端：
 > 采用技术栈: Spring Security + SpringBoot + JWT + MybatisPlus + MybatisX + Redis 
-## Spring Security前后端分离自定义登录
+# Spring Security前后端分离自定义登录
 ### 初始化项目
 + 创建项目
 + 配置maven
@@ -340,3 +340,17 @@ public class RoleForm {
 + 判断进入的URL和请求方式是否在权限集合中
 + 若存在则对比获取到的权限与请求中URL以及请求方式来和用户的perms做字符串判断
 + 校验通过
+
+## 缓存监控接口
++ 获取缓存名称
++ 获取指定name下的所有缓存key
++ 获取指定name下的指定key的缓存信息
++ 清除指定name下的所有缓存信息
++ 清除指定key的缓存
++ 清除整个redis的所有缓存
+
+## 服务监控接口
++ CPU信息
++ Mem内存信息
++ File磁盘信息
++ JVM信息
