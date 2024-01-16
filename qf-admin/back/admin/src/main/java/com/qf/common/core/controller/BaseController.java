@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.qf.common.core.page.PageDto;
 import com.qf.common.core.page.PageResult;
 import com.qf.common.util.BaseResponse;
-import com.qf.common.util.ResponseCode;
+import com.qf.common.enmu.ResponseCode;
 import com.qf.common.util.ServletUtils;
 import org.springframework.web.bind.annotation.RestController;
 

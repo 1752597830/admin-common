@@ -1,7 +1,8 @@
 package com.qf.web.system.service;
 
-import com.qf.web.system.domain.entity.SysPermission;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qf.web.system.domain.entity.SysPermission;
+import com.qf.web.system.domain.vo.MenuOptions;
 
 import java.util.List;
 
@@ -13,4 +14,8 @@ import java.util.List;
 public interface SysPermissionService extends IService<SysPermission> {
 
     List<String> selectPermsByUserId(Long id);
+
+    List<SysPermission> selectAll();
+
+    List<MenuOptions> getBtnOptions();
 }

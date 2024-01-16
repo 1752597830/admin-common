@@ -31,4 +31,8 @@
         where u.id = #{uid}
 
     </select>
+    <select id="getBtnOptions" resultType="com.qf.web.system.domain.vo.MenuOptions">
+        select id, name, menu_id
+        from sys_permission
+    </select>
 </mapper>

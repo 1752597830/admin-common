@@ -42,6 +42,8 @@ public class JwtUtil {
         JWT.decode(token).getExpiresAt();
         String json = JWT.decode(token).getAudience().get(0);
         JwtAuthentication jwtAuthentication = JSON.parseObject(json, JwtAuthentication.class);
+        // TODO 从token中拿出来用户信息，设置到SecurityContextHolder中 后面需要修改，可以从redis中获取
+        //  token 中存放username
         SecurityContextHolder.getContext().setAuthentication(jwtAuthentication);
     }
 }

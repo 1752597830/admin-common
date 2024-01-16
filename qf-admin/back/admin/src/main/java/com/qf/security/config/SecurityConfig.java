@@ -3,6 +3,7 @@ package com.qf.security.config;
 import com.qf.common.constant.URLConstant;
 import com.qf.common.util.BaseResponse;
 import com.qf.common.util.ServletUtils;
+import com.qf.common.util.SingletonRegistry;
 import com.qf.filter.JwtAuthenticationTokenFilter;
 import com.qf.filter.VerifyCodeFilter;
 import com.qf.security.auth.MyauthorizationManager;
@@ -16,7 +17,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -90,7 +90,7 @@ public class SecurityConfig {
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return SingletonRegistry.getInstance().getPasswordEncoder();
     }
 
 }

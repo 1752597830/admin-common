@@ -3,6 +3,7 @@ package com.qf.web.system.controller;
 import com.qf.common.core.controller.BaseController;
 import com.qf.common.util.BaseResponse;
 import com.qf.web.system.domain.dto.UserSearchDto;
+import com.qf.web.system.domain.form.PwdForm;
 import com.qf.web.system.domain.form.UserForm;
 import com.qf.web.system.domain.vo.UserInfoVo;
 import com.qf.web.system.domain.vo.UserPageVo;
@@ -82,5 +83,14 @@ public class UserController extends BaseController {
     public BaseResponse getUserByUid(@Parameter(description = "用户ID") @PathVariable Long userId) {
         UserForm form = userService.getUserFormByUid(userId);
         return BaseResponse.success(form);
+    }
+
+    // TODO 修改密码
+    @Schema(title = "修改密码")
+    @PostMapping("/password")
+    public BaseResponse changePassword(@RequestBody PwdForm pwdForm) {
+        log.info(pwdForm.toString());
+        int row = userService.changePassword(pwdForm);
+        return isOk(row);
     }
 }

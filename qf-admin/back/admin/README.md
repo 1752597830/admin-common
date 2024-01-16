@@ -1,6 +1,7 @@
 vo: 返回数据给前端
 dto: 从前端获取数据
 # Spring Security + vue3 前后端分离项目
++ api接口: https://apifox.com/apidoc/shared-2963bc24-5f7a-47e4-a099-97f93c632282
 后端：
 > 采用技术栈: Spring Security + SpringBoot + JWT + MybatisPlus + MybatisX + Redis 
 ## Spring Security前后端分离自定义登录
@@ -63,6 +64,34 @@ dto: 从前端获取数据
 + UserForm表单获取数据
 + 修改时使用事务进行处理(@Transactional)，防止数据修改失败
 + 判断结构抛出异常，全局捕获处理
+```java
+public class UserForm {
+    @Schema(description = "用户账号")
+    private String username;
+
+    @Schema(description = "用户昵称")
+    private String nickname;
+
+    @Schema(description = "用户邮箱")
+    private String email;
+
+    @Schema(description = "用户手机号")
+    private String mobile;
+
+    @Schema(description = "用户性别")
+    private Integer gender;
+
+    @Schema(description = "用户头像")
+    private String avatar;
+
+    @Schema(description="用户状态(0:正常;1:禁用)")
+    private Integer status;
+
+    @Schema(description = "角色ID集合")
+    @NotEmpty(message = "用户角色不能为空")
+    private List<Long> roleIds;
+}
+```
 ### 删除用户
 + 根据uid删除用户
 + 进行逻辑删除 修改字段is_deleted为1
@@ -74,4 +103,139 @@ dto: 从前端获取数据
 + 根据用户id重置用户密码
 + 修改时使用事务进行处理(@Transactional)，防止数据修改失败
 ### 根据uid获取用户信息
-+ UserForm(获取用户信息响应对象)
++ UserForm(获取用户信息响应对象,见上面UserForm)
+### 修改密码
++ 封装修改密码对象
++ 修改密码时使用事务进行处理(@Transactional)，防止数据修改失败
++ 修改密码时需要验证旧密码是否正确
+
+> 上述修改操作后需要更新用户信息
+## 菜单接口
+### 获取路由
++ 封装路由对象RouteVo
++ 根据用户uid获取路由
++ 路由对象通过menu表,role表,role_menu表,user_role表,user表关联构建
+```java
+public class RouteVo {
+    /**
+     * id
+     */
+    private Long id;
+    /**
+     * 封装路径信息的类
+     */
+    private String path; // 路径
+
+    /**
+     * 组件信息
+     */
+    private String component; // 组件
+
+    /**
+     * 重定向信息
+     */
+    private String redirect; // 重定向
+
+    /**
+     * 名称信息
+     */
+    private String name; // 名称
+
+    @Data
+    @ToString
+    @AllArgsConstructor
+    public static class Meta {
+
+        // 标题
+        @Schema(description = "路由名称")
+        private String title;
+
+        // 图标
+        @Schema(description = "路由图标")
+        private String icon;
+
+        // 是否隐藏
+        @Schema(description = "是否隐藏")
+        private boolean hidden;
+
+        // 用户角色列表
+        @Schema(description = "用户角色列表")
+        private List<String> roles;
+
+        // 是否保持常驻
+        @Schema(description = "是否保持常驻")
+        private boolean keepAlive;
+    }
+
+    @Schema(description = "路由元数据")
+    private Meta meta;
+
+    // 子路由
+    @Schema(description = "子路由")
+    private List<RouteVo> children;
+}
+```
+### 获取下拉菜单
++ 封装权限树MenuOptionsVo
+```java
+@Schema(description ="菜单下拉选项响应对象")
+public class MenuOptionsVo {
+    /**
+     * 选项值
+     */
+    private Long value;
+
+    /**
+     * 选项名称
+     */
+    private String label;
+
+    /**
+     * 子菜单
+     */
+    @TableField(exist = false)
+    private List<MenuOptionsVo> children;
+}
+```
++ 获取菜单树
+```java
+public class MenuTreeVo {
+
+    @Schema(description = "id")
+    private Long id;
+
+    @Schema(description = "父级id")
+    private Long parentId;
+
+    @Schema(description = "菜单名称")
+    private String name;
+
+    @Schema(description = "菜单类型")
+    private String type;
+
+    @Schema(description = "菜单路径")
+    private String path;
+
+    @Schema(description = "菜单组件")
+    private String component;
+
+    @Schema(description = "菜单图标")
+    private String icon;
+
+    @Schema(description = "菜单排序")
+    private Integer sort;
+
+    @Schema(description = "菜单状态：0-隐藏，1-显示")
+    private Integer visible;
+
+    @Schema(description = "菜单权限")
+    // sys:user:add
+    private String perm;
+
+    @Schema(description = "重定向")
+    private String redirect;
+
+    @Schema(description = "子菜单")
+    private List<MenuTreeVo> children;
+}
+```

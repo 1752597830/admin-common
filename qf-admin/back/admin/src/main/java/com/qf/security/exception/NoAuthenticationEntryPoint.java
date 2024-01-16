@@ -1,7 +1,7 @@
 package com.qf.security.exception;
 
 import com.qf.common.util.BaseResponse;
-import com.qf.common.util.ResponseCode;
+import com.qf.common.enmu.ResponseCode;
 import com.qf.common.util.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

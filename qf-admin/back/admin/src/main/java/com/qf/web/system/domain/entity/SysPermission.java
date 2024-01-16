@@ -4,9 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import com.qf.common.BaseEntity;
 import lombok.Data;
 
@@ -33,7 +30,7 @@ public class SysPermission extends BaseEntity {
      * 菜单模块ID
      */
     @TableField(value = "menu_id")
-    private Integer menuId;
+    private Long menuId;
 
     /**
      * URL权限标识

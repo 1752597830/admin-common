@@ -1,5 +1,6 @@
 package com.qf.common.util;
 
+import com.qf.common.enmu.ResponseCode;
 import com.qf.common.exception.BaseException;
 import com.qf.web.system.domain.entity.SysUser;
 import org.springframework.security.core.Authentication;
@@ -46,4 +47,19 @@ public class SecurityUtils {
         // 使用matches方法进行匹配
         return target.matches(regex);
     }
+
+    /**
+     * @author: sin
+     * @Description 更新SecurityContext中的用户信息
+     */
+    /**
+     * 设置当前登录用户，保存 或 更新登录信息
+     *
+     * @param userDetails
+     */
+    //public static void setLoginUser(UserDetails userDetails) {
+    //    SecurityContextHolder.getContext().setAuthentication(
+    //            new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities()));
+    //}
+
 }

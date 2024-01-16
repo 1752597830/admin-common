@@ -2,8 +2,9 @@ package com.qf.web.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qf.web.system.domain.entity.SysPermission;
-import com.qf.web.system.service.SysPermissionService;
+import com.qf.web.system.domain.vo.MenuOptions;
 import com.qf.web.system.mapper.SysPermissionMapper;
+import com.qf.web.system.service.SysPermissionService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +20,29 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     implements SysPermissionService{
 
     @Resource
-    SysPermissionMapper sysPermissionMapper;
+    SysPermissionMapper permissionMapper;
 
     @Override
     public List<String> selectPermsByUserId(Long uid) {
-        return sysPermissionMapper.selectPermsByUserId(uid);
+        return permissionMapper.selectPermsByUserId(uid);
+    }
+
+    /**
+    * @description 获取所有按钮权限
+    * @return java.util.List<com.qf.web.system.domain.entity.SysPermission>
+    */
+    @Override
+    public List<SysPermission> selectAll() {
+        return permissionMapper.selectList(null);
+    }
+
+    /**
+    * @description 获取按钮权限
+    * @return java.util.List<com.qf.web.system.domain.vo.MenuOptions>
+    */
+    @Override
+    public List<MenuOptions> getBtnOptions() {
+        return permissionMapper.getBtnOptions();
     }
 }
 

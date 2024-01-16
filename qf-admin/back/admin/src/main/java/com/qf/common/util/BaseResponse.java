@@ -1,5 +1,6 @@
 package com.qf.common.util;
 
+import com.qf.common.enmu.ResponseCode;
 import lombok.Data;
 
 import java.io.Serializable;

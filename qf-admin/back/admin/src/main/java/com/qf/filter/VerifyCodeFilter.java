@@ -3,6 +3,7 @@ package com.qf.filter;
 import com.qf.common.constant.CaptchaConstant;
 import com.qf.common.constant.RedisConstant;
 import com.qf.common.constant.URLConstant;
+import com.qf.common.enmu.ResponseCode;
 import com.qf.common.util.*;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

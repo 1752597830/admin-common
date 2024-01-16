@@ -1,4 +1,4 @@
-package com.qf.common.util;
+package com.qf.common.enmu;
 
 /**
  * @author : sin

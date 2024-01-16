@@ -3,6 +3,7 @@ package com.qf.web.system.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qf.web.system.domain.dto.UserSearchDto;
 import com.qf.web.system.domain.entity.SysUser;
+import com.qf.web.system.domain.form.PwdForm;
 import com.qf.web.system.domain.form.UserForm;
 import com.qf.web.system.domain.vo.UserInfoVo;
 import com.qf.web.system.domain.vo.UserPageVo;
@@ -31,4 +32,7 @@ public interface SysUserService extends IService<SysUser> {
     int resetPasswordByUserId(Long userId);
 
     List<UserPageVo> getUserPage(UserSearchDto userSearch);
+
+    int changePassword(PwdForm pwdForm);
+
 }

@@ -3,7 +3,7 @@ package com.qf.web.system.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qf.common.constant.CommonConstant;
 import com.qf.common.exception.BaseException;
-import com.qf.common.util.ResponseCode;
+import com.qf.common.enmu.ResponseCode;
 import com.qf.common.util.ToolUtils;
 import com.qf.web.system.domain.entity.SysUserRole;
 import com.qf.web.system.mapper.SysUserRoleMapper;
