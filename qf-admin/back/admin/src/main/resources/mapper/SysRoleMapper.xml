@@ -30,4 +30,37 @@
                        from sys_user_role ur
                        where ur.user_id = #{userId})
     </select>
+    <select id="getPage" resultType="com.qf.web.system.domain.vo.RolePageVo">
+        select
+        id,name,code,sort,status,deleted,remark,create_time,update_time
+        from sys_role
+        <where>
+            <if test="name!= null and name!= ''">
+                and name = #{name}
+            </if>
+            <if test="code!= null and code!= ''">
+                and code = #{code}
+            </if>
+            <if test="status!= null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+    <select id="getRoleOptions" resultType="com.qf.web.system.domain.vo.OptionsVo">
+        select r.id, r.name
+        from sys_role r
+        where r.deleted = 0
+    </select>
+    <select id="getRoleById" resultType="com.qf.web.system.domain.form.RoleForm">
+        select
+            id,name,code,sort,status,deleted,remark
+        from sys_role
+        where id = #{roleId}
+    </select>
+    <select id="selectPermByRoleId" resultType="java.lang.Long">
+        select m.id
+        from sys_role_menu rm
+                 left join sys_menu m on rm.menu_id = m.id
+        where rm.role_id = #{roleId}
+    </select>
 </mapper>

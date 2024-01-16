@@ -44,6 +44,16 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     public List<MenuOptions> getBtnOptions() {
         return permissionMapper.getBtnOptions();
     }
+
+    /**
+    * @description 获取角色权限
+    * @param roleId
+    * @return java.util.List<java.lang.Long>
+    */
+    @Override
+    public List<Long> selectPermByRoleId(Long roleId) {
+        return permissionMapper.selectPermByRoleId(roleId);
+    }
 }
 
 

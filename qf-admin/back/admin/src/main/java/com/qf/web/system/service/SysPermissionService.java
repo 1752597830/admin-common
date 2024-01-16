@@ -18,4 +18,6 @@ public interface SysPermissionService extends IService<SysPermission> {
     List<SysPermission> selectAll();
 
     List<MenuOptions> getBtnOptions();
+
+    List<Long> selectPermByRoleId(Long roleId);
 }

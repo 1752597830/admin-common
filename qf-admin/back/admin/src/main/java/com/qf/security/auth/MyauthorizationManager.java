@@ -1,8 +1,12 @@
 package com.qf.security.auth;
 
 import com.qf.common.constant.URLConstant;
+import com.qf.common.util.BeanUtils;
+import com.qf.common.util.SecurityUtils;
 import com.qf.common.util.ToolUtils;
+import com.qf.web.system.domain.entity.SysPermission;
 import com.qf.web.system.domain.entity.SysUser;
+import com.qf.web.system.service.SysPermissionService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
@@ -12,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -42,21 +47,19 @@ public class MyauthorizationManager implements AuthorizationManager<RequestAutho
         if (ToolUtils.contains(requestURI, URLConstant.URLS)) {
             return new AuthorizationDecision(true);
         }
-        // TODO 通过动态判断权限访问来实现权限校验 比注解方式更加灵活
         //查询当前请求的接口需要哪些权限能访问
-        //List<SysPermission> permissions = BeanUtils.getBean(SysPermissionService.class).selectAll();
-        //for (SysPermission permission : permissions) {
-        //    if (SecurityUtils.checkPermission(permission.getUrlPerm(),method + ":" + requestURI)) {
-        //        // 权限校验
-        //        log.info("权限处理!");
-        //        boolean contains = ToolUtils.contains(permission.getBtnPerm(), user.getPerms().toArray(new String[]{}));
-        //        if (!contains) {
-        //            throw new AccessDeniedException(user.getUsername()+",没有访问:"+requestURI+"的权限");
-        //        } else {
-        //            break;
-        //        }
-        //    }
-        //}
+        List<SysPermission> permissions = BeanUtils.getBean(SysPermissionService.class).selectAll();
+        for (SysPermission permission : permissions) {
+            if (SecurityUtils.checkPermission(permission.getUrlPerm(),method + ":" + requestURI)) {
+                log.info("权限处理!");
+                boolean contains = ToolUtils.contains(permission.getBtnPerm(), user.getPerms().toArray(new String[]{}));
+                if (!contains) {
+                    throw new AccessDeniedException(user.getUsername()+",没有访问:"+requestURI+"的权限");
+                } else {
+                    break;
+                }
+            }
+        }
         return new AuthorizationDecision(true);
     }
 }

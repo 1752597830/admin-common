@@ -2,6 +2,10 @@ package com.qf.web.system.service;
 
 import com.qf.web.system.domain.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qf.web.system.domain.dto.RolePageDto;
+import com.qf.web.system.domain.form.RoleForm;
+import com.qf.web.system.domain.vo.OptionsVo;
+import com.qf.web.system.domain.vo.RolePageVo;
 
 import java.util.List;
 
@@ -13,4 +17,12 @@ import java.util.List;
 public interface SysRoleService extends IService<SysRole> {
 
     List<String> selectRoleByUserId(Long id);
+
+    List<RolePageVo> getPage(RolePageDto rolePage);
+
+    List<OptionsVo> getRoleOptions();
+
+    RoleForm getRoleById(Long roleId);
+
+    List<Long> selectPermByRoleId(Long roleId);
 }

@@ -239,4 +239,104 @@ public class MenuTreeVo {
     private List<MenuTreeVo> children;
 }
 ```
+## 角色接口
+### 获取角色分页列表
++ 继承BaseController, 获取分页的pageSize和pageNum,封装PageHelp的startPage方法
++ 封装角色分页请求对象 RolePageDto
++ 封装角色分页列表响应对象 RolePageVo
++ 角色对象通过角色表,用户表,用户角色表关联构建
+```java
+public class RolePageDto {
 
+    @Schema(description = "角色名称")
+    private String name;
+
+    @Schema(description = "角色标识,code")
+    private String code;
+
+    @Schema(description = "角色状态")
+    private Integer status;
+}
+```
+```java
+public class RolePageVo {
+
+    @Schema(description = "角色ID")
+    private Long id;
+
+    @Schema(description = "角色名称")
+    private String name;
+
+    @Schema(description = "角色编码")
+    private String code;
+
+    @Schema(description = "显示顺序")
+    private Integer sort;
+
+    @Schema(description = "状态：0-正常，1-停用")
+    private Integer status;
+
+    @Schema(description = "逻辑删除标识(0-未删除；1-已删除)")
+    private Integer deleted;
+
+    @Schema(description = "备注")
+    private String remark;
+
+    @Schema(description = "创建时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private Date createTime;
+
+    @Schema(description = "更新时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private Date updateTime;
+}
+```
+### 获取角色下拉选项表
++ 封装角色下拉选项对象 OptionsVo
+### 根据roleId获取角色信息
++ 封装RoleForm响应对象
+### 根据roleId获取用户拥有的权限id集合
+
+```java
+@Schema(description ="性别、角色下拉选项响应对象")
+public class OptionsVo {
+
+    @Schema(description = "选项值")
+    private Long value;
+
+    @Schema(description = "选项名称")
+    private String label;
+}
+```
+```java
+@Schema(description = "角色表单对象")
+@Data
+public class RoleForm {
+
+    @Schema(description="角色ID")
+    private Long id;
+
+    @Schema(description="角色名称")
+    private String name;
+
+    @Schema(description="角色编码")
+    private String code;
+
+    @Schema(description="排序")
+    private Integer sort;
+
+    @Schema(description="角色状态(1-正常；0-停用)")
+    private Integer status;
+
+    @Schema(description = "备注信息")
+    private String remark;
+}
+```
+
+## 动态权限校验
+### 实现逻辑
++ 从Security中取出用户信息,获取用户的perms
++ 获取所有的权限集合
++ 判断进入的URL和请求方式是否在权限集合中
++ 若存在则对比获取到的权限与请求中URL以及请求方式来和用户的perms做字符串判断
++ 校验通过

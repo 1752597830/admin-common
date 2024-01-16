@@ -35,4 +35,11 @@
         select id, name, menu_id
         from sys_permission
     </select>
+    <select id="selectPermByRoleId" resultType="java.lang.Long">
+        select p.id
+        from sys_permission p
+                 left join sys_role_permission rp on p.id = rp.permission_id
+                 left join sys_role r on rp.role_id = r.id
+        where r.id = #{roleId}
+    </select>
 </mapper>
