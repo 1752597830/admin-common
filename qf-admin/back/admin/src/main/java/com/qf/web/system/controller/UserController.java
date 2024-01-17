@@ -8,6 +8,7 @@ import com.qf.web.system.domain.form.UserForm;
 import com.qf.web.system.domain.vo.UserInfoVo;
 import com.qf.web.system.domain.vo.UserPageVo;
 import com.qf.web.system.service.SysUserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,14 +31,14 @@ public class UserController extends BaseController {
     @Resource
     private SysUserService userService;
 
-    @Schema(title = "获取当前用户信息")
+    @Operation(summary = "获取当前用户信息")
     @RequestMapping("/me")
     public BaseResponse getUserInfo() {
         UserInfoVo user = userService.getUserInfo();
         return BaseResponse.success(user);
     }
 
-    @Schema(title = "新增用户")
+    @Operation(summary = "新增用户")
     @PostMapping("")
     public BaseResponse addUser(@RequestBody UserForm userForm) {
         log.info(userForm.toString());
@@ -45,7 +46,7 @@ public class UserController extends BaseController {
         return isOk(row);
     }
 
-    @Schema(title = "修改用户")
+    @Operation(summary = "修改用户")
     @PutMapping("/{id}")
     public BaseResponse update(@PathVariable Long id, @RequestBody UserForm userForm) {
         log.info("修改用户,{userForm}" + userForm);
@@ -55,6 +56,7 @@ public class UserController extends BaseController {
     }
 
     @Schema(title = "删除用户")
+    @Operation(summary = "删除用户",description = "解析 , 分隔开的用户id,进行逻辑删除 is_deleted=1")
     @DeleteMapping("/{ids}")
     public BaseResponse delete(@PathVariable String ids) {
         log.info("删除用户,{ids}" + ids);
@@ -63,6 +65,7 @@ public class UserController extends BaseController {
     }
 
     @Schema(title = "重置密码")
+    @Operation(summary = "重置密码",description = "重置用户为默认密码123456")
     @PatchMapping("/{id}/password")
     public BaseResponse resetPassword(@PathVariable Long id) {
         log.info("重置密码,{userId}" + id);
@@ -70,7 +73,7 @@ public class UserController extends BaseController {
         return isOk(row);
     }
 
-    @Schema(title = "获取分页用户")
+    @Operation(summary = "获取分页用户信息",description = "根据用户名、手机号、开启状态来获取分页用户信息")
     @GetMapping("/page")
     public BaseResponse getUserPage(@RequestBody UserSearchDto userSearch) {
         startPage();
@@ -78,15 +81,14 @@ public class UserController extends BaseController {
         return BaseResponse.success(getData(userPageVoList));
     }
 
-    @Schema(title = "根据uid获取用户信息")
+    @Operation(summary = "获取用户信息",description = "根据用户ID获取用户信息")
     @GetMapping("/{userId}/form")
     public BaseResponse getUserByUid(@Parameter(description = "用户ID") @PathVariable Long userId) {
         UserForm form = userService.getUserFormByUid(userId);
         return BaseResponse.success(form);
     }
 
-    // TODO 修改密码
-    @Schema(title = "修改密码")
+    @Operation(summary = "修改密码",description = "传入原密码和新密码,校验成功后进行修改")
     @PostMapping("/password")
     public BaseResponse changePassword(@RequestBody PwdForm pwdForm) {
         log.info(pwdForm.toString());

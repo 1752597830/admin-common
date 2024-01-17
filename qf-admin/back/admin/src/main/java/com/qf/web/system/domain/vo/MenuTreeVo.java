@@ -43,8 +43,7 @@ public class MenuTreeVo {
     @Schema(description = "菜单状态：0-隐藏，1-显示")
     private Integer visible;
 
-    @Schema(description = "菜单权限")
-    // sys:user:add
+    @Schema(description = "菜单权限,sys:user:add")
     private String perm;
 
     @Schema(description = "重定向")

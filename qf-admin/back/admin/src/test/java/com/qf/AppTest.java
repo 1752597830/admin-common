@@ -1,10 +1,11 @@
 package com.qf;
 
-import com.qf.common.util.SingletonRegistry;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Unit test for simple App.
@@ -39,9 +40,12 @@ public class AppTest
     }
 
     public static void main(String[] args) {
-        SingletonRegistry registry = SingletonRegistry.getInstance();
-        BCryptPasswordEncoder encoder = registry.getPasswordEncoder();
-        boolean matches = encoder.matches("123455", "123455");
-        System.out.println(matches);
+        List<String> list1 = Arrays.asList();
+        List<String> list2 = Arrays.asList();
+
+        // 使用Stream API判断list1是否包含list2的所有元素
+        boolean containsAll = list2.stream().allMatch(list1::contains);
+
+        System.out.println("list1是否包含list2的所有元素: " + containsAll);
     }
 }

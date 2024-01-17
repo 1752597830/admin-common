@@ -1,5 +1,6 @@
 package com.qf.web.system.domain.vo;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
@@ -12,19 +13,15 @@ import lombok.ToString;
 @Data
 @ToString
 @AllArgsConstructor
+@Schema(title = "菜单权限下拉列表")
 public class MenuOptions {
-    /**
-     * 选项值  id
-     */
+
+    @Schema(description = "选项值")
     private Long value;
 
-    /**
-     * 选项名称  name
-     */
+    @Schema(description = "选项名称")
     private String label;
 
-    /**
-     * 父id
-     */
+    @Schema(description = "父id")
     private Long parentId;
 }

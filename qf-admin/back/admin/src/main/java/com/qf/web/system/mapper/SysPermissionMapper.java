@@ -21,6 +21,8 @@ public interface SysPermissionMapper extends BaseMapper<SysPermission> {
     List<MenuOptions> getBtnOptions();
 
     List<Long> selectPermByRoleId(Long roleId);
+
+    List<Long> getBtnIds();
 }
 
 

@@ -52,4 +52,7 @@
                m.parent_id
         from sys_menu m
     </select>
+    <select id="getMenuIds" resultType="java.lang.Long">
+        select id from sys_menu
+    </select>
 </mapper>

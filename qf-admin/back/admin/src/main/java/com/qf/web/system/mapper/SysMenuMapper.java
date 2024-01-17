@@ -19,6 +19,8 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
     List<SysMenu> getMenus(Long uid);
 
     List<MenuOptions> getMenuOptions();
+
+    List<Long> getMenuIds();
 }
 
 

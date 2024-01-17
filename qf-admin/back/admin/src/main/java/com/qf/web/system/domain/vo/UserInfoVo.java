@@ -13,7 +13,7 @@ import java.util.List;
  * @date : 2024/1/14 20:09
  * @Description : 用户信息封装
  */
-@Schema(description ="获取用户信息响应对象")
+@Schema(title = "用户信息封装", description = "获取用户信息响应对象")
 @Data
 @AllArgsConstructor
 @ToString
@@ -44,15 +44,9 @@ public class UserInfoVo {
     @Schema(description = "用户个人简介")
     private String content;
 
-    /**
-     * 用户角色列表
-     */
     @Schema(description = "用户角色列表")
     private List<String> roles;
 
-    /**
-     * 用户权限列表
-     */
     @Schema(description = "用户权限列表")
     private List<String> perms;
 

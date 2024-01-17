@@ -66,6 +66,15 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu>
 
     /**
      * @author: sin
+     * @Description  获取所有菜单id
+     */
+    @Override
+    public List<Long> getMenuIds() {
+        return menuMapper.getMenuIds();
+    }
+
+    /**
+     * @author: sin
      * @Description  构建菜单树
      */
     private List<MenuTreeVo> buildMenuTree(List<SysMenu> menus, List<SysPermission> permissions, long parentId) {

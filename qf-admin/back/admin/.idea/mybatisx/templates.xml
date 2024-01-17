@@ -69,12 +69,12 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="SysMenu" />
-                  <option name="tableName" value="sys_menu" />
+                  <option name="className" value="SysDictType" />
+                  <option name="tableName" value="sys_dict_type" />
                 </TableUIInfo>
                 <TableUIInfo>
-                  <option name="className" value="SysRoleMenu" />
-                  <option name="tableName" value="sys_role_menu" />
+                  <option name="className" value="SysDict" />
+                  <option name="tableName" value="sys_dict" />
                 </TableUIInfo>
               </list>
             </option>

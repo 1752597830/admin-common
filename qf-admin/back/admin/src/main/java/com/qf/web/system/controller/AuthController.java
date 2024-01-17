@@ -2,7 +2,7 @@ package com.qf.web.system.controller;
 
 import com.qf.common.util.BaseResponse;
 import com.qf.common.util.ToolUtils;
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,7 @@ public class AuthController {
      * @author: sin
      * @Description 验证码
      */
-    @Schema(title = "获取验证码")
+    @Operation(summary = "验证码", description = "生成图片验证码")
     @GetMapping("/captcha")
     public BaseResponse getCaptcha() {
         Map<String, String> map = ToolUtils.GenerateVerifyCode();

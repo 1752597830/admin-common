@@ -2,8 +2,8 @@ package com.qf.web.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qf.common.constant.CommonConstant;
-import com.qf.common.exception.BaseException;
 import com.qf.common.enmu.ResponseCode;
+import com.qf.common.exception.BaseException;
 import com.qf.common.util.SecurityUtils;
 import com.qf.common.util.SingletonRegistry;
 import com.qf.common.util.ToolUtils;
@@ -23,9 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author 清风
@@ -131,7 +129,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
      * @description 根据用户id更新用户信息
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public int updateByUserId(Long userId, UserForm userForm) {
         try {
             updateUser(userId, userForm);
@@ -151,7 +149,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     @Transactional
     public int deleteByUserId(String ids) {
         try {
-            List<Long> userIds = Arrays.stream(ids.split(",")).map(Long::valueOf).collect(Collectors.toList());
+            List<Long> userIds = ToolUtils.getLongListByString(ids);
             deleteByUserId(userIds);
         } catch (Exception e) {
             throw new BaseException(ResponseCode.OPT_ERROR.getCode(), CommonConstant.DELETE + CommonConstant.USER + CommonConstant.ERROR);

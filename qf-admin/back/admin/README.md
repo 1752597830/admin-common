@@ -1,5 +1,6 @@
 vo: 返回数据给前端
 dto: 从前端获取数据
+> 如果多个修改或删除操作构成一个逻辑上的完整工作单元，它们必须保证原子性（即要么全部成功，要么全部失败）。在这种情况下，如果其中一个操作失败导致数据不一致，则整个事务应通过回滚恢复到事务开始前的状态。
 # Spring Security + vue3 前后端分离项目
 + api接口: https://apifox.com/apidoc/shared-2963bc24-5f7a-47e4-a099-97f93c632282
 后端：
@@ -296,6 +297,11 @@ public class RolePageVo {
 ### 根据roleId获取角色信息
 + 封装RoleForm响应对象
 ### 根据roleId获取用户拥有的权限id集合
+### 根据roleId修改角色信息
+### 根据roleId删除角色信息 
++ (逻辑删除,修改字段is_deleted为1)
+### 修改角色权限
+
 
 ```java
 @Schema(description ="性别、角色下拉选项响应对象")
@@ -354,3 +360,25 @@ public class RoleForm {
 + Mem内存信息
 + File磁盘信息
 + JVM信息
+
+## 字典管理接口
+### 根据typeCode获取字典下拉列表
++ 封装响应对象 OptionsVo
+### 根据code编码获取字典值分页数据
++ 封装响应对象 DictPageVo
++ 封装请求对象 DictPage(继承分页类)
+### 获取所有字典类型列表
++ 封装响应对象 DictTypeVo
+### 新增字典类型
+### 新增字典类型对应的值
+### 修改字典类型
+### 修改字典类型对应的值
+### 删除字典类型
+### 根据code编码删除字典值列表
+
+Swagger部分注解
+> @TableField: 数据库对应类映射字段注解(entity包)
+
+> @Schema: 用于类或属性级别，用于定义数据模型或JSON对象结构。它用于描述类的字段，包括字段名、类型、是否必填、默认值、枚举值、格式限制等
+
+> @Operation: 用于方法上的注解

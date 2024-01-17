@@ -12,4 +12,14 @@
     <sql id="Base_Column_List">
         role_id,menu_id
     </sql>
+    <insert id="batchInsertRoleMenus">
+        insert into sys_role_menu (role_id,menu_id)
+        values
+        <foreach collection="menuList" item="item" index="index" separator=",">
+            (#{item.roleId},#{item.menuId})
+        </foreach>
+    </insert>
+    <delete id="deleteByRoleId">
+        delete from sys_role_menu where role_id = #{roleId}
+    </delete>
 </mapper>

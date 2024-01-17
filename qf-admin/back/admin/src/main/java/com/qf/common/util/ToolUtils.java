@@ -4,9 +4,8 @@ import com.qf.common.constant.CaptchaConstant;
 import com.qf.common.constant.RedisConstant;
 import com.wf.captcha.ArithmeticCaptcha;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author : sin
@@ -53,5 +52,33 @@ public class ToolUtils {
      */
     public static boolean isOk(int rows) {
         return rows > 0;
+    }
+
+    /**
+     * @param ids
+     * @Description: 根据字符串获取Long集合
+     * @return
+     */
+    public static List<Long> getLongListByString(String ids) {
+        if(ids == null || ids.length() == 0) {
+            return null;
+        }
+        return Arrays.stream(ids.split(",")).map(Long::valueOf).collect(Collectors.toList());
+    }
+
+    /**
+     * @param list1
+     * @param list2
+     * @Description: 判断list1是否包含list2
+     * @return
+     */
+    public static<T> boolean isContain(List<T> list1, List<T> list2) {
+        if(list1 == null && list2 != null) {
+            return false;
+        }
+        if(list2 == null) {
+            return true;
+        }
+        return list2.stream().allMatch(list1::contains);
     }
 }

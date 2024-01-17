@@ -5,7 +5,7 @@ import com.qf.web.system.domain.vo.MenuOptionsVo;
 import com.qf.web.system.domain.vo.MenuTreeVo;
 import com.qf.web.system.domain.vo.RouteVo;
 import com.qf.web.system.service.SysMenuService;
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class MenuController {
     /**
      * 获取路由信息
      */
-    @Schema(title = "获取路由")
+    @Operation(summary = "获取路由")
     @GetMapping("/routes")
     public BaseResponse getRoutes() {
         List<RouteVo> routes = menuService.getRoutes();
@@ -41,7 +41,7 @@ public class MenuController {
     /**
      * 获取权限树
      */
-    @Schema(title = "获取权限树")
+    @Operation(summary = "获取权限树")
     @GetMapping("/options")
     public BaseResponse getPerms() {
         List<MenuOptionsVo> sysMenus = menuService.getMenuOptions();
@@ -52,7 +52,7 @@ public class MenuController {
      * @author: sin
      * @Description 获取菜单树
      */
-    @Schema(title = "获取菜单树")
+    @Operation(summary = "获取菜单树")
     @GetMapping("")
     public BaseResponse getMenuTree() {
         List<MenuTreeVo> sysMenus = menuService.getMenuTree();

@@ -4,6 +4,8 @@ import com.qf.web.system.domain.entity.SysRoleMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
 * @author 清风
 * @description 针对表【sys_role_menu(角色和菜单关联表)】的数据库操作Mapper
@@ -13,6 +15,9 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
 
+    int deleteByRoleId(Long roleId);
+
+    int batchInsertRoleMenus(List<SysRoleMenu> menuList);
 }
 
 

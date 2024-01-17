@@ -17,21 +17,16 @@ import java.util.List;
 @Data
 @ToString
 @AllArgsConstructor
-@Schema(description ="菜单下拉选项响应对象")
+@Schema(title ="菜单下拉选项响应对象")
 public class MenuOptionsVo {
-    /**
-     * 选项值
-     */
+
+    @Schema(description = "选项值")
     private Long value;
 
-    /**
-     * 选项名称
-     */
+    @Schema(description = "选项名称")
     private String label;
 
-    /**
-     * 子菜单
-     */
+    @Schema(description = "子菜单")
     @TableField(exist = false)
     private List<MenuOptionsVo> children;
 }

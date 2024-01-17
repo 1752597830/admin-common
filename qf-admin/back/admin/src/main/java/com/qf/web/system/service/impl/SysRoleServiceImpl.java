@@ -1,18 +1,25 @@
 package com.qf.web.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qf.common.constant.CommonConstant;
+import com.qf.common.enmu.ResponseCode;
+import com.qf.common.exception.BaseException;
+import com.qf.common.util.ToolUtils;
 import com.qf.web.system.domain.dto.RolePageDto;
 import com.qf.web.system.domain.entity.SysRole;
+import com.qf.web.system.domain.entity.SysRoleMenu;
+import com.qf.web.system.domain.entity.SysRolePermission;
 import com.qf.web.system.domain.form.RoleForm;
 import com.qf.web.system.domain.vo.OptionsVo;
 import com.qf.web.system.domain.vo.RolePageVo;
 import com.qf.web.system.domain.vo.RoleVo;
 import com.qf.web.system.mapper.SysRoleMapper;
-import com.qf.web.system.service.SysPermissionService;
-import com.qf.web.system.service.SysRoleService;
+import com.qf.web.system.service.*;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +35,16 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole>
     SysRoleMapper sysRoleMapper;
 
     @Resource
-    SysPermissionService permission;
+    SysPermissionService permissionService;
+
+    @Resource
+    SysRoleMenuService roleMenuService;
+
+    @Resource
+    SysRolePermissionService rolePermissionService;
+
+    @Resource
+    SysMenuService menuService;
 
     /**
      * @author: sin
@@ -78,15 +94,87 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole>
     @Override
     public List<Long> selectPermByRoleId(Long roleId) {
         List<Long> menuIds = sysRoleMapper.selectPermByRoleId(roleId);
-        List<Long> btnIds = permission.selectPermByRoleId(roleId);
+        List<Long> btnIds = permissionService.selectPermByRoleId(roleId);
         menuIds.addAll(btnIds);
         return menuIds;
     }
 
+    /**
+     * @description 新增角色
+     * @param roleForm
+     * @return
+     */
     @Override
     public int saveRole(RoleForm roleForm) {
         int row = sysRoleMapper.saveRole(roleForm.getName(), roleForm.getCode(), roleForm.getRemark());
         return row;
+    }
+
+    /**
+     * @description 根据角色id修改角色信息
+     * @param roleId
+     * @param roleForm
+     * @return
+     */
+    @Override
+    public int updateRoleById(Long roleId, RoleForm roleForm) {
+        int row = sysRoleMapper.updateRoleById(roleId, roleForm.getName(), roleForm.getCode(), roleForm.getRemark());
+        return row;
+    }
+
+    /**
+     * @description 根据角色id删除角色 (逻辑删除 is_deleted=1)
+     * @param roleId
+     * @return
+     */
+    @Override
+    public int deleteRoleById(Long roleId) {
+        int row = sysRoleMapper.deleteRoleById(roleId);
+        return row;
+    }
+
+    /**
+     * @description 根据角色id修改角色权限(权限ids)
+     * @param roleId
+     * @param ids 封装菜单 按钮id
+     * @return
+     */
+    @Override
+    @Transactional
+    public int updateRolePermById(Long roleId, String ids) {
+        List<Long> listIds = ToolUtils.getLongListByString(ids);
+        List<Long> menuList = listIds.stream().filter(id -> id < CommonConstant.MENU_PERMISSION_SPLIT_POINT).toList();
+        List<Long> permIds = listIds.stream().filter(id -> id > CommonConstant.MENU_PERMISSION_SPLIT_POINT).toList();
+
+        if(!ToolUtils.isContain( menuService.getMenuIds(),menuList)|| !ToolUtils.isContain(permissionService.getBtnIds(),permIds)) {
+            throw new BaseException(ResponseCode.OPT_ERROR.getCode(),CommonConstant.ILLEGAL_PARAM);
+        }
+
+        List<SysRolePermission> rolePermissions = new ArrayList<>();
+        List<SysRoleMenu> roleMenus = new ArrayList<>();
+        for (Long menuId : menuList) {
+            SysRoleMenu roleMenu = new SysRoleMenu(roleId, menuId);
+            roleMenus.add(roleMenu);
+        }
+        for (Long btnId : permIds) {
+            SysRolePermission rolePermission = new SysRolePermission(roleId, btnId);
+            rolePermissions.add(rolePermission);
+        }
+        try {
+            // 删除role_menu中数据
+            roleMenuService.deleteByRoleId(roleId);
+            // 插入数据
+            if (ToolUtils.isOk(roleMenus.size())) {
+                roleMenuService.insert(roleMenus);
+            }
+            rolePermissionService.deleteByRoleId(roleId);
+            if (ToolUtils.isOk(rolePermissions.size())) {
+                rolePermissionService.insert(rolePermissions);
+            }
+        } catch (Exception e) {
+            throw new BaseException(ResponseCode.OPT_ERROR.getCode(),CommonConstant.EDIT + CommonConstant.ROLE + CommonConstant.PERMISSION + CommonConstant.ERROR);
+        }
+        return 1;
     }
 }
 

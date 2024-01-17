@@ -2,9 +2,11 @@ package com.qf.web.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qf.web.system.domain.entity.SysRoleMenu;
-import com.qf.web.system.service.SysRoleMenuService;
 import com.qf.web.system.mapper.SysRoleMenuMapper;
+import com.qf.web.system.service.SysRoleMenuService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author 清风
@@ -15,6 +17,30 @@ import org.springframework.stereotype.Service;
 public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRoleMenu>
     implements SysRoleMenuService{
 
+    /**
+    * @description 根据角色ID删除角色和菜单关联表的所有数据
+    * @param roleId 角色ID
+    * @return int
+    */
+    @Override
+    public int deleteByRoleId(Long roleId) {
+        try {
+            return baseMapper.deleteByRoleId(roleId);
+        } catch (Exception e) {
+            log.error("根据角色ID删除角色和菜单关联表的所有数据失败", e);
+        }
+        return 1;
+    }
+
+    /**
+    * @description 根据角色ID和菜单ID列表插入角色和菜单关联表
+    * @param menuList 菜单ID列表
+    * @return int
+    */
+    @Override
+    public int insert(List<SysRoleMenu> menuList)  {
+        return baseMapper.batchInsertRoleMenus(menuList);
+    }
 }
 
 

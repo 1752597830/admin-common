@@ -18,7 +18,10 @@ public class CommonConstant {
     public static final String USER = "用户";
     public static final String ROLE = "角色";
     public static final String MENU = "菜单";
+    public static final String PERMISSION = "权限";
     public static final String RESET_PASSWORD = "重置密码";
     public static final String OLD_PASSWORD = "旧密码";
     public static final String EDIT_PASSWORD = "修改密码";
+    public static final String ILLEGAL_PARAM = "非法参数";
+    public static final Long MENU_PERMISSION_SPLIT_POINT = 1000L;
 }

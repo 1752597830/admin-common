@@ -20,4 +20,6 @@ public interface SysMenuService extends IService<SysMenu> {
     List<MenuOptionsVo> getMenuOptions();
 
     List<MenuTreeVo> getMenuTree();
+
+    List<Long> getMenuIds();
 }

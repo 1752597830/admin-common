@@ -12,4 +12,14 @@
     <sql id="Base_Column_List">
         role_id,permission_id
     </sql>
+    <delete id="deleteByRoleId">
+        delete from sys_role_permission where role_id = #{roleId}
+    </delete>
+    <insert id="batchInsert">
+        insert into sys_role_permission (role_id,permission_id)
+        values
+        <foreach collection="btnList" item="item" index="index" separator=",">
+            (#{item.roleId},#{item.permissionId})
+        </foreach>
+    </insert>
 </mapper>

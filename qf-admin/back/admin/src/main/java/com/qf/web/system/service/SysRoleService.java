@@ -28,4 +28,10 @@ public interface SysRoleService extends IService<SysRole> {
     List<Long> selectPermByRoleId(Long roleId);
 
     int saveRole(RoleForm roleForm);
+
+    int updateRoleById(Long roleId,RoleForm roleForm);
+
+    int deleteRoleById(Long roleId);
+
+    int updateRolePermById(Long roleId, String ids);
 }

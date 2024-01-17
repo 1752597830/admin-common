@@ -42,4 +42,8 @@
                  left join sys_role r on rp.role_id = r.id
         where r.id = #{roleId}
     </select>
+    <select id="getBtnIds" resultType="java.lang.Long">
+        select id
+        from sys_permission
+    </select>
 </mapper>

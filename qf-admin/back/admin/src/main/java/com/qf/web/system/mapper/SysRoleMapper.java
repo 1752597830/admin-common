@@ -29,6 +29,10 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
     List<Long> selectPermByRoleId(Long roleId);
 
     int saveRole(String name,String code, String remark);
+
+    int updateRoleById(Long roleId, String name, String code, String remark);
+
+    int deleteRoleById(Long roleId);
 }
 
 
