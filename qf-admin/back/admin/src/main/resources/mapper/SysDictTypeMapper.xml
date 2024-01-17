@@ -21,10 +21,27 @@
         status,remark,create_time,
         update_time,create_by,update_by
     </sql>
+    <insert id="save">
+        insert into sys_dict_type
+        (name,code,remark)
+        values
+        (#{name},#{code},#{remark})
+    </insert>
+    <update id="updateDictType">
+        update sys_dict_type
+        set name = #{name},
+            remark = #{remark}
+        where id = #{id}
+    </update>
 
     <select id="selectDictTypes" resultType="com.qf.web.system.domain.vo.DictTypeVo">
         select d.id, d.code, d.name
         from sys_dict_type d
         where d.status = 1
+    </select>
+    <select id="selectCountByCode" resultType="java.lang.Integer">
+        select count(1)
+        from sys_dict_type d
+        where d.code = #{code}
     </select>
 </mapper>

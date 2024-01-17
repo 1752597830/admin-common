@@ -1,7 +1,7 @@
 package com.qf.web.system.mapper;
 
-import com.qf.web.system.domain.entity.SysDictType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.qf.web.system.domain.entity.SysDictType;
 import com.qf.web.system.domain.vo.DictTypeVo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,6 +17,12 @@ import java.util.List;
 public interface SysDictTypeMapper extends BaseMapper<SysDictType> {
 
     List<DictTypeVo> selectDictTypes();
+
+    int save(String name, String code, String remark);
+
+    int updateDictType(Long id, String name, String remark);
+
+    int selectCountByCode(String code);
 }
 
 

@@ -2,6 +2,7 @@ package com.qf.web.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qf.web.system.domain.entity.SysDict;
+import com.qf.web.system.domain.form.DictForm;
 import com.qf.web.system.domain.vo.DictPageVo;
 import com.qf.web.system.domain.vo.OptionsVo;
 
@@ -17,4 +18,12 @@ public interface SysDictService extends IService<SysDict> {
     List<OptionsVo> dictOptions(String typeCode);
 
     List<DictPageVo> dictValuePage(String code);
+
+    int saveDictValue(DictForm dictForm);
+
+    int deleteDictValues(String typeCode);
+
+    int updateDictValue(Long id, DictForm dictForm);
+
+    int deleteDictById(Long id);
 }

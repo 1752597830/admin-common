@@ -21,6 +21,11 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
 
     List<DictPageVo> dictValuePage(String code);
 
+    int saveDictValue(String name, String typeCode,String value, String remark);
+
+    int updateDictValue(Long id, String name, String value, String remark);
+
+    int deleteByCode(String typeCode);
 }
 
 

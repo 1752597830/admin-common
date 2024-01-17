@@ -2,6 +2,7 @@ package com.qf.web.system.domain.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.ToString;
 
 /**
@@ -13,7 +14,9 @@ import lombok.ToString;
 @Schema(title = "字典类型响应对象")
 @AllArgsConstructor
 @ToString
+@Data
 public class DictTypeVo {
+
     @Schema(title = "id")
     private Long id;
 

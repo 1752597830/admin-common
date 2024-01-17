@@ -24,4 +24,5 @@ public class CommonConstant {
     public static final String EDIT_PASSWORD = "修改密码";
     public static final String ILLEGAL_PARAM = "非法参数";
     public static final Long MENU_PERMISSION_SPLIT_POINT = 1000L;
+    public static final String DICT_TYPE_CODE_IS_EXIST = "字典类型编码已存在";
 }

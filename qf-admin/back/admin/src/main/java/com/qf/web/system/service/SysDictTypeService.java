@@ -2,6 +2,7 @@ package com.qf.web.system.service;
 
 import com.qf.web.system.domain.entity.SysDictType;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.qf.web.system.domain.form.DictTypeForm;
 import com.qf.web.system.domain.vo.DictTypeVo;
 
 import java.util.List;
@@ -13,4 +14,10 @@ import java.util.List;
 */
 public interface SysDictTypeService extends IService<SysDictType> {
     List<DictTypeVo> dictTypes();
+
+    int saveDictType(DictTypeForm dictTypeVo);
+
+    int updateDictType(Long id,DictTypeForm dictTypeForm);
+
+    int deleteDictType(Long typeId);
 }

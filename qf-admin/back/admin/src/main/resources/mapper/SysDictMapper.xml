@@ -25,6 +25,23 @@
         defaulted,remark,create_time,
         update_time,create_by,update_by
     </sql>
+    <insert id="saveDictValue">
+        insert into sys_dict
+        (type_code,name,value,remark)
+        values
+        (#{typeCode},#{name},#{value},#{remark})
+    </insert>
+    <update id="updateDictValue">
+        update sys_dict
+        set name = #{name},
+            value = #{value},
+            remark = #{remark}
+        where id = #{id}
+    </update>
+    <delete id="deleteByCode">
+        delete from sys_dict
+        where type_code = #{typeCode}
+    </delete>
     <select id="selectDictByTypeCode" resultType="com.qf.web.system.domain.vo.OptionsVo">
         select d.id, d.name
         from sys_dict d

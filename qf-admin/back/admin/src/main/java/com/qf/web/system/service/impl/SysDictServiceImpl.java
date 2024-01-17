@@ -2,6 +2,7 @@ package com.qf.web.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qf.web.system.domain.entity.SysDict;
+import com.qf.web.system.domain.form.DictForm;
 import com.qf.web.system.domain.vo.DictPageVo;
 import com.qf.web.system.domain.vo.OptionsVo;
 import com.qf.web.system.mapper.SysDictMapper;
@@ -40,6 +41,43 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict>
     public List<DictPageVo> dictValuePage(String code) {
         List<DictPageVo> list = dictMapper.dictValuePage(code);
         return list;
+    }
+
+    /**
+     * @param dictForm 字典值表单对象
+     * @Description 新增字典值
+     */
+    @Override
+    public int saveDictValue(DictForm dictForm) {
+        return dictMapper.saveDictValue(dictForm.getName(),dictForm.getTypeCode(),dictForm.getValue(),dictForm.getRemark());
+    }
+
+    /**
+     * @param typeCode
+     * @Description 根据typeCode删除对应字典值
+     */
+    @Override
+    public int deleteDictValues(String typeCode) {
+        return dictMapper.deleteByCode(typeCode);
+    }
+
+    /**
+     * @param id
+     * @param dictForm
+     * @Description 根据id修改字典值
+     */
+    @Override
+    public int updateDictValue(Long id, DictForm dictForm) {
+        return dictMapper.updateDictValue(id,dictForm.getName(),dictForm.getValue(),dictForm.getRemark());
+    }
+
+    /**
+     * @param id
+     * @Description 根据id删除字典值
+     */
+    @Override
+    public int deleteDictById(Long id) {
+        return dictMapper.deleteById(id);
     }
 }
 
