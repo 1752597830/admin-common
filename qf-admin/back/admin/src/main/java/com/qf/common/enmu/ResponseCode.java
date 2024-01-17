@@ -16,7 +16,7 @@ public enum ResponseCode {
     NO_ACCESS(504, "没有访问权限"),
     NO_DATA(505, "没有数据"),
     NO_EXIST(404, "资源不存在"),
-
+    VALID_ERROR(1002, "参数校验失败"),
     //数据库操作错误码
     OPT_ERROR(1001, "");
 

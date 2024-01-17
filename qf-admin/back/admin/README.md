@@ -384,3 +384,22 @@ Swagger部分注解
 > @Operation: 用于方法上的注解
 
 ## 参数校验
++ 引入 spring-boot-starter-validation 依赖
++ 通过注解@Valid的方式进行校验
++ 在需要校验的类中加上判断即可
++ 全局异常捕获MethodArgumentNotValidException进行处理
+
+```java
+ResponseCode VALID_ERROR(1002, "参数校验失败"),
+/**
+ * 处理参数校验异常
+ * @param e
+ * @return
+ */
+@ExceptionHandler(MethodArgumentNotValidException.class)
+@ResponseBody
+public BaseResponse handleValidationExceptions(MethodArgumentNotValidException e) {
+    String msg  =e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
+    return BaseResponse.fail(ResponseCode.VALID_ERROR.getCode(), msg == null ? ResponseCode.VALID_ERROR.getMsg() : msg);
+}
+```

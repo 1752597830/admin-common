@@ -13,6 +13,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +36,7 @@ public class RoleController extends BaseController {
 
     @Operation(summary = "新增角色")
     @PostMapping("/save")
-    public BaseResponse saveRole(@RequestBody RoleForm roleForm){
+    public BaseResponse saveRole(@RequestBody @Valid RoleForm roleForm){
         int row = roleService.saveRole(roleForm);
         return isOk(row);
     }
@@ -57,35 +59,35 @@ public class RoleController extends BaseController {
 
     @Operation(summary = "获取角色信息",description = "根据roleId获取角色信息")
     @GetMapping("/{roleId}/form")
-    public BaseResponse getRoleByRoleId(@Parameter(description = "角色ID") @PathVariable Long roleId) {
+    public BaseResponse getRoleByRoleId(@Parameter(description = "角色ID") @PathVariable @NotBlank(message = "角色id不能为空") Long roleId) {
         RoleVo role = roleService.getRoleById(roleId);
         return BaseResponse.success(role);
     }
 
     @Operation(summary = "获取用户拥有的权限",description = "根据roleId获取用户拥有的权限")
     @GetMapping("/{roleId}/perms")
-    public BaseResponse getRolePerms(@Parameter(description = "角色ID") @PathVariable Long roleId) {
+    public BaseResponse getRolePerms(@Parameter(description = "角色ID") @PathVariable @NotBlank(message = "角色id不能为空") Long roleId) {
         List<Long> perms = roleService.selectPermByRoleId(roleId);
         return BaseResponse.success(perms);
     }
 
     @Operation(summary = "修改角色信息",description = "根据roleId修改角色信息")
     @PutMapping("/{id}")
-    public BaseResponse updateRole(@PathVariable Long id,@RequestBody RoleForm roleForm){
+    public BaseResponse updateRole(@PathVariable @NotBlank(message = "角色id不能为空") Long id,@RequestBody @Valid RoleForm roleForm){
         int row = roleService.updateRoleById(id,roleForm);
         return isOk(row);
     }
 
     @Operation(summary = "删除角色",description = "根据roleId删除对应角色,逻辑删除 is_deleted=1")
     @DeleteMapping("/{roleId}")
-    public BaseResponse deleteRole(@PathVariable Long roleId){
+    public BaseResponse deleteRole(@PathVariable @NotBlank(message = "角色id不能为空") Long roleId){
         int row = roleService.deleteRoleById(roleId);
         return isOk(row);
     }
 
     @Operation(summary = "修改角色权限",description = "根据roleId修改角色权限,修改role_permission表中字段")
     @PutMapping("/{roleId}/{ids}")
-    public BaseResponse updateRolePerm(@PathVariable Long roleId,@PathVariable String ids){
+    public BaseResponse updateRolePerm(@PathVariable @NotBlank(message = "角色id不能为空") Long roleId, @PathVariable @NotBlank(message = "权限id不能为空")  String ids){
         int row = roleService.updateRolePermById(roleId,ids);
         return isOk(row);
     }
