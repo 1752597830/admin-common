@@ -35,7 +35,7 @@ public class RolePageVo {
     private Integer status;
 
     @Schema(description = "逻辑删除标识(0-未删除；1-已删除)")
-    private Integer deleted;
+    private Integer is_deleted;
 
     @Schema(description = "备注")
     private String remark;

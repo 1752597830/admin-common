@@ -106,6 +106,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole>
      */
     @Override
     public int saveRole(RoleForm roleForm) {
+        // TODO 需要判断name是否存在  name添加了索引
         int row = sysRoleMapper.saveRole(roleForm.getName(), roleForm.getCode(), roleForm.getRemark());
         return row;
     }

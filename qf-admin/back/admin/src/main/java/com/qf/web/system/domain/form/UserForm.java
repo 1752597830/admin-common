@@ -17,6 +17,10 @@ import java.util.List;
 @Data
 @ToString
 public class UserForm {
+
+    @Schema(description = "用户ID")
+    private Long id;
+
     @Schema(description = "用户账号")
     @NotBlank(message = "用户账号不能为空")
     private String username;

@@ -46,13 +46,13 @@ spring:
         login-password:
 
       #配置监控统计拦截的filters，stat:监控统计、log4j：日志记录、wall：防御sql注入
-      filter:
-        stat:
-          enabled: true
-          # 慢SQL记录
-          log-slow-sql: true
-          slow-sql-millis: 1000
-          merge-sql: true
-        wall:
-          config:
-            multi-statement-allow: true
+#      filter:
+#        stat:
+#          enabled: true
+#          # 慢SQL记录
+#          log-slow-sql: true
+#          slow-sql-millis: 1000
+#          merge-sql: true
+#        wall:
+#          config:
+#            multi-statement-allow: true

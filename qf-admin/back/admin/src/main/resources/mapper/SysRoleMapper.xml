@@ -34,7 +34,7 @@
         set
         name = #{name},
         code = #{code},
-        remark = #{remark},
+        remark = #{remark}
         where id = #{roleId}
     </update>
     <update id="deleteRoleById">
@@ -50,7 +50,7 @@
     </select>
     <select id="getPage" resultType="com.qf.web.system.domain.vo.RolePageVo">
         select
-        id,name,code,sort,status,deleted,remark,create_time,update_time
+        id,name,code,sort,status,is_deleted,remark,create_time,update_time
         from sys_role
         <where>
             <if test="name!= null and name!= ''">
@@ -67,11 +67,11 @@
     <select id="getRoleOptions" resultType="com.qf.web.system.domain.vo.OptionsVo">
         select r.id, r.name
         from sys_role r
-        where r.deleted = 0
+        where r.is_deleted = 0
     </select>
     <select id="getRoleById" resultType="com.qf.web.system.domain.vo.RoleVo">
         select
-            id,name,code,sort,status,deleted,remark
+            id,name,code,sort,status,is_deleted,remark
         from sys_role
         where id = #{roleId}
     </select>

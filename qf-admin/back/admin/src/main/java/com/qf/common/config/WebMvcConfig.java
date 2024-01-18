@@ -17,7 +17,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 //.allowedOrigins("*")
                 .allowCredentials(false)
-                .allowedMethods("GET", "POST", "DELETE", "PUT")
+                .allowedMethods("GET", "POST", "DELETE", "PUT", "PATCH")
                 .allowedOriginPatterns("*")
                 // 设置允许的header属性
                 .allowedHeaders("*")

@@ -35,7 +35,7 @@ public class RoleController extends BaseController {
     private SysRoleService roleService;
 
     @Operation(summary = "新增角色")
-    @PostMapping("/save")
+    @PostMapping("")
     public BaseResponse saveRole(@RequestBody @Valid RoleForm roleForm){
         int row = roleService.saveRole(roleForm);
         return isOk(row);
@@ -43,7 +43,7 @@ public class RoleController extends BaseController {
 
     @Operation(summary = "获取角色分页数据",description = "根据角色名称、角色code值获取")
     @GetMapping("/page")
-    public BaseResponse getRolePage(@RequestBody RolePageDto rolePage){
+    public BaseResponse getRolePage(RolePageDto rolePage){
         startPage();
         List<RolePageVo> rolePageVos = roleService.getPage(rolePage);
         PageResult pageResult = getData(rolePageVos);
