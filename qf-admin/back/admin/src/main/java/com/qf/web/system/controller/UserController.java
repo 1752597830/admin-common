@@ -76,7 +76,7 @@ public class UserController extends BaseController {
 
     @Operation(summary = "获取分页用户信息",description = "根据用户名、手机号、开启状态来获取分页用户信息")
     @GetMapping("/page")
-    public BaseResponse getUserPage(@RequestBody @Valid UserSearchDto userSearch) {
+    public BaseResponse getUserPage(UserSearchDto userSearch) {
         startPage();
         List<UserPageVo> userPageVoList = userService.getUserPage(userSearch);
         return BaseResponse.success(getData(userPageVoList));
