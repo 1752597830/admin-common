@@ -70,9 +70,9 @@
                 and username = #{username}
             </if>
             <if test="phone!= null and phone!= ''">
-                or phone = #{phone}
+                and phone = #{phone}
             </if>
-            <if test="status!= null and status!= ''">
+            <if test="status!= null">
                 and status = #{status}
             </if>
         </where>
