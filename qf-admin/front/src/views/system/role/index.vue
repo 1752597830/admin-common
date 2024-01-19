@@ -138,7 +138,7 @@
                         <el-popconfirm
                             :title="
                                 '是否确认删除角色名称为' +
-                                scope.row.nickname +
+                                scope.row.name +
                                 '的这条数据'
                             "
                             @confirm="handleDelete(scope.row.id)"
@@ -240,8 +240,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { getRolePage, getRoleForm } from "@/api/role";
-
+import { getRolePage, getRoleForm, deleteRoles,updateRole,addRole } from "@/api/role";
 import { RolePageVO, RoleForm, RoleQuery } from "@/api/role/types";
 
 defineOptions({
@@ -282,7 +281,6 @@ function handleQuery() {
     getRolePage(queryParams)
         .then(({ data }) => {
             roleList.value = data.list;
-            console.log("roleList数据是：", data.list);
             total.value = data.total;
         })
         .finally(() => {
@@ -290,7 +288,7 @@ function handleQuery() {
         });
 }
 function onSearch() {
-    loading.value = true;
+    handleQuery();
 }
 /** 重置查询 */
 function resetQuery() {
@@ -302,7 +300,6 @@ function resetQuery() {
 /** 打开角色表单弹窗 */
 function openDialog(roleId?: number) {
     dialog.visible = true;
-    console.log("roleId:", roleId);
     if (roleId) {
         dialog.title = "修改角色";
         getRoleForm(roleId).then(({ data }) => {
@@ -327,8 +324,39 @@ function resetForm() {
     formData.sort = 1;
     formData.status = 1;
 }
+/** 删除角色 */
+function handleDelete(id: string) {
+    deleteRoles(id).then(() => {
+        ElMessage(`已成功删除角色编号为 ${id} 的数据`);
+        resetQuery();
+    });
+}
 /** 提交表单 */
-function handleSubmit() {}
+function handleSubmit() {
+    roleFormRef.value.validate((valid: any) => {
+            if (valid) {
+                const roleId = formData.id;
+                loading.value = true;
+                if (roleId) {
+                    updateRole(roleId, formData)
+                        .then(() => {
+                            ElMessage.success("修改角色成功");
+                            closeDialog();
+                            resetQuery();
+                        })
+                        .finally(() => (loading.value = false));
+                } else {
+                    addRole(formData)
+                        .then(() => {
+                            ElMessage.success("新增角色成功");
+                            closeDialog();
+                            resetQuery();
+                        })
+                        .finally(() => (loading.value = false));
+                }
+            }
+        });
+}
 onMounted(() => {
     handleQuery();
 });

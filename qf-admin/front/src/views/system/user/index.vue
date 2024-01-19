@@ -149,12 +149,10 @@
 
                 <el-table-column label="性别" align="center" prop="gender">
                     <template #default="scope">
-                        <el-tag v-if="scope.row.gender === '男'" color="white"
-                            >{{ scope.row.gender }}
+                        <el-tag v-if="scope.row.gender === '1'" color="white"
+                            >男
                         </el-tag>
-                        <el-tag v-else type="danger" color="white"
-                            >{{ scope.row.gender }}
-                        </el-tag>
+                        <el-tag v-else type="danger" color="white">女 </el-tag>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -471,7 +469,6 @@ const roleList = ref<OptionType[]>(); // 角色下拉数据源
 
 watch(dateTimeRange, (newVal) => {
     if (newVal) {
-        
     }
 });
 const loading = ref(false);
@@ -491,11 +488,12 @@ function handleQuery() {
 }
 function onSearch() {
     loading.value = true;
+    handleQuery();
 }
 /** 重置查询 */
 function resetQuery() {
     queryFormRef.value.resetFields();
-    dateTimeRange.value = "";
+    // dateTimeRange.value = "";
     queryParams.pageNum = 1;
     handleQuery();
 }
@@ -517,10 +515,13 @@ function handleSelectionChange(val: UserPageVO[]) {
 function onbatchDel() {
     // 返回当前选中的行
     console.log("清空之前：", tableRef.value.getSelectionRows());
-    // const curSelected = tableRef.value.getTableRef().getSelectionRows();
+    const curSelected: UserPageVO[] = tableRef.value.getSelectionRows();
+    const ids = curSelected.map((item) => item.id).join(",");
     // 接下来根据实际业务，通过选中行的某项数据，比如下面的id，调用接口进行批量删除
-    // ElMessage(`已删除用户编号为 ${getKeyList(curSelected, "id")} 的数据`)
-    // tableRef.value.clearSelection();
+    deleteUsers(ids).then(() => {
+        ElMessage(`已删除用户编号为 ${ids} 的数据`);
+        tableRef.value.clearSelection();
+    });
 }
 /** 表单提交 */
 const handleSubmit = useThrottleFn(() => {
@@ -612,8 +613,8 @@ function closeDialog() {
     }
 }
 /** 上传头像 */
-function handleUpload(id:number) {
-    console.log('row数据时',id)
+function handleUpload(id: number) {
+    console.log("row数据时", id);
     // addDialog({
     //     title: "裁剪、上传头像",
     //     width: "40%",
@@ -634,22 +635,9 @@ function handleUpload(id:number) {
 }
 /** 重置密码 */
 function handleReset(row: { [key: string]: any }) {
-  ElMessageBox.prompt(
-    "请输入用户「" + row.username + "」的新密码",
-    "重置密码",
-    {
-      confirmButtonText: "确定",
-      cancelButtonText: "取消",
-    }
-  ).then(({ value }) => {
-    if (!value) {
-      ElMessage.warning("请输入新密码");
-      return false;
-    }
-    updateUserPassword(row.id, value).then(() => {
-      ElMessage.success("密码重置成功，新密码是：" + value);
+    updateUserPassword(row.id).then(() => {
+        ElMessage.success("密码重置成功，新密码是：123456");
     });
-  });
 }
 onMounted(() => {
     handleQuery();

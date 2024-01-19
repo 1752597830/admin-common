@@ -67,16 +67,15 @@ export function updateUser(id: number, data: UserForm) {
 }
 
 /**
- * 修改用户密码
+ * 重置用户密码
  *
  * @param id
  * @param password
  */
-export function updateUserPassword(id: number, password: string) {
+export function updateUserPassword(id: number) {
     return request({
         url: "/users/" + id + "/password",
         method: "patch",
-        params: { password: password },
     });
 }
 
