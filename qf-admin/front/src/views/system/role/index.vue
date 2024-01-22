@@ -4,11 +4,7 @@
             style="background-color: white; padding: 20px; margin-bottom: 10px"
         >
             <el-form ref="queryFormRef" :inline="true" :model="queryParams">
-                <el-form-item
-                    label="角色名称："
-                    class="form-label"
-                    prop="username"
-                >
+                <el-form-item label="角色名称：" class="form-label" prop="name">
                     <el-input
                         v-model="queryParams.name"
                         placeholder="请输入角色名称"
@@ -16,11 +12,7 @@
                         style="width: 160px"
                     />
                 </el-form-item>
-                <el-form-item
-                    label="角色标识："
-                    class="form-label"
-                    prop="username"
-                >
+                <el-form-item label="角色标识：" class="form-label" prop="code">
                     <el-input
                         v-model="queryParams.code"
                         placeholder="请输入角色标识"
@@ -132,7 +124,7 @@
                             type="primary"
                             link
                             size="small"
-                            @click="openDialog(scope.row.id)"
+                            @click="openTreeDialog(scope.row.id)"
                             ><i-ep-menu />菜单权限</el-button
                         >
                         <el-popconfirm
@@ -236,12 +228,50 @@
                     </div>
                 </template>
             </el-dialog>
+            <el-dialog
+                v-model="treeDialog.visible"
+                :title="treeDialog.title"
+                width="500px"
+            >
+                <el-tree
+                    ref="treeRef"
+                    class="tree-border"
+                    :data="menuOptions"
+                    show-checkbox
+                    node-key="value"
+                    empty-text="加载中，请稍候"
+                    :props="{ label: 'label', children: 'children' }"
+                    :default-checked-keys="checkKeys"
+                    accordion
+                ></el-tree>
+                <div style="padding-top: 10px; text-align: right">
+                    <el-button @click="getCheckedKeys">确认</el-button>
+                    <el-button @click="resetChecked">重置</el-button>
+                </div>
+            </el-dialog>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import { getRolePage, getRoleForm, deleteRoles,updateRole,addRole } from "@/api/role";
+import { getMenuOptions } from "@/api/menu";
+import { ref } from "vue";
+import {
+    getRolePage,
+    getRoleForm,
+    deleteRoles,
+    updateRole,
+    addRole,
+} from "@/api/role";
 import { RolePageVO, RoleForm, RoleQuery } from "@/api/role/types";
+const treeRef = ref([]);
+const menuOptions = ref();
+const getCheckedKeys = () => {
+    console.log(treeRef.value!.getCheckedKeys(false));
+};
+const resetChecked = () => {
+    treeRef.value!.setCheckedKeys([], false);
+};
+const checkKeys = ref<number[]>();
 
 defineOptions({
     name: "Role",
@@ -261,7 +291,10 @@ const dialog = reactive({
     title: "",
     visible: false,
 });
-
+const treeDialog = reactive({
+    title: "",
+    visible: false,
+});
 const formData = reactive<RoleForm>({
     sort: 1,
     status: 1,
@@ -309,12 +342,26 @@ function openDialog(roleId?: number) {
         dialog.title = "新增角色";
     }
 }
+/** 打开菜单权限树形弹窗 */
+function openTreeDialog(roleId?: number) {
+    getMenuOptions().then(({ data }) => {
+        menuOptions.value = data;
+        treeDialog.visible = true;
+        treeDialog.title = "授予权限";
+    });
+    checkKeys.value = [101, 105];
+    // getRolePerm(roleId).then(({data}) => {
+    //     checkKeys.value = data;
+    // })
+    console.log("角色Id是：", roleId);
+
+    // getTreePremOptions();
+}
 /** 关闭表单弹窗 */
 function closeDialog() {
     dialog.visible = false;
     resetForm();
 }
-
 /** 重置表单 */
 function resetForm() {
     roleFormRef.value.resetFields();
@@ -334,28 +381,28 @@ function handleDelete(id: string) {
 /** 提交表单 */
 function handleSubmit() {
     roleFormRef.value.validate((valid: any) => {
-            if (valid) {
-                const roleId = formData.id;
-                loading.value = true;
-                if (roleId) {
-                    updateRole(roleId, formData)
-                        .then(() => {
-                            ElMessage.success("修改角色成功");
-                            closeDialog();
-                            resetQuery();
-                        })
-                        .finally(() => (loading.value = false));
-                } else {
-                    addRole(formData)
-                        .then(() => {
-                            ElMessage.success("新增角色成功");
-                            closeDialog();
-                            resetQuery();
-                        })
-                        .finally(() => (loading.value = false));
-                }
+        if (valid) {
+            const roleId = formData.id;
+            loading.value = true;
+            if (roleId) {
+                updateRole(roleId, formData)
+                    .then(() => {
+                        ElMessage.success("修改角色成功");
+                        closeDialog();
+                        resetQuery();
+                    })
+                    .finally(() => (loading.value = false));
+            } else {
+                addRole(formData)
+                    .then(() => {
+                        ElMessage.success("新增角色成功");
+                        closeDialog();
+                        resetQuery();
+                    })
+                    .finally(() => (loading.value = false));
             }
-        });
+        }
+    });
 }
 onMounted(() => {
     handleQuery();
@@ -383,5 +430,19 @@ onMounted(() => {
 }
 .buttonClass {
     color: gray;
+}
+::v-deep .el-dialog {
+    border-radius: 8px;
+}
+
+::v-deep .el-dialog__body {
+    padding: 30px;
+    padding-top: 10px; /* 添加内边距以提供良好的视觉效果 */
+}
+.treeDialogBtn {
+    display: flex;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
 }
 </style>

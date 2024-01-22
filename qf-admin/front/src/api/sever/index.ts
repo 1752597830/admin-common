@@ -7,7 +7,7 @@ import { severData } from "./types";
  */
 export function getSever(): AxiosPromise<severData> {
     return request({
-        url: "/sever/a",
+        url: "/monitor/sever",
         method: "get"
     })
 }
