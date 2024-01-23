@@ -3,6 +3,7 @@ package com.qf.web.system.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.qf.web.system.domain.entity.SysPermission;
 import com.qf.web.system.domain.vo.MenuOptions;
+import com.qf.web.system.domain.vo.PermOptions;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface SysPermissionMapper extends BaseMapper<SysPermission> {
 
     List<MenuOptions> getBtnOptions();
 
-    List<Long> selectPermByRoleId(Long roleId);
+    List<PermOptions> selectPermByRoleId(Long roleId);
 
     List<Long> getBtnIds();
 }

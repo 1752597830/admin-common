@@ -86,8 +86,8 @@ public class RoleController extends BaseController {
     }
 
     @Operation(summary = "修改角色权限",description = "根据roleId修改角色权限,修改role_permission表中字段")
-    @PutMapping("/{roleId}/{ids}")
-    public BaseResponse updateRolePerm(@PathVariable @NotBlank(message = "角色id不能为空") Long roleId, @PathVariable @NotBlank(message = "权限id不能为空")  String ids){
+    @PutMapping("/{roleId}/perms")
+    public BaseResponse updateRolePerm(@PathVariable @NotBlank(message = "角色id不能为空") Long roleId, @RequestBody  List<Long> ids){
         int row = roleService.updateRolePermById(roleId,ids);
         return isOk(row);
     }

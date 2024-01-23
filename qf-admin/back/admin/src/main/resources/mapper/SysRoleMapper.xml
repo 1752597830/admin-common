@@ -75,8 +75,8 @@
         from sys_role
         where id = #{roleId}
     </select>
-    <select id="selectPermByRoleId" resultType="java.lang.Long">
-        select m.id
+    <select id="selectPermByRoleId" resultType="com.qf.web.system.domain.vo.PermOptions">
+        select m.id,m.parent_id
         from sys_role_menu rm
                  left join sys_menu m on rm.menu_id = m.id
         where rm.role_id = #{roleId}

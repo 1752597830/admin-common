@@ -15,6 +15,10 @@
             <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
             <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
     </resultMap>
+    <resultMap id="PermResultMap" type="com.qf.web.system.domain.vo.PermOptions">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="parentId" column="menu_id" jdbcType="INTEGER"/>
+    </resultMap>
 
     <sql id="Base_Column_List">
         id,name,menu_id,
@@ -35,8 +39,8 @@
         select id, name, menu_id
         from sys_permission
     </select>
-    <select id="selectPermByRoleId" resultType="java.lang.Long">
-        select p.id
+    <select id="selectPermByRoleId" resultMap="PermResultMap">
+        select p.id,p.menu_id
         from sys_permission p
                  left join sys_role_permission rp on p.id = rp.permission_id
                  left join sys_role r on rp.role_id = r.id

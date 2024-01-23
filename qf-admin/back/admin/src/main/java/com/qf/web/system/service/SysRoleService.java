@@ -33,5 +33,5 @@ public interface SysRoleService extends IService<SysRole> {
 
     int deleteRoleById(Long roleId);
 
-    int updateRolePermById(Long roleId, String ids);
+    int updateRolePermById(Long roleId, List<Long> ids);
 }
