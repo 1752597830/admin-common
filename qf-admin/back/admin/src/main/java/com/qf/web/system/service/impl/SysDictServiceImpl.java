@@ -49,7 +49,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict>
      */
     @Override
     public int saveDictValue(DictForm dictForm) {
-        return dictMapper.saveDictValue(dictForm.getName(),dictForm.getTypeCode(),dictForm.getValue(),dictForm.getRemark());
+        return dictMapper.saveDictValue(dictForm.getName(),dictForm.getTypeCode(),dictForm.getValue(),dictForm.getStatus(),dictForm.getRemark());
     }
 
     /**

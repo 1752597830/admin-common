@@ -23,6 +23,9 @@ public class DictTypeForm {
     @NotBlank(message = "字典类型编码不能为空")
     private String code;
 
+    @Schema(title = "状态")
+    private Integer status;
+
     @Schema(title = "字典类型描述")
     private String remark;
 }

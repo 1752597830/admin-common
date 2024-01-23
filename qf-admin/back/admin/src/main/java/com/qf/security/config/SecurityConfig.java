@@ -5,7 +5,6 @@ import com.qf.common.util.BaseResponse;
 import com.qf.common.util.ServletUtils;
 import com.qf.common.util.SingletonRegistry;
 import com.qf.filter.JwtAuthenticationTokenFilter;
-import com.qf.filter.VerifyCodeFilter;
 import com.qf.security.auth.MyauthorizationManager;
 import com.qf.security.exception.NoAuthenticationEntryPoint;
 import com.qf.security.handler.LoginFailHandler;
@@ -67,7 +66,7 @@ public class SecurityConfig {
         http.exceptionHandling(e -> e.authenticationEntryPoint(new NoAuthenticationEntryPoint()));
 
         // 验证码拦截器
-        http.addFilterBefore(new VerifyCodeFilter(), UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterBefore(new VerifyCodeFilter(), UsernamePasswordAuthenticationFilter.class);
 
         // jwt拦截器
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);

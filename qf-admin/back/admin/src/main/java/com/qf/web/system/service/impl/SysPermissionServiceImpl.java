@@ -3,6 +3,7 @@ package com.qf.web.system.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qf.web.system.domain.entity.SysPermission;
 import com.qf.web.system.domain.vo.MenuOptions;
+import com.qf.web.system.domain.vo.PermOptions;
 import com.qf.web.system.mapper.SysPermissionMapper;
 import com.qf.web.system.service.SysPermissionService;
 import jakarta.annotation.Resource;
@@ -51,7 +52,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     * @return java.util.List<java.lang.Long>
     */
     @Override
-    public List<Long> selectPermByRoleId(Long roleId) {
+    public List<PermOptions> selectPermByRoleId(Long roleId) {
         return permissionMapper.selectPermByRoleId(roleId);
     }
 

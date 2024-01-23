@@ -46,8 +46,8 @@ public class DictController extends BaseController {
     }
 
     @Operation(summary = "获取字典值分页数据", description = "根据code编码获取字典值分页数据")
-    @GetMapping("/{code}/page")
-    public BaseResponse getDictValuePage(@PathVariable @NotBlank(message = "字典值编码不能为空") String code) {
+    @GetMapping("/page")
+    public BaseResponse getDictValuePage(@NotBlank(message = "字典值编码不能为空") String code) {
         startPage();
         List<DictPageVo> list = dictService.dictValuePage(code);
         System.out.println(list);
@@ -64,7 +64,7 @@ public class DictController extends BaseController {
     }
 
     @Operation(summary = "新增字典类型")
-    @PostMapping("/type/save")
+    @PostMapping("/types")
     public BaseResponse saveDictType(@RequestBody @Valid DictTypeForm dictTypeForm) {
         return isOk(dictTypeService.saveDictType(dictTypeForm));
     }
@@ -88,7 +88,7 @@ public class DictController extends BaseController {
     }
 
     @Operation(summary = "新增字典值",description = "根据DictForm表单新增字典值")
-    @PostMapping("/value/save")
+    @PostMapping("/value")
     public BaseResponse saveDictValue(@RequestBody @Valid DictForm dictForm) {
         return isOk(dictService.saveDictValue(dictForm));
     }

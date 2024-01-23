@@ -27,6 +27,9 @@ public class DictForm {
     @NotBlank(message = "字典值不能为空")
     private String value;
 
+    @Schema(title = "状态")
+    private Integer status;
+
     @Schema(title = "字典值描述")
     private String remark;
 }

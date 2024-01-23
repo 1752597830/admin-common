@@ -18,7 +18,7 @@ public interface SysDictTypeMapper extends BaseMapper<SysDictType> {
 
     List<DictTypeVo> selectDictTypes();
 
-    int save(String name, String code, String remark);
+    int save(String name, String code, Integer status, String remark);
 
     int updateDictType(Long id, String name, String remark);
 

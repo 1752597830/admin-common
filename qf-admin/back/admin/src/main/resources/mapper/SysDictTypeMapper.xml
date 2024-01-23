@@ -23,9 +23,9 @@
     </sql>
     <insert id="save">
         insert into sys_dict_type
-        (name,code,remark)
+        (name,code,status,remark)
         values
-        (#{name},#{code},#{remark})
+        (#{name},#{code},#{status},#{remark})
     </insert>
     <update id="updateDictType">
         update sys_dict_type

@@ -11,6 +11,7 @@ import com.qf.web.system.domain.entity.SysRoleMenu;
 import com.qf.web.system.domain.entity.SysRolePermission;
 import com.qf.web.system.domain.form.RoleForm;
 import com.qf.web.system.domain.vo.OptionsVo;
+import com.qf.web.system.domain.vo.PermOptions;
 import com.qf.web.system.domain.vo.RolePageVo;
 import com.qf.web.system.domain.vo.RoleVo;
 import com.qf.web.system.mapper.SysRoleMapper;
@@ -21,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
 * @author 清风
@@ -93,10 +96,13 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole>
      */
     @Override
     public List<Long> selectPermByRoleId(Long roleId) {
-        List<Long> menuIds = sysRoleMapper.selectPermByRoleId(roleId);
-        List<Long> btnIds = permissionService.selectPermByRoleId(roleId);
+        List<PermOptions> menuIds = sysRoleMapper.selectPermByRoleId(roleId);
+        List<PermOptions> btnIds = permissionService.selectPermByRoleId(roleId);
         menuIds.addAll(btnIds);
-        return menuIds;
+        Set<Long> parentList = menuIds.stream().filter(menuId -> menuId.getParentId() != 0).map(PermOptions::getParentId).collect(Collectors.toSet());
+        // 去掉menuIds中父id含有parentList的值的对象
+        List<Long> list = menuIds.stream().filter(menuId -> !parentList.contains(menuId.getId())).map(PermOptions::getId).toList();
+        return list;
     }
 
     /**
@@ -137,13 +143,12 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole>
     /**
      * @description 根据角色id修改角色权限(权限ids)
      * @param roleId
-     * @param ids 封装菜单 按钮id
+     * @param listIds 封装菜单 按钮id
      * @return
      */
     @Override
     @Transactional
-    public int updateRolePermById(Long roleId, String ids) {
-        List<Long> listIds = ToolUtils.getLongListByString(ids);
+    public int updateRolePermById(Long roleId,  List<Long> listIds) {
         List<Long> menuList = listIds.stream().filter(id -> id < CommonConstant.MENU_PERMISSION_SPLIT_POINT).toList();
         List<Long> permIds = listIds.stream().filter(id -> id > CommonConstant.MENU_PERMISSION_SPLIT_POINT).toList();
 

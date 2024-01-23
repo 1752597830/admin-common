@@ -45,7 +45,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         if(dictTypeMapper.selectCountByCode(dictTypeForm.getCode()) > 0){
             throw new BaseException(ResponseCode.OPT_ERROR.getCode(), CommonConstant.DICT_TYPE_CODE_IS_EXIST);
         }
-        return dictTypeMapper.save(dictTypeForm.getName(), dictTypeForm.getCode(),dictTypeForm.getRemark());
+        return dictTypeMapper.save(dictTypeForm.getName(), dictTypeForm.getCode(),dictTypeForm.getStatus(),dictTypeForm.getRemark());
     }
 
     /*
