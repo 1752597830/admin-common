@@ -245,8 +245,19 @@
                     accordion
                 ></el-tree>
                 <div style="padding-top: 10px; text-align: right">
-                    <el-button @click="getCheckedKeys">确认</el-button>
-                    <el-button @click="resetChecked">重置</el-button>
+                    <el-button
+                        @click="getCheckedKeys(treeDialog.roleId)"
+                        type="success"
+                        :loading="permLoading"
+                        >确认</el-button
+                    >
+                    <el-button
+                        @click="resetChecked"
+                        type="info"
+                        plain
+                        :disabled="permLoading"
+                        >重置</el-button
+                    >
                 </div>
             </el-dialog>
         </div>
@@ -261,12 +272,23 @@ import {
     deleteRoles,
     updateRole,
     addRole,
+    getPremByRoleId,
+    updateRoleMenus,
 } from "@/api/role";
 import { RolePageVO, RoleForm, RoleQuery } from "@/api/role/types";
 const treeRef = ref([]);
 const menuOptions = ref();
-const getCheckedKeys = () => {
-    console.log(treeRef.value!.getCheckedKeys(false));
+const permLoading = ref(false);
+const getCheckedKeys = (roleId: number) => {
+    let ids = treeRef.value!.getCheckedKeys(false);
+    permLoading.value = true;
+    updateRoleMenus(roleId, ids).then(({ data }) => {
+        if (data > 0) {
+            permLoading.value = false;
+            treeDialog.visible = false;
+            ElMessage.success(`角色Id为${roleId}的权限修改成功`);
+        }
+    });
 };
 const resetChecked = () => {
     treeRef.value!.setCheckedKeys([], false);
@@ -294,6 +316,7 @@ const dialog = reactive({
 const treeDialog = reactive({
     title: "",
     visible: false,
+    roleId: 0,
 });
 const formData = reactive<RoleForm>({
     sort: 1,
@@ -343,19 +366,16 @@ function openDialog(roleId?: number) {
     }
 }
 /** 打开菜单权限树形弹窗 */
-function openTreeDialog(roleId?: number) {
+function openTreeDialog(roleId: number) {
     getMenuOptions().then(({ data }) => {
         menuOptions.value = data;
         treeDialog.visible = true;
         treeDialog.title = "授予权限";
+        treeDialog.roleId = roleId;
     });
-    checkKeys.value = [101, 105];
-    // getRolePerm(roleId).then(({data}) => {
-    //     checkKeys.value = data;
-    // })
-    console.log("角色Id是：", roleId);
-
-    // getTreePremOptions();
+    getPremByRoleId(roleId).then(({ data }) => {
+        checkKeys.value = data;
+    });
 }
 /** 关闭表单弹窗 */
 function closeDialog() {

@@ -37,9 +37,9 @@ export function getRoleOptions(
  *
  * @param queryParams
  */
-export function getRoleMenuIds(roleId: number): AxiosPromise<number[]> {
+export function getPremByRoleId(roleId: number): AxiosPromise<number[]> {
     return request({
-        url: "/roles/" + roleId + "/menuIds",
+        url: "/roles/" + roleId + "/perms",
         method: "get",
     });
 }
@@ -54,7 +54,7 @@ export function updateRoleMenus(
     data: number[]
 ): AxiosPromise<any> {
     return request({
-        url: "/roles/" + roleId + "/menus",
+        url: "/roles/" + roleId + "/perms",
         method: "put",
         data: data,
     });
