@@ -2,6 +2,8 @@ package com.qf.web.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.qf.web.system.domain.entity.SysDict;
+import com.qf.web.system.domain.form.DictForm;
+import com.qf.web.system.domain.form.DictTypeForm;
 import com.qf.web.system.domain.vo.DictPageVo;
 import com.qf.web.system.domain.vo.OptionsVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -26,6 +28,10 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
     int updateDictValue(Long id, String name, String value, String remark);
 
     int deleteByCode(String typeCode);
+
+    DictForm getDictValueForm(Long id);
+
+    DictTypeForm getDictTypeForm(Long id);
 }
 
 

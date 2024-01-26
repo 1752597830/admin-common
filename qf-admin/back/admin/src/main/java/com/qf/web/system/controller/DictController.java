@@ -70,15 +70,15 @@ public class DictController extends BaseController {
     }
 
     @Operation(summary = "修改字典类型")
-    @PutMapping("/type/{typeId}")
-    public BaseResponse updateDictType(@PathVariable @NotBlank(message = "字典类型id不能为空") Long typeId, @RequestBody @Valid DictTypeForm dictTypeForm) {
-        return isOk(dictTypeService.updateDictType(typeId, dictTypeForm));
+    @PutMapping("/types/{id}")
+    public BaseResponse updateDictType(@PathVariable @NotBlank(message = "字典类型id不能为空") Long id, @RequestBody @Valid DictTypeForm dictTypeForm) {
+        return isOk(dictTypeService.updateDictType(id, dictTypeForm));
     }
 
     @Operation(summary = "删除字典类型",description = "根据typeId删除对应字典类型")
-    @DeleteMapping("/type/{typeId}")
-    public BaseResponse deleteDictType(@PathVariable @NotBlank(message = "字典类型id不能为空") Long typeId) {
-        return isOk(dictTypeService.deleteDictType(typeId));
+    @DeleteMapping("/types/{id}")
+    public BaseResponse deleteDictType(@PathVariable @NotBlank(message = "字典类型id不能为空") Long id) {
+        return isOk(dictTypeService.deleteDictType(id));
     }
 
     @Operation(summary = "删除指定类型的值",description = "根据typeCode删除对应字典值")
@@ -94,7 +94,7 @@ public class DictController extends BaseController {
     }
 
     @Operation(summary = "修改字典值",description = "根据id修改字典值为DictForm")
-    @PutMapping("/value/{id}")
+    @PutMapping("/{id}")
     public BaseResponse updateDictValue(@PathVariable @NotBlank(message = "字典值id不能为空") Long id,@RequestBody @Valid DictForm dictForm) {
         return isOk(dictService.updateDictValue(id,dictForm));
     }
@@ -103,5 +103,16 @@ public class DictController extends BaseController {
     @DeleteMapping("/{id}")
     public BaseResponse deleteDictValue(@PathVariable @NotBlank(message = "字典值id不能为空") Long id) {
         return isOk(dictService.deleteDictById(id));
+    }
+
+    @Operation(summary = "根据id获取字典类型表单")
+    @GetMapping("/types/{id}/form")
+    public BaseResponse getDictTypeForm(@PathVariable @NotBlank(message = "字典值id不能为空") Long id) {
+        return BaseResponse.success(dictService.getDictTypeForm(id));
+    }
+    @Operation(summary = "根据id获取字典值表单")
+    @GetMapping("/{id}/form")
+    public BaseResponse getDictValueForm(@PathVariable @NotBlank(message = "字典值id不能为空") Long id) {
+        return BaseResponse.success(dictService.getDictValueForm(id));
     }
 }
