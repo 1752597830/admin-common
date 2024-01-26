@@ -74,9 +74,9 @@ export function updateDictType(id: number, data: DictTypeForm) {
 /**
  * 删除字典类型
  */
-export function deleteDictTypes(ids: string) {
+export function deleteDictTypes(id: string) {
     return request({
-        url: "/dict/types/" + ids,
+        url: "/dict/types/" + id,
         method: "delete",
     });
 }
@@ -148,11 +148,11 @@ export function updateDict(id: number, data: DictForm) {
 /**
  * 删除字典
  *
- * @param ids 字典项ID，多个以英文逗号(,)分割
+ * @param id 字典项ID，多个以英文逗号(,)分割
  */
-export function deleteDict(ids: string) {
+export function deleteDict(id: string) {
     return request({
-        url: "/dict/" + ids,
+        url: "/dict/" + id,
         method: "delete",
     });
 }

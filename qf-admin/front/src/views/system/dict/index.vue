@@ -1,146 +1,147 @@
 <template>
-    <div>
-        <div style="display: flex; flex-direction: row">
-            <div class="m-1" style="width: 280px">
-                <div class="m-1-1">
-                    <div class="m-2">字典列表</div>
-                    <div class="div-right">
-                        <el-button
-                            type="primary"
-                            size="small"
-                            @click="addDictList"
-                            >新增</el-button
-                        >
-                    </div>
-                </div>
-                <el-scrollbar>
-                    <div
-                        v-for="item in DictList"
-                        class="item"
-                        :style="{
-                            backgroundColor:
-                                activeIndex === item.id
-                                    ? '#409eff'
-                                    : 'rgba(224, 219, 219, 0.984)',
-                        }"
+    <div style="display: grid; grid-template-columns: 240px 1fr; gap: 10px">
+        <div class="m-1">
+            <div class="m-1-1">
+                <div class="m-2">字典列表</div>
+                <div class="div-right">
+                    <el-button
+                        type="primary"
+                        size="small"
+                        @click="openDialog('dict-list-form')"
+                        >新增</el-button
                     >
-                        <div class="m-3" @click="toCategory(item)">
-                            <span>{{ item.name }}</span>
-                        </div>
-                        <div style="display: flex; flex-direction: row">
-                            <el-icon color="#5692f6">
-                                <i-ep-edit />
-                            </el-icon>
-                            <el-icon color="#ef4444" style="padding-left: 8px">
-                                <i-ep-delete />
-                            </el-icon>
-                        </div>
-                    </div>
-                </el-scrollbar>
+                </div>
             </div>
-            <div class="m-1" style="margin-left: 10px; width: 97%">
-                <div class="m-1-1">
-                    <div class="m-2">字典详细内容</div>
-                    {{}}
-                    <div
-                        class="div-right"
-                        style="padding-right: 30px"
-                        v-show="DictList?.length > 0"
-                    >
-                        <el-button
-                            type="primary"
-                            size="small"
-                            @click="addDictValue"
-                            >新增字典项</el-button
-                        >
-                    </div>
-                </div>
-                <el-table
-                    :data="DictPage"
-                    ref="tableRef"
-                    style="width: 97%; padding-top: 20px"
-                    :header-cell-style="{
-                        color: '#333333',
-                        fontWeight: 900,
-                        backgroundColor: 'var(--el-fill-color-light)',
+            <el-scrollbar>
+                <div
+                    v-for="item in DictList"
+                    class="item"
+                    :style="{
+                        backgroundColor:
+                            activeIndex === item.id
+                                ? '#409eff'
+                                : 'rgba(224, 219, 219, 0.984)',
                     }"
                 >
-                    <el-table-column
-                        key="id"
-                        label="字典编号"
-                        align="center"
-                        prop="id"
-                        width="80"
-                    />
-                    <el-table-column
-                        label="字典名称"
-                        align="center"
-                        prop="name"
-                        mix-width="100"
-                    />
-                    <el-table-column
-                        label="字典标识"
-                        align="center"
-                        prop="typeCode"
-                    />
-                    <el-table-column label="状态" align="center" width="100">
-                        <template #default="scope">
-                            <el-tag v-if="scope.row.status === 1" type="success"
-                                >正常</el-tag
-                            >
-                            <el-tag v-else type="info">禁用</el-tag>
-                        </template>
-                    </el-table-column>
-                    <el-table-column
-                        key="remark"
-                        label="字典值"
-                        align="center"
-                        prop="value"
-                        mix-width="100"
-                    />
-                    <el-table-column
-                        label="创建时间"
-                        align="center"
-                        prop="createTime"
-                        width="180"
-                    />
-                    <el-table-column
-                        label="操作"
-                        fixed="right"
-                        align="center"
-                        width="220"
+                    <div class="m-3" @click="toCategory(item)">
+                        <span>{{ item.name }}</span>
+                    </div>
+                    <div style="display: flex; flex-direction: row">
+                        <el-icon
+                            color="#5692f6"
+                            @click="openDialog('dict-list-form', item.id)"
+                        >
+                            <i-ep-edit />
+                        </el-icon>
+                        <el-popconfirm
+                            :title="'是否确认删除字典名为' + item.name + '?'"
+                            @confirm="handleDelete('type', item.id)"
+                        >
+                            <template #reference>
+                                <el-icon
+                                    color="#ef4444"
+                                    style="padding-left: 10px"
+                                >
+                                    <i-ep-delete />
+                                </el-icon>
+                            </template>
+                        </el-popconfirm>
+                    </div>
+                </div>
+            </el-scrollbar>
+        </div>
+        <div class="m-1">
+            <div class="m-1-1">
+                <div class="m-2">字典详细内容</div>
+                {{}}
+                <div
+                    class="div-right"
+                    style="padding-right: 30px"
+                    v-show="DictList?.length > 0"
+                >
+                    <el-button
+                        type="primary"
+                        size="small"
+                        @click="openDialog('dict-value-form')"
+                        >新增字典项</el-button
                     >
-                        <template #default="scope">
-                            <el-button
-                                v-hasPerm="['sys:dict:edit']"
-                                type="primary"
-                                link
-                                size="small"
-                                @click="openDialog(scope.row.id)"
-                                ><i-ep-edit />编辑</el-button
-                            >
-                            <el-popconfirm
-                                :title="
-                                    '是否确认删除字典项名为' +
-                                    scope.row.nickname +
-                                    '的这条数据'
-                                "
-                                @confirm="handleDelete(scope.row.id)"
-                            >
-                                <template #reference>
-                                    <el-button
-                                        v-hasPerm="['sys:dict:delete']"
-                                        type="primary"
-                                        link
-                                        size="small"
-                                        ><i-ep-delete />删除</el-button
-                                    >
-                                </template>
-                            </el-popconfirm>
-                        </template>
-                    </el-table-column>
-                </el-table>
-                <!-- <div
+                </div>
+            </div>
+            <el-table
+                :data="DictPage"
+                ref="tableRef"
+                style="padding-top: 20px; width: 100%; overflow-x: auto"
+                :header-cell-style="{
+                    color: '#333333',
+                    fontWeight: 900,
+                    backgroundColor: 'var(--el-fill-color-light)',
+                }"
+            >
+                <el-table-column
+                    label="字典名称"
+                    align="center"
+                    prop="name"
+                    mix-width="100"
+                    fixed
+                />
+                <el-table-column
+                    label="字典标识"
+                    align="center"
+                    prop="typeCode"
+                />
+                <el-table-column label="状态" align="center" width="100">
+                    <template #default="scope">
+                        <el-tag v-if="scope.row.status === 1" type="success"
+                            >正常</el-tag
+                        >
+                        <el-tag v-else type="info">禁用</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    key="remark"
+                    label="字典值"
+                    align="center"
+                    prop="value"
+                    width="100"
+                />
+                <el-table-column
+                    label="创建时间"
+                    align="center"
+                    prop="createTime"
+                    min-width="180"
+                />
+                <el-table-column
+                    label="操作"
+                    fixed="right"
+                    align="center"
+                    width="200"
+                >
+                    <template #default="scope">
+                        <el-button
+                            type="primary"
+                            link
+                            size="small"
+                            @click="openDialog('dict-value-form', scope.row.id)"
+                            ><i-ep-edit />编辑</el-button
+                        >
+                        <el-popconfirm
+                            :title="
+                                '是否确认删除字典项名为' +
+                                scope.row.name +
+                                '的这条数据'
+                            "
+                            @confirm="handleDelete('value', scope.row.id)"
+                        >
+                            <template #reference>
+                                <el-button type="primary" link size="small"
+                                    ><i-ep-delete />删除</el-button
+                                >
+                            </template>
+                        </el-popconfirm>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <!-- <div
                     style="
                         padding-top: 30px;
                         display: flex;
@@ -156,17 +157,19 @@
                         @pagination="handleQuery"
                     />
                 </div> -->
-            </div>
         </div>
         <el-dialog v-model="dialog.visible" :title="dialog.title" width="400px">
             <el-form
-                v-show="dialog.show"
+                v-if="dialog.type === 'dict-value-form'"
                 ref="dictRef"
                 :label-position="labelPosition"
                 label-width="100px"
                 :model="dictValueform"
                 style="max-width: 460px"
             >
+                <el-form-item label="字典名称" prop="id" v-show="false">
+                    <el-input v-model="dictValueform.id" />
+                </el-form-item>
                 <el-form-item label="字典名称" prop="name">
                     <el-input v-model="dictValueform.name" />
                 </el-form-item>
@@ -183,36 +186,45 @@
                     </el-radio-group>
                 </el-form-item>
                 <div style="text-align: right">
-                    <el-button type="primary" @click="submitDict">
+                    <el-button
+                        type="primary"
+                        @click="submitDict('dict-value-form')"
+                    >
                         确认
                     </el-button>
                 </div>
             </el-form>
             <el-form
+                v-else
                 ref="dictRef"
-                v-show="!dialog.show"
                 :label-position="labelPosition"
                 label-width="100px"
-                :model="dictListForm"
+                :model="dictTypeForm"
                 style="max-width: 460px"
             >
+                <el-form-item label="字典名称" prop="id" v-show="false">
+                    <el-input v-model="dictTypeForm.id" />
+                </el-form-item>
                 <el-form-item label="字典名称" prop="name">
-                    <el-input v-model="dictListForm.name" />
+                    <el-input v-model="dictTypeForm.name" />
                 </el-form-item>
                 <el-form-item label="字典标识" prop="code">
-                    <el-input v-model="dictListForm.code" />
+                    <el-input v-model="dictTypeForm.code" />
                 </el-form-item>
                 <el-form-item label="字典状态" class="form-label" prop="status">
-                    <el-radio-group v-model="dictListForm.status">
+                    <el-radio-group v-model="dictTypeForm.status">
                         <el-radio :label="1">正常</el-radio>
                         <el-radio :label="0">禁用</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="字典描述" prop="remark">
-                    <el-input v-model="dictListForm.remark" />
+                    <el-input v-model="dictTypeForm.remark" />
                 </el-form-item>
                 <div style="text-align: right">
-                    <el-button type="primary" @click="submitDict">
+                    <el-button
+                        type="primary"
+                        @click="submitDict('dict-list-form')"
+                    >
                         确认
                     </el-button>
                 </div>
@@ -231,21 +243,27 @@ import {
 import {
     addDict,
     addDictType,
+    deleteDict,
+    deleteDictTypes,
+    getDictFormData,
+    getDictTypeForm,
     getDictTypeList,
     getDictValueQuery,
+    updateDict,
+    updateDictType,
 } from "@/api/dict/index";
 import { FormProps } from "element-plus";
 const dictRef = ref<InstanceType<typeof ElForm>>();
 const currentCode = ref<string>("");
 const DictList = ref<DictTypeVo[]>();
 const DictPage = ref<DictPageVO[]>();
-const activeIndex = ref(1);
+const activeIndex = ref(-1);
 function toCategory(item: DictTypeVo) {
     activeIndex.value = item.id;
     dictvalueQuery(item.code);
 }
 /** 字典列表新增表单 */
-const dictListForm = reactive<DictTypeForm>({
+const dictTypeForm = reactive<DictTypeForm>({
     name: "",
     code: "",
     status: 1,
@@ -261,8 +279,8 @@ const dictValueform = reactive<DictForm>({
 /** 新增字典模态框 */
 const dialog = reactive({
     title: "",
-    visible: true,
-    show: false,
+    visible: false,
+    type: "",
 });
 /** 查询字典类型 */
 function handleQuery() {
@@ -270,9 +288,15 @@ function handleQuery() {
         .then(({ data }) => {
             if (data === undefined || data.length === 0) return;
             DictList.value = data;
-            console.log("DictList.value[0].code: ", DictList.value[0].code);
-            currentCode.value = DictList.value[0].code;
-            dictvalueQuery(DictList.value[0].code);
+            if (activeIndex.value == -1 || DictList.value.find(item => item.id === activeIndex.value)===undefined) {
+                currentCode.value = DictList.value[0].code;
+                dictvalueQuery(DictList.value[0].code);
+                activeIndex.value = DictList.value[0].id;
+            } else {
+                const currentDict = DictList.value.find(item => item.id === activeIndex.value)
+                currentCode.value = currentDict.code;
+                dictvalueQuery(currentDict.code);
+            }
         })
         .finally(() => {});
 }
@@ -288,47 +312,111 @@ function dictvalueQuery(code: string) {
         DictPage.value = data.list;
     });
 }
-/** 新增字典值 */
-function addDictValue() {
-    dictRef.value?.resetFields();
+/** 新增/编辑字典 */
+function openDialog(type: string, id?: number) {
     dialog.visible = true;
-    dialog.show = true;
-    dialog.title = "新增字典值";
-    dictValueform.typeCode = currentCode.value;
+    dialog.type = type;
+    console.log("id", id);
+    if (dialog.type === "dict-value-form") {
+        // 字典值表单弹窗
+        if (id) {
+            dialog.title = "修改字典值";
+            // 根据id获取data
+            getDictFormData(id).then(({ data }) => {
+                console.log(data);
+                Object.assign(dictValueform, { ...data });
+                dictValueform.id = id;
+            });
+        } else {
+            dialog.title = "新增字典值";
+            dictRef.value?.resetFields();
+            dictValueform.typeCode = currentCode.value;
+        }
+    } else if (dialog.type === "dict-list-form") {
+        //
+        if (id) {
+            dialog.title = "修改列表";
+            getDictTypeForm(id).then(({ data }) => {
+                Object.assign(dictTypeForm, { ...data });
+                dictTypeForm.id = id;
+            });
+        } else {
+            dictRef.value?.resetFields();
+            dialog.title = "新增列表";
+        }
+    }
 }
-/** 新增字典列表 */
-function addDictList() {
-    dictRef.value?.resetFields();
-    dialog.visible = true;
-    dialog.show = false;
-    dialog.title = "新增列表";
-}
-function submitDict() {
+function submitDict(type: string) {
     /** false是列表新增 true是值新增 */
-    if (dialog.show) {
-        addDict(dictValueform).then(({ data }) => {
+    dialog.type = type;
+    if (dialog.type === "dict-value-form") {
+        if (dictValueform.id === undefined) {
+            addDict(dictValueform).then(({ data }) => {
+                if (data > 0) {
+                    ElMessage.success("新增字典值成功");
+                    closeDialog();
+                    handleQuery();
+                } else {
+                    // 失败
+                }
+            });
+        } else {
+            const id = dictValueform.id;
+            updateDict(id, dictValueform).then(({ data }) => {
+                if (data > 0) {
+                    ElMessage.success("修改成功");
+                    closeDialog();
+                    handleQuery();
+                }
+            });
+        }
+    } else {
+        if (dictTypeForm.id === undefined) {
+            console.log("新增");
+            addDictType(dictTypeForm).then(({ data }) => {
+                if (data > 0) {
+                    ElMessage.success("新增字典列表成功");
+                    closeDialog();
+                    handleQuery();
+                } else {
+                    // 失败
+                }
+            });
+        } else {
+            const id = dictTypeForm.id;
+            updateDictType(id, dictTypeForm).then(({ data }) => {
+                if (data > 0) {
+                    ElMessage.success("修改成功");
+                    closeDialog();
+                    handleQuery();
+                } else {
+                    ElMessage.error(data);
+                }
+            });
+        }
+    }
+}
+/** 删除字典/字典值 */
+function handleDelete(type: string, id: string) {
+    if (type === "type") {
+        deleteDictTypes(id).then(({ data }) => {
             if (data > 0) {
-                ElMessage.success("新增字典值成功");
-                closeDialog();
+                ElMessage.success("删除成功");
                 handleQuery();
-            } else {
-                // 失败
             }
         });
     } else {
-        addDictType(dictListForm).then(({ data }) => {
+        deleteDict(id).then(({ data }) => {
             if (data > 0) {
-                ElMessage.success("新增字典列表成功");
-                closeDialog();
+                ElMessage.success("删除成功");
                 handleQuery();
-            } else {
-                // 失败
             }
         });
     }
 }
 function closeDialog() {
     dialog.visible = false;
+    dictRef.value?.resetFields();
 }
 onMounted(() => {
     handleQuery();
