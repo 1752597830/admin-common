@@ -3,6 +3,7 @@ package com.qf.web.system.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qf.web.system.domain.entity.SysDict;
 import com.qf.web.system.domain.form.DictForm;
+import com.qf.web.system.domain.form.DictTypeForm;
 import com.qf.web.system.domain.vo.DictPageVo;
 import com.qf.web.system.domain.vo.OptionsVo;
 import com.qf.web.system.mapper.SysDictMapper;
@@ -78,6 +79,16 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict>
     @Override
     public int deleteDictById(Long id) {
         return dictMapper.deleteById(id);
+    }
+
+    @Override
+    public DictForm getDictValueForm(Long id) {
+        return dictMapper.getDictValueForm(id);
+    }
+
+    @Override
+    public DictTypeForm getDictTypeForm(Long id) {
+        return dictMapper.getDictTypeForm(id);
     }
 }
 

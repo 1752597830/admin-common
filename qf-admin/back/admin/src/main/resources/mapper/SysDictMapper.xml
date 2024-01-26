@@ -54,5 +54,15 @@
         where d.type_code = #{code}
           and d.status = 1
     </select>
+    <select id="getDictValueForm" resultType="com.qf.web.system.domain.form.DictForm">
+        select d.type_code, d.name, d.value, d.status, d.remark
+        from sys_dict d
+        where d.id = #{id}
+    </select>
+    <select id="getDictTypeForm" resultType="com.qf.web.system.domain.form.DictTypeForm">
+        select d.code, d.name, d.status, d.remark
+        from sys_dict_type d
+        where d.id = #{id}
+    </select>
 
 </mapper>
