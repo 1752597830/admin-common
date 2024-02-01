@@ -2,6 +2,7 @@ package com.qf.web.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.qf.web.system.domain.entity.SysMenu;
+import com.qf.web.system.domain.form.MenuForm;
 import com.qf.web.system.domain.vo.MenuOptions;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,6 +22,8 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
     List<MenuOptions> getMenuOptions();
 
     List<Long> getMenuIds();
+
+    MenuForm getMenuById(Long id);
 }
 
 

@@ -6,6 +6,7 @@ import com.qf.common.util.SecurityUtils;
 import com.qf.web.system.domain.entity.SysMenu;
 import com.qf.web.system.domain.entity.SysPermission;
 import com.qf.web.system.domain.entity.SysUser;
+import com.qf.web.system.domain.form.MenuForm;
 import com.qf.web.system.domain.vo.MenuOptions;
 import com.qf.web.system.domain.vo.MenuOptionsVo;
 import com.qf.web.system.domain.vo.MenuTreeVo;
@@ -71,6 +72,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu>
     @Override
     public List<Long> getMenuIds() {
         return menuMapper.getMenuIds();
+    }
+
+    @Override
+    public MenuForm getMenuById(Long id) {
+        return menuMapper.getMenuById(id);
     }
 
     /**

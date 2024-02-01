@@ -55,4 +55,18 @@
     <select id="getMenuIds" resultType="java.lang.Long">
         select id from sys_menu
     </select>
+    <select id="getMenuById" resultType="com.qf.web.system.domain.form.MenuForm">
+        select name,
+               path,
+               component,
+               parent_id,
+               icon,
+               perms,
+               sort,
+               visible,
+               redirect,
+               type,
+        from sys_menu
+        where id = #{id}
+    </select>
 </mapper>

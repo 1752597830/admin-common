@@ -2,6 +2,7 @@ package com.qf.web.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qf.web.system.domain.entity.SysMenu;
+import com.qf.web.system.domain.form.MenuForm;
 import com.qf.web.system.domain.vo.MenuOptionsVo;
 import com.qf.web.system.domain.vo.MenuTreeVo;
 import com.qf.web.system.domain.vo.RouteVo;
@@ -22,4 +23,6 @@ public interface SysMenuService extends IService<SysMenu> {
     List<MenuTreeVo> getMenuTree();
 
     List<Long> getMenuIds();
+
+    MenuForm getMenuById(Long id);
 }
