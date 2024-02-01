@@ -2,6 +2,7 @@ package com.qf.web.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.qf.web.system.domain.entity.SysPermission;
+import com.qf.web.system.domain.form.MenuForm;
 import com.qf.web.system.domain.vo.MenuOptions;
 import com.qf.web.system.domain.vo.PermOptions;
 
@@ -23,4 +24,6 @@ public interface SysPermissionService extends IService<SysPermission> {
     List<PermOptions> selectPermByRoleId(Long roleId);
 
     List<Long> getBtnIds();
+
+    MenuForm getPermsById(Long id);
 }

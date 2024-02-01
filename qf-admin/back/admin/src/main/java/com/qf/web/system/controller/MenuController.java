@@ -1,6 +1,7 @@
 package com.qf.web.system.controller;
 
 import com.qf.common.util.BaseResponse;
+import com.qf.web.system.domain.form.MenuForm;
 import com.qf.web.system.domain.vo.MenuOptionsVo;
 import com.qf.web.system.domain.vo.MenuTreeVo;
 import com.qf.web.system.domain.vo.RouteVo;
@@ -63,7 +64,7 @@ public class MenuController {
     @Operation(summary ="通过id获取菜单表数据")
     @GetMapping("/{id}/form")
     public BaseResponse getMenuById(@PathVariable Long id) {
-
-        return BaseResponse.success(menuService.getMenuById(id));
+        MenuForm menuForm = menuService.getMenuById(id);
+        return BaseResponse.success(menuForm);
     }
 }

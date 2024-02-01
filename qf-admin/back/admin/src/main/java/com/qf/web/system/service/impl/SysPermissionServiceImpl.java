@@ -1,7 +1,9 @@
 package com.qf.web.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.qf.common.enmu.MenuEnum;
 import com.qf.web.system.domain.entity.SysPermission;
+import com.qf.web.system.domain.form.MenuForm;
 import com.qf.web.system.domain.vo.MenuOptions;
 import com.qf.web.system.domain.vo.PermOptions;
 import com.qf.web.system.mapper.SysPermissionMapper;
@@ -63,6 +65,13 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     @Override
     public List<Long> getBtnIds() {
         return permissionMapper.getBtnIds();
+    }
+
+    @Override
+    public MenuForm getPermsById(Long id) {
+        SysPermission permission = permissionMapper.getPermsById(id);
+        MenuForm perm = new MenuForm(permission.getMenuId(), permission.getName(),MenuEnum.enumMap.get(3), permission.getBtnPerm());
+        return perm;
     }
 }
 

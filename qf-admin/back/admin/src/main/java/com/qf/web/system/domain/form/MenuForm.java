@@ -1,8 +1,8 @@
 package com.qf.web.system.domain.form;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author : sin
@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Schema(description = "菜单表单")
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 public class MenuForm {
 
     @Schema(description = "父菜单id")
@@ -21,7 +21,7 @@ public class MenuForm {
     private String name;
 
     @Schema(description = "菜单类型")
-    private Integer type;
+    private String type;
 
     @Schema(description = "菜单图标")
     private String icon;
@@ -29,14 +29,8 @@ public class MenuForm {
     @Schema(description = "菜单路径")
     private String path;
 
-    @Schema(description = "菜单权限")
-    private String perms;
-
     @Schema(description = "菜单排序")
     private Integer sort;
-
-    @Schema(description = "菜单状态")
-    private Integer status;
 
     @Schema(description = "是否可见")
     private Integer visible;
@@ -47,4 +41,25 @@ public class MenuForm {
     @Schema(description = "跳转路径")
     private String redirect;
 
+    @Schema(description = "菜单权限")
+    private String perm;
+
+    public MenuForm(Long parentId, String name, String type, String icon, String path, Integer sort, Integer visible, String component, String redirect) {
+        this.parentId = parentId;
+        this.name = name;
+        this.type = type;
+        this.icon = icon;
+        this.path = path;
+        this.sort = sort;
+        this.visible = visible;
+        this.component = component;
+        this.redirect = redirect;
+    }
+
+    public MenuForm(Long parentId, String name, String type, String perm) {
+        this.parentId = parentId;
+        this.name = name;
+        this.type = type;
+        this.perm = perm;
+    }
 }

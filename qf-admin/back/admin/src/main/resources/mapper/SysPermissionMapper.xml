@@ -50,4 +50,11 @@
         select id
         from sys_permission
     </select>
+    <select id="getPermsById" resultType="com.qf.web.system.domain.entity.SysPermission">
+        select p.menu_id,
+               p.name,
+               p.btn_perm
+        from sys_permission p
+        where p.id = #{id}
+    </select>
 </mapper>

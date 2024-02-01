@@ -76,7 +76,23 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu>
 
     @Override
     public MenuForm getMenuById(Long id) {
-        return menuMapper.getMenuById(id);
+
+        MenuForm menuForm = new MenuForm();
+        if(id < 1000) {
+            SysMenu menu = menuMapper.getMenuById(id);
+            menuForm.setParentId(menu.getParentId());
+            menuForm.setName(menu.getName());
+            menuForm.setType(MenuEnum.enumMap.get(menu.getType()));
+            menuForm.setIcon(menu.getIcon());
+            menuForm.setPath(menu.getPath());
+            menuForm.setSort(menu.getSort());
+            menuForm.setVisible(menu.getVisible());
+            menuForm.setComponent(menu.getComponent());
+            menuForm.setRedirect(menu.getRedirect());
+        } else {
+            menuForm = permissionService.getPermsById(id);
+        }
+        return menuForm;
     }
 
     /**

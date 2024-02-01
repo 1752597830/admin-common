@@ -21,6 +21,18 @@
             <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap id="MenuForm" type="com.qf.web.system.domain.form.MenuForm">
+        <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="TINYINT"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="path" column="path" jdbcType="VARCHAR"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="visible" column="visible" jdbcType="TINYINT"/>
+        <result property="component" column="component" jdbcType="VARCHAR"/>
+        <result property="redirect" column="redirect" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <sql id="Base_Column_List">
         id,parent_id,name,
         path,component,visible,
@@ -55,17 +67,16 @@
     <select id="getMenuIds" resultType="java.lang.Long">
         select id from sys_menu
     </select>
-    <select id="getMenuById" resultType="com.qf.web.system.domain.form.MenuForm">
-        select name,
-               path,
-               component,
-               parent_id,
+    <select id="getMenuById" resultType="com.qf.web.system.domain.entity.SysMenu">
+        select parent_id,
+               name,
+               type,
                icon,
-               perms,
+               path,
                sort,
                visible,
-               redirect,
-               type,
+               component,
+               redirect
         from sys_menu
         where id = #{id}
     </select>
