@@ -1,6 +1,5 @@
 <script setup lang="ts">
 defineOptions({
-    // eslint-disable-next-line vue/no-reserved-component-names
     name: "Menu",
     inheritAttrs: false,
 });
@@ -100,11 +99,15 @@ function openDialog(parentId?: number, menuId?: number) {
             dialog.visible = true;
             if (menuId) {
                 dialog.title = "编辑菜单";
-                getMenuForm(menuId).then(({ data }) => {
-                    Object.assign(formData, data);
-                    menuCacheData.type = data.type;
-                    menuCacheData.path = data.path ?? "";
-                });
+                if (menuId < 1000) {
+                    getMenuForm(menuId).then(({ data }) => {
+                        Object.assign(formData, data);
+                        menuCacheData.type = data.type;
+                        menuCacheData.path = data.path ?? "";
+                    });
+                } else {
+                    
+                }
             } else {
                 dialog.title = "新增菜单";
                 formData.parentId = parentId;
@@ -224,9 +227,11 @@ onMounted(() => {
 
         <el-card>
             <template #header>
-                <el-button type="primary"
-                v-hasPerm="['sys:menu:add']"
-                @click="openDialog(0)">
+                <el-button
+                    type="primary"
+                    v-hasPerm="['sys:menu:add']"
+                    @click="openDialog(0)"
+                >
                     新增菜单</el-button
                 >
             </template>
@@ -247,7 +252,7 @@ onMounted(() => {
                     backgroundColor: 'var(--el-fill-color-light)',
                 }"
             >
-                <el-table-column label="菜单名称" min-width="100">
+                <el-table-column label="菜单名称" min-width="150">
                     <template #default="scope">
                         <svg-icon :icon-class="scope.row.icon" />
                         {{ scope.row.name }}
@@ -296,7 +301,7 @@ onMounted(() => {
                 <el-table-column
                     label="权限标识"
                     align="center"
-                    min-width="150"
+                    min-width="160"
                     prop="perm"
                 />
 
@@ -316,7 +321,12 @@ onMounted(() => {
                     prop="sort"
                 />
 
-                <el-table-column fixed="right" align="center" label="操作" min-width="200px">
+                <el-table-column
+                    fixed="right"
+                    align="center"
+                    label="操作"
+                    min-width="200px"
+                >
                     <template #default="scope">
                         <el-button
                             v-if="

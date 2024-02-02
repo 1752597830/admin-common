@@ -107,7 +107,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu>
             list.add(menuTreeVo);
             permissions.forEach(sysPermission -> {
                 if(sysPermission.getMenuId() == menu.getId()) {
-                    menuTreeVo.getChildren().add(new MenuTreeVo(sysPermission.getId(), sysPermission.getMenuId(), sysPermission.getName(), MenuEnum.enumMap.get(3), sysPermission.getUrlPerm(), null, "", null, 1, sysPermission.getBtnPerm(), null, null));
+                    menuTreeVo.getChildren().add(new MenuTreeVo(sysPermission.getId(), sysPermission.getMenuId(), sysPermission.getName(), MenuEnum.enumMap.get(3), sysPermission.getUrlPerm().substring(sysPermission.getUrlPerm().indexOf(":") + 1), null, "", null, 1, sysPermission.getBtnPerm(), null, null));
                 }
             });
         });
