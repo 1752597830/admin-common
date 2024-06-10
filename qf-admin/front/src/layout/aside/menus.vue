@@ -80,8 +80,6 @@ let data = dataList.data;
 }
 .el-menu-item .el-icon {
     /* 选中背景色图标两边加间距 */
-    margin-left: 4px;
-    margin-right: 4px;
 }
 /* 父菜单鼠标悬浮颜色设置 */
 :deep(.el-sub-menu__title:hover) {
@@ -103,8 +101,6 @@ let data = dataList.data;
     background-color: #40a9ff !important;
     border-radius: 5px !important;
     /* 选中背景色图标两边加间距 */
-    margin-left: 4px;
-    margin-right: 4px;
     color: #fff;
 }
 /* 修改选中菜单背景色图标左间距 */
@@ -113,7 +109,5 @@ let data = dataList.data;
 }
 .el-sub-menu .el-icon {
     /* 选中背景色图标两边加间距 */
-    margin-left: 4px;
-    margin-right: 4px;
 }
 </style>
